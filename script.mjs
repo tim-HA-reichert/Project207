@@ -2,7 +2,7 @@ import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
 
 const server = express();
-const port = (process.env.PORT || 8000);
+const port = (process.env.PORT || 8080);
 
 server.set('port', port);
 server.use(express.static('public'));
