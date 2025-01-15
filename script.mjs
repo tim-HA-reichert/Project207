@@ -29,7 +29,6 @@ function getRoot(req, res, next) {
 }
 
 server.get("/", getRoot);
-
 server.get("/tmp/quotes", getQuote);
 server.get("/tmp/poem", getPoem);
 
