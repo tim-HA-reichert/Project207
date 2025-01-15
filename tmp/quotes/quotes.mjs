@@ -7,9 +7,9 @@ const randomQuote = () => {
         5: "The Ring has awoken, it's heard its master's call. — Gandalf",
     };
 
-    const randomNumber = Math.ceil(Math.random()*5);
+    let randomNumber = Math.ceil(Math.random()*5);
 
-    return quotes[randomNumber];
+    return `${quotes[randomNumber]} <br><br> Refresh or F5 for a new quote`;
 };
 
 export default randomQuote;
