@@ -25,8 +25,7 @@ function getRoot(req, res, next) {
     res.status(HTTP_CODES.SUCCESS.OK).send(
         `For quotes: /tmp/quotes <br> 
         For poem: /tmp/poem <br>
-        For basic maths: /tmp/sum/a/b/ where "a" and "b" are numbers`
-    ).end();
+        For basic maths: /tmp/sum/a/b/ where "a" and "b" are numbers`).end();
 }
 
 server.get("/", getRoot);
@@ -49,8 +48,7 @@ server.get("/tmp/sum/:a/:b/", (req, res)  => {
     }
 
     res.status(HTTP_CODES.SUCCESS.OK).send(`sum: ${calculateParams} <br><br> 
-        type some new numbers in the searchbar for a new answer.
-        `).end();
+        type some new numbers in the searchbar for a new answer.`).end();
 });
 
 
