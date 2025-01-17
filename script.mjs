@@ -44,7 +44,7 @@ server.get("/tmp/sum/:a/:b/", (req, res)  => {
     const calculateParams = calculateNumbers(a, b);
 
     if(!calculateParams){
-        return res.status(400).send("a and b must be numbers, man.")
+        return res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT).send("a and b must be numbers, man.")
     }
 
     res.status(HTTP_CODES.SUCCESS.OK).send(`sum: ${calculateParams} <br><br> 
