@@ -17,10 +17,6 @@ setInterval(() => {
     generateQuote = randomQuote();  
 }, 2000); 
 
-function getQuote(req, res, next) {
-    res.status(HTTP_CODES.SUCCESS.OK).send(generateQuote).end();
-}
-
 function getRoot(req, res, next) {
     res.status(HTTP_CODES.SUCCESS.OK).send(
         `For quotes: /tmp/quotes <br> 
@@ -28,15 +24,20 @@ function getRoot(req, res, next) {
         For basic maths: /tmp/sum/a/b/ where "a" and "b" are numbers`).end();
 }
 
+function getQuote(req, res, next) {
+    res.status(HTTP_CODES.SUCCESS.OK).send(generateQuote).end();
+}
+
 server.get("/", getRoot);
 
 //Tester to foskjellige måter å skrive dette på 
 server.get("/tmp/quotes", getQuote);
+
 server.get("/tmp/poem", (req, res, next) => {
     res.status(HTTP_CODES.SUCCESS.OK).send(poem).end();
 });
 
-server.get("/tmp/sum/:a/:b/", (req, res)  => {
+server.post("/tmp/sum/:a/:b/", (req, res)  => {
 
     const a = Number(req.params.a);
     const b = Number(req.params.b);

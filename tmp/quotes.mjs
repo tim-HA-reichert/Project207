@@ -1,4 +1,5 @@
 const randomQuote = () => {
+
     const quotes = {
         1: "Not all those who wander are lost. — Bilbo Baggins",
         2: "All's well that ends better. — Hamfast Gamgee",
