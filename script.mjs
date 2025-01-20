@@ -1,5 +1,6 @@
 import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
+
 import randomQuote from './tmp/quotes.mjs';
 import printPoem from './tmp/poem.mjs';
 import calculateNumbers from './tmp/sum.mjs';
@@ -38,7 +39,6 @@ server.get("/tmp/poem", (req, res, next) => {
 });
 
 server.post("/tmp/sum/:a/:b/", (req, res)  => {
-
     const a = Number(req.params.a);
     const b = Number(req.params.b);
 
