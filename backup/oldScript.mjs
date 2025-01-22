@@ -11,11 +11,6 @@ const port = (process.env.PORT || 8080);
 server.set('port', port);
 server.use(express.static('public'));
 
-
-server.get("/", (req, res, next) => {
-    res.status(HTTP_CODES.SUCCESS.OK).send().end();
-});
-
 function getRoot(req, res, next) {
     res.status(HTTP_CODES.SUCCESS.OK).send(
         `For quotes: /tmp/quotes <br> 
