@@ -54,7 +54,7 @@ server.get("/temp/deck/:deck_id/card", (req, res, next) => {
 //TODO:
 //Add "PATCH" for reshuffling.
 //Check if pickCard function returns drawn card properly
-//Add test for when a suit is empty
+//Add test for when a suit is empty. Automatically pick a new suit if empty.
 
 server.listen(server.get('port'), function () {
     console.log(`Server running on http://localhost:${port}`);
