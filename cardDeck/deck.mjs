@@ -14,15 +14,17 @@ const pickCard = (aDeck) => {
     const suits = Object.keys(aDeck);
     
     let randomSuit = suits[Math.floor(Math.random() * suits.length)];
-    const randomCard = Math.floor(Math.random() * 13);
+
+    const randomCard = Math.floor(Math.random() * aDeck[randomSuit].length);
     
     const chosenCard = aDeck[randomSuit][randomCard];
+    const chosenCardPos = aDeck[randomSuit].indexOf(chosenCard);
     
-    //At switch-case for the different numbers. Case 12 = queen or whatever.
-        console.log(`${chosenCard} of ${randomSuit}`);
+    const deliverCard = aDeck[randomSuit].splice(chosenCardPos - 1, 1);
 
-        return `${chosenCard} of ${randomSuit}`
-    //Add splice logic for chosen cards. 
+    console.log(`${deliverCard} of ${randomSuit}`);
+
+    return `${deliverCard} of ${randomSuit}`
 }
 
 export default {cardDeck, pickCard}

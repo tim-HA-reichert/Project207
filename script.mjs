@@ -53,8 +53,8 @@ server.get("/temp/deck/:deck_id/card", (req, res, next) => {
 
 //TODO:
 //Add "PATCH" for reshuffling.
-//Add Splice logic for removing drawn cards
 //Check if pickCard function returns drawn card properly
+//Add test for when a suit is empty
 
 server.listen(server.get('port'), function () {
     console.log(`Server running on http://localhost:${port}`);
