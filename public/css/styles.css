@@ -8,13 +8,55 @@ head{
     box-sizing: border-box;
 }
 
+#nav{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 
-body{
-    margin: 1rem;
+#cards{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin: 1rem 0 1rem 0;
+    padding: 10px;
+
+}
+
+
+#drawCard{
+    justify-content: top;
+    align-self: center;
+    max-width: 10rem;
+}
+
+#cardContainer{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.cardArea{
+    height: 16rem;
+    width: 10rem;
+    border: 1px solid black;
+    margin: 0 1rem 0 1rem;
+}
+
+.hiddenCard{
+    background-color: black;
+}
+
+#shownCard{
+    
+}
+
+#refillAndShuffle{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 button{
     padding: 1rem;

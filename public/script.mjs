@@ -33,7 +33,38 @@ const drawCard = () => {
     const aDeckID = document.getElementById('deckID').value;
     fetch(`/temp/deck/${aDeckID}/card`)
     .then(response => response.json())
-    .then(drawnCard => console.log(drawnCard))
+    .then(drawnCard => 
+    { 
+        console.log(drawnCard.card);
+        const spawnCard = document.getElementById("shownCard");
+        spawnCard.innerHTML = "";
+
+        let suitSymbol;
+        suitSymbol = document.createElement('span');
+
+        switch (true) {
+            case drawnCard.card.includes("Spades"):
+
+                suitSymbol.innerHTML = `&#9824;`
+                spawnCard.appendChild(suitSymbol);
+                break;
+            case drawnCard.card.includes("Hearts"):
+
+                suitSymbol.innerHTML = `&#9829;`
+                spawnCard.appendChild(suitSymbol);
+                break;
+            case drawnCard.card.includes("Clubs"):
+
+                suitSymbol.innerHTML = `&#9827;`
+                spawnCard.appendChild(suitSymbol);
+                break;
+            case drawnCard.card.includes("Diamonds"):
+
+                suitSymbol.innerHTML = `&#9830;`               
+                spawnCard.appendChild(suitSymbol);
+            break; 
+        } 
+    })
 }
 
 

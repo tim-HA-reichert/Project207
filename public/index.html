@@ -9,24 +9,33 @@
 </head>
 <body>
 
+<header id="nav">
     <button id="test" onclick="createDeck()">Generate deck of cards</button>
-
+    
 <div id="chooseDeckWrapper">
-   <input type="text" id="deckID" placeholder="Enter deck ID">
-    <button id="getADeck" onclick="getDeck()">Get a deck</button>
+    <input type="text" id="deckID" placeholder="Enter deck ID">
+    <button id="getADeck" onclick="getDeck()">Get deck</button>
 </div>
     
     <button id="getAllDecks" onclick="getAllDecks()">Get all decks</button>
+</header>
 
 
+<section id="cards">
     <button id="drawCard" onclick="drawCard()">Draw a card</button>
+    
+    <div id="cardContainer">
+        <div id="shownCard" class="cardArea"></div>
+        <div class="cardArea hiddenCard"></div>
+    </div>
 
+    </section>
+
+<section id="refillAndShuffle">
     <button id="refill" onclick="refillDeck()">Refill deck</button>
 
     <button id="shuffle" onclick="shuffleDeck()">Shuffle deck</button>
+</section>
 
-    <section id="cards">
-
-    </section>
 </body>
 </html>
