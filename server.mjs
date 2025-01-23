@@ -22,7 +22,8 @@ server.post("/temp/deck", (req, res, next) => {
     decks[deckID] = newDeck;
     console.log(`New deck created with ID: ${deckID}`);
 
-    res.status(HTTP_CODES.SUCCESS.OK).send(newDeck).end();
+    //res.status(HTTP_CODES.SUCCESS.OK).send(newDeck).end();
+    res.status(HTTP_CODES.SUCCESS.OK).send({ deckID, newDeck }).end();
 })
 
 server.get("/temp/deck/:deck_id", (req, res, next) => {
@@ -43,7 +44,7 @@ server.get("/temp/deck/:deck_id/card", (req, res, next) => {
 
     if(decks[requestedDeckID]){
         const pickCard = all.pickCard(decks[requestedDeckID]);
-        res.status(HTTP_CODES.SUCCESS.OK).send(pickCard).end();
+        res.status(HTTP_CODES.SUCCESS.OK).send({card: pickCard}).end();
     } else {
         res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND)
         .send("You don't have a working deck. get one at http://localhost:8080/temp/deck")

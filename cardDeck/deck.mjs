@@ -1,9 +1,9 @@
 const cardDeck = () => {
         const theDeck = {
-            "Hearts": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"],
-            "Spades": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"],
-            "Clubs": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"],
-            "Diamonds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"]
+            "Hearts": ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"],
+            "Spades": ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"],
+            "Clubs": ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"],
+            "Diamonds": ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"]
         };
         return theDeck
     } 
@@ -24,7 +24,7 @@ const pickCard = (aDeck) => {
 
     console.log(`${deliverCard} of ${randomSuit}`);
 
-    return `${deliverCard} of ${randomSuit}`
+    return `${deliverCard[0]} of ${randomSuit}`
 }
 
 export default {cardDeck, pickCard}
