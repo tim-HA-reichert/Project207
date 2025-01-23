@@ -22,11 +22,13 @@
 
 
 <section id="cards">
-    <button id="drawCard" onclick="drawCard()">Draw a card</button>
-    
     <div id="cardContainer">
-        <div id="shownCard" class="cardArea"></div>
-        <div class="cardArea hiddenCard"></div>
+        <div class="cardArea">
+            <div id="shownCard"></div>
+        </div>
+        <button onclick="drawCard()" class="cardArea hiddenCard">
+            Draw card!
+        </button>
     </div>
 
     </section>

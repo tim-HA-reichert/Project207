@@ -42,28 +42,41 @@ const drawCard = () => {
         let suitSymbol;
         suitSymbol = document.createElement('span');
 
+        
+        let cardRank;
+        cardRank = document.createElement('div');
+        cardRank.classList.add('card-rank');
+
+        const [rank, suit] = drawnCard.card.split(' of ');
+
         switch (true) {
             case drawnCard.card.includes("Spades"):
 
                 suitSymbol.innerHTML = `&#9824;`
-                spawnCard.appendChild(suitSymbol);
+                spawnCard.setAttribute('data-suit', suitSymbol.innerHTML);
+
                 break;
             case drawnCard.card.includes("Hearts"):
 
                 suitSymbol.innerHTML = `&#9829;`
-                spawnCard.appendChild(suitSymbol);
+                spawnCard.setAttribute('data-suit', suitSymbol.innerHTML);
+
                 break;
             case drawnCard.card.includes("Clubs"):
 
                 suitSymbol.innerHTML = `&#9827;`
-                spawnCard.appendChild(suitSymbol);
+                spawnCard.setAttribute('data-suit', suitSymbol.innerHTML);
+ 
                 break;
             case drawnCard.card.includes("Diamonds"):
 
                 suitSymbol.innerHTML = `&#9830;`               
-                spawnCard.appendChild(suitSymbol);
+                spawnCard.setAttribute('data-suit', suitSymbol.innerHTML);
+
             break; 
         } 
+        cardRank.innerHTML = rank;
+        spawnCard.appendChild(cardRank);
     })
 }
 
@@ -77,6 +90,17 @@ const refillDeck = () => {
 }
 
 
+function shuffleDeck() {
+    let deckToShuffle = document.getElementById('deckID').value;
+
+    if (deckToShuffle) {
+        alert('Shuffled!');
+
+    } else {
+        alert('Choose a deck to shuffle!');
+    }
+}
+/* 
 function shuffleDeck() {
     let deckToShuffle = document.getElementById('deckID').value;
 
@@ -102,5 +126,5 @@ function shuffleDeck() {
             document.body.removeChild(shuffleMessage);
         }, 3000);
     }
-}
+} */
 
