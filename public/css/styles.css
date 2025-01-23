@@ -1,5 +1,22 @@
-#tester{
-    border: 1px solid black;
-    width: 100px;
-    height: 100px;
+head{
+    display: none;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    padding: 1rem;
+    margin: 1rem;
 }

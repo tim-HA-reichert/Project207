@@ -11,12 +11,19 @@
 
     <button id="test" onclick="createDeck()">Generate deck of cards</button>
 
-    <input type="text" id="deckID" placeholder="Enter deck ID"> 
-    <button id="test" onclick="getDeck()">Get a deck</button>
+<div id="chooseDeckWrapper">
+   <input type="text" id="deckID" placeholder="Enter deck ID">
+    <button id="getADeck" onclick="getDeck()">Get a deck</button>
+</div>
     
-    <button id="test" onclick="drawCard()">Draw a card</button>
-    <button id="test" onclick="shuffle()">Shuffle deck</button>
+    <button id="getAllDecks" onclick="getAllDecks()">Get all decks</button>
 
+
+    <button id="drawCard" onclick="drawCard()">Draw a card</button>
+
+    <button id="refill" onclick="refillDeck()">Refill deck</button>
+
+    <button id="shuffle" onclick="shuffleDeck()">Shuffle deck</button>
 
     <section id="cards">
 
