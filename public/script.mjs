@@ -73,21 +73,6 @@ const getAllDecks = () => {
     })
 }
 
-
-
-const getDeck = () => {
-    const aDeckID = document.getElementById('deckID').value;
-    if (aDeckID === "0" || aDeckID === "") {
-        alert("Please enter a valid deck ID.");
-        return; 
-    }
-    fetch(`/temp/deck/${aDeckID}`)
-    .then(response => response.json())
-    .then(deckContent => 
-        console.log(deckContent));
-}
-
-
 const drawCard = () => {
     const aDeckID = document.getElementById('deckID').value;
 
@@ -102,14 +87,12 @@ const drawCard = () => {
     })
     .then(drawnCard => 
     { 
-        console.log(drawnCard);
         const spawnCard = document.getElementById("shownCard");
         spawnCard.innerHTML = "";
 
         let suitSymbol;
         suitSymbol = document.createElement('span');
 
-        
         let cardRank;
         cardRank = document.createElement('div');
         cardRank.classList.add('card-rank');
