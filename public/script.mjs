@@ -3,18 +3,43 @@ const createDeck = () => {
     .then(response => response.json())
     .then(data => {
         console.log("Deck ID:", data.deckID)  
-        //console.log("New Deck:", data.newDeck)
-        console.log(data.decks)
-        });  
+        const allDecks = data.decks;
+        const deckWrapper = document.getElementById('listOfDeckWrapper');
+        const aDeckID = document.getElementById('deckID');
+        
+        const listOfDecks = [];
+
+        for(const decks in allDecks){
+            listOfDecks.push(decks);
+        }
+        deckWrapper.innerHTML="";
+
+
+        listOfDecks.forEach(deck => {
+            let deckInstance = document.createElement('a');
+            deckInstance.classList.add('deckInstance')
+            deckInstance.innerHTML = deck;    
+            deckWrapper.appendChild(deckInstance);
+                    
+            deckInstance.addEventListener("click", e => {
+                aDeckID.value = deck;
+            });            
+        })
+        
+
+    });  
 }
 
 const getAllDecks = () => {
     fetch("/temp/deck")
     .then(response => response.json())
     .then(data => { 
+        const deckWrapper = document.getElementById("listOfDeckWrapper");
+        const decks = [];
         for(const deck in data){
-            console.log(deck)
+            decks.push(deck);
         }
+        console.log(decks)
     })
 }
 
@@ -22,6 +47,10 @@ const getAllDecks = () => {
 
 const getDeck = () => {
     const aDeckID = document.getElementById('deckID').value;
+    if (aDeckID === "0" || aDeckID === "") {
+        alert("Please enter a valid deck ID.");
+        return; 
+    }
     fetch(`/temp/deck/${aDeckID}`)
     .then(response => response.json())
     .then(deckContent => 
@@ -31,11 +60,19 @@ const getDeck = () => {
 
 const drawCard = () => {
     const aDeckID = document.getElementById('deckID').value;
+
+    if (aDeckID === "0" || aDeckID === "") {
+        alert("Please enter a valid deck ID.");
+        return; 
+    }
+  
     fetch(`/temp/deck/${aDeckID}/card`)
-    .then(response => response.json())
+    .then(response => { 
+        return response.json();
+    })
     .then(drawnCard => 
     { 
-        console.log(drawnCard.card);
+        console.log(drawnCard);
         const spawnCard = document.getElementById("shownCard");
         spawnCard.innerHTML = "";
 

@@ -2,6 +2,13 @@ import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
 import all from './cardDeck/deck.mjs'
 
+//TODO: 
+//Add some sort of menu for available decks
+//Add easy way to change deck
+//Check error messages
+//Make sure buttons like shuffle don't work without reason (if a deck is empty, for example)
+
+
 const server = express();
 const port = (process.env.PORT || 8080);
 
@@ -47,9 +54,9 @@ server.get("/temp/deck/:deck_id/card", (req, res, next) => {
     if(decks[requestedDeckID]){
         const pickCard = all.pickCard(decks[requestedDeckID]);
         res.status(HTTP_CODES.SUCCESS.OK).send({card: pickCard}).end();
-    } else {
+    } else if(!decks[requestedDeckID]){
         res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND)
-        .send("You don't have a working deck. get one at http://localhost:8080/temp/deck")
+        .send("No deck found. generate one first.")
         .end();
     }
 });
@@ -67,10 +74,6 @@ server.patch("/temp/deck/shuffle/:deck_id", (req, res, next) => {
         res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send(`Choose a deck to refill`).end();
     }
 })
-
-
-//TODO:
-//Add test for when a suit is empty. Automatically pick a new suit if empty.
 
 server.listen(server.get('port'), function () {
     console.log(`Server running on http://localhost:${port}`);

@@ -34,6 +34,7 @@ const pickCard = (aDeck) => {
             const deliverCard = aDeck[randomSuit].splice(chosenCardPos, 1);
             
             console.log(`${deliverCard} of ${randomSuit}`);
+            
             return `${deliverCard[0]} of ${randomSuit}`;
         } else {
             const removeEmptySuit = suits.indexOf(randomSuit);
