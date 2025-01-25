@@ -75,6 +75,20 @@ server.patch("/temp/deck/refill/:deck_id", (req, res, next) => {
     }
 })
 
+server.patch("/temp/deck/shuffle/:deck_id", (req, res, next) => {
+    const requestedDeckID = req.params['deck_id'];
+    const newCards = all.cardDeck();
+
+    if(decks[requestedDeckID]){
+        decks[requestedDeckID] = newCards;
+        console.log(`Deck ${requestedDeckID} has been shuffled.`);
+
+        res.status(HTTP_CODES.SUCCESS.OK).send(decks[requestedDeckID]).end();
+    } else if(!decks[requestedDeckID]) {
+        res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send(`Choose a deck to shuffle`).end();
+    }
+})
+
 server.listen(server.get('port'), function () {
     console.log(`Server running on http://localhost:${port}`);
     console.log(`New deck? http://localhost:${port}/temp/deck`);

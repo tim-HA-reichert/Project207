@@ -148,10 +148,13 @@ const refillDeck = () => {
 
 function shuffleDeck() {
     let deckToShuffle = document.getElementById('deckID').value;
+    fetch(`/temp/deck/refill/${deckToShuffle}`, {method: "PATCH"})
+    .then(response => response.json())
+    .then(newDeck => console.log(newDeck))
+
 
     if (deckToShuffle) {
         alert('Shuffled!');
-
     } else {
         alert('Choose a deck to shuffle!');
     }
