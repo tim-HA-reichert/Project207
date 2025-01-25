@@ -2,8 +2,9 @@ const createDeck = () => {
     fetch('/temp/deck', {method: "POST"})
     .then(response => response.json())
     .then(data => {
-        console.log("Deck ID:", data.deckID)  
+        console.log(data.decks)  
         const allDecks = data.decks;
+
         const deckWrapper = document.getElementById('listOfDeckWrapper');
         const aDeckID = document.getElementById('deckID');
         
@@ -23,6 +24,14 @@ const createDeck = () => {
                     
             deckInstance.addEventListener("click", e => {
                 aDeckID.value = deck;
+
+
+                let chosenDeck = document.createElement('h3');
+                let chosenDeckWrapper = document.getElementById('chosenDeckWrapper');
+
+                chosenDeckWrapper.innerHTML = "";
+                chosenDeck.innerHTML = `Chosen deck: ${deck}`;
+                chosenDeckWrapper.appendChild(chosenDeck);
             });            
         })
         
@@ -35,11 +44,32 @@ const getAllDecks = () => {
     .then(response => response.json())
     .then(data => { 
         const deckWrapper = document.getElementById("listOfDeckWrapper");
-        const decks = [];
+        const aDeckID = document.getElementById('deckID');
+
+        const listOfDecks = [];
+
         for(const deck in data){
-            decks.push(deck);
+            listOfDecks.push(deck);
         }
-        console.log(decks)
+        deckWrapper.innerHTML="";
+
+        listOfDecks.forEach(deck => {
+            let deckInstance = document.createElement('a');
+            deckInstance.classList.add('deckInstance')
+            deckInstance.innerHTML = deck;    
+            deckWrapper.appendChild(deckInstance);
+                    
+            deckInstance.addEventListener("click", e => {
+                aDeckID.value = deck;
+
+                let chosenDeck = document.createElement('h3');
+                let chosenDeckWrapper = document.getElementById('chosenDeckWrapper');
+
+                chosenDeckWrapper.innerHTML = "";
+                chosenDeck.innerHTML = `Chosen deck: ${deck}`;
+                chosenDeckWrapper.appendChild(chosenDeck);
+            });            
+        })
     })
 }
 
@@ -121,9 +151,15 @@ const drawCard = () => {
 const refillDeck = () => {
     const deckToRefill = document.getElementById('deckID').value;
 
-    fetch(`/temp/deck/shuffle/${deckToRefill}`, {method: "PATCH"})
+    fetch(`/temp/deck/refill/${deckToRefill}`, {method: "PATCH"})
     .then(response => response.json())
     .then(newDeck => console.log(newDeck))
+
+    if(!deckToRefill){
+        alert('Choose a deck to refill.')
+    } else {
+        alert('Deck has been filled!')
+    }
 }
 
 
@@ -137,31 +173,5 @@ function shuffleDeck() {
         alert('Choose a deck to shuffle!');
     }
 }
-/* 
-function shuffleDeck() {
-    let deckToShuffle = document.getElementById('deckID').value;
 
-    if(deckToShuffle){
-
-        const shuffleMessage = document.createElement('div');
-        shuffleMessage.textContent = 'Shuffling....';
-        shuffleMessage.style.color = 'red';
- 
-        document.body.appendChild(shuffleMessage);
-        
-        setTimeout(() => {
-            document.body.removeChild(shuffleMessage);
-        }, 3000);
-    } else {
-        const shuffleMessage = document.createElement('div');
-        shuffleMessage.textContent = 'Choose a deck to shuffle!';
-        shuffleMessage.style.color = 'red';
-
-        document.body.appendChild(shuffleMessage);
-
-        setTimeout(() => {
-            document.body.removeChild(shuffleMessage);
-        }, 3000);
-    }
-} */
 

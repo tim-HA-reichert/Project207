@@ -12,9 +12,8 @@
 <header id="nav">
     <button id="test" onclick="createDeck()">Generate deck of cards</button>
     
-<div id="chooseDeckWrapper">
+<div>
     <input type="text" id="deckID" placeholder="Enter deck ID">
-    <button id="getADeck" onclick="getDeck()">Get deck</button>
 </div>
     
     <button id="getAllDecks" onclick="getAllDecks()">Get all decks</button>
@@ -25,7 +24,9 @@
 </div>
 
 <section id="cards">
-    <div id="amountOfCardsWrapper"></div>
+    <div id="chosenDeckWrapper">
+        
+    </div>
     <div id="cardContainer">
         <div class="cardArea">
             <div id="shownCard"></div>

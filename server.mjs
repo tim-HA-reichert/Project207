@@ -61,7 +61,7 @@ server.get("/temp/deck/:deck_id/card", (req, res, next) => {
     }
 });
 
-server.patch("/temp/deck/shuffle/:deck_id", (req, res, next) => {
+server.patch("/temp/deck/refill/:deck_id", (req, res, next) => {
     const requestedDeckID = req.params['deck_id'];
     const newCards = all.cardDeck();
 
