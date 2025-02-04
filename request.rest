@@ -2,7 +2,7 @@ POST http://localhost:8000/user/
 Content-type: application/json
 
 {
-    "name": "First",
+    "username": "First",
     "password": "password"
 }
 
@@ -12,12 +12,10 @@ POST http://localhost:8000/user/login
 Content-type: application/json
 
 {
-    "name": "First",
-    "password": "paword"
+    "username": "First",
+    "password": "password"
 }
-
 
 ###
 
 GET http://localhost:8000/user
-

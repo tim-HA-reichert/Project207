@@ -2,7 +2,11 @@ import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
 import log from './modules/log.mjs';
 import { LOGG_LEVELS, eventLogger } from './modules/log.mjs';
-import * as auth from './modules/authenticator.mjs';
+import * as auth from './utils/authenticator.mjs';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const server = express();
 const port = (process.env.PORT || 8000);
@@ -22,20 +26,20 @@ server.get("/", (req, res) => {
 
 server.get("/user", (req, res) => {
     console.log(users);
-    res.status(HTTP_CODES.SUCCESS.OK).send().end();
+    res.status(HTTP_CODES.SUCCESS.OK).send(users).end();
 });
 
 
 server.post("/user", async (req, res) => {
-    const newUser = await auth.becomeUser(req.body.name, req.body.password);
-
+    const newUser = await auth.becomeUser(req.body.username, req.body.password);
     users.push(newUser);
 
     res.status(HTTP_CODES.SUCCESS.ACCEPTED).send().end();
 });
 
+
 server.post("/user/login", async (req, res) => {
-    const user = users.find(user => user.name === req.body.name);
+    const user = users.find(user => user.username === req.body.username);
 
     if (!user) {
         return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("User not found");
@@ -45,14 +49,13 @@ server.post("/user/login", async (req, res) => {
 
     if (validPassword) {
         console.log("Login successful");
-        res.status(HTTP_CODES.SUCCESS.ACCEPTED).send().end();
+        const userToken = auth.generateToken(user);
+        res.json({ accessToken: userToken });
     } else {
         console.log("Wrong password.");
         res.status(HTTP_CODES.CLIENT_ERROR.UNAUTHORIZED).send("Invalid credentials");
     }
 })
-
-
 
 server.listen(server.get('port'), function () {
     console.log(`Server running on http://localhost:${port}`);
