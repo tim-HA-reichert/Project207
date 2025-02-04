@@ -8,7 +8,7 @@ const HTTP_CODES = {
     },
     CLIENT_ERROR: {
         NOT_FOUND: 404,
-        NOT_AUTH: 401,
+        UNAUTHORIZED: 401,
         BAD_INPUT: 400,
     }
 }
