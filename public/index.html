@@ -3,45 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KARDS</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="script.mjs" defer></script>
+    <title>Module-testing</title>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
-<header id="nav">
-    <button id="test" onclick="createDeck()">Generate deck of cards</button>
-    
-<div>
-    <input type="text" id="deckID" placeholder="Enter deck ID">
-</div>
-    
-    <button id="getAllDecks" onclick="getAllDecks()">Get all decks</button>
-</header>
-<h4 style="margin: 1rem">Available decks: </h4>
-
-<div id="listOfDeckWrapper">
-</div>
-
-<section id="cards">
-    <div id="chosenDeckWrapper">
-
+    <div id="greetings-wrapper">
+        <h1>Good day.</h1>
+        <h3>Wanna become a user?</h3>
     </div>
-    <div id="cardContainer">
-        <div class="cardArea">
-            <div id="shownCard"></div>
-        </div>
-        <button onclick="drawCard()" class="cardArea hiddenCard">
-            Draw card!
-        </button>
-    </div>
-    </section>
 
-<section id="refillAndShuffle">
-    <button id="refill" onclick="refillDeck()">Refill deck</button>
+<div id="user-button-wrapper">
+    <button class="user-choice-btn">
+        No!
+    </button>
 
-    <button id="shuffle" onclick="shuffleDeck()">Shuffle deck</button>
-</section>
+    <button class="user-choice-btn">
+        Yes!
+    </button>
+</div>
 
 </body>
 </html>
