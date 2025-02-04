@@ -3,9 +3,9 @@ import bcrypt, { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
-//Add a state for users that are logged in?
+//Add a state for users that are logged in? <- token authenticator check.
 //Add a check for already existing usernames?
-//Create better user handling (currently it is an array in server.mjs)
+//Create better user saving (currently it is an array in server.mjs)
 
 export const becomeUser = async (aName, aPassword) => {
         const salt = await bcrypt.genSalt();
