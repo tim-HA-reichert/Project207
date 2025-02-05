@@ -4,6 +4,7 @@ import log from './modules/log.mjs';
 import { LOGG_LEVELS, eventLogger } from './modules/log.mjs';
 import * as auth from './utils/authenticator.mjs';
 import dotenv from 'dotenv';
+import { tokenAuthentication, adminAccess } from './modules/usertoken.mjs';
 
 dotenv.config();
 
@@ -69,4 +70,16 @@ server.post("/user/login", async (req, res) => {
 
 server.listen(server.get('port'), function () {
     console.log(`Server running on http://localhost:${port}`);
+});
+
+
+server.get("/protected", tokenAuthentication, (req, res) => {
+    res.json({ message: `Welcome, ${req.user.username}! You are authenticated.` });
+});
+//This returns object, object at the moment. 
+
+
+
+server.get("/admin", tokenAuthentication, adminAccess, (req, res) => {
+    res.json({ message: `Hello Admin ${req.user.username}, you have full access!` });
 });

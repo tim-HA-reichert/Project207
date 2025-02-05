@@ -15,10 +15,11 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     if(!response.ok){
         alert("login failed");
         return;
-    } else {
-        alert("welcome.")
-        return;
-    }
+    } 
+
+    const data = await response.json();
+    sessionStorage.setItem("accessToken", data.accessToken);
+    alert("Login successful!");
 });
 
 
@@ -44,3 +45,31 @@ document.getElementById("register-user").addEventListener("submit", async (e) =>
 }
 
 })
+
+
+// Function to fetch protected data
+async function fetchProtectedData() {
+    const token = sessionStorage.getItem("accessToken");
+
+    if (!token) {
+        alert("You need to log in first!");
+        return;
+    }
+
+    const response = await fetch("/protected", {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        alert("Failed to fetch protected data.");
+        return;
+    }
+
+    const data = await response.json();
+    console.log(data); 
+}
+
+document.getElementById("fetchButton").addEventListener("click", fetchProtectedData);
