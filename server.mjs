@@ -29,6 +29,7 @@ const createDemoUsers = async () => {
 };
 createDemoUsers();
 
+
 server.get("/", (req, res) => {
     res.status(HTTP_CODES.SUCCESS.OK).send().end();
 });

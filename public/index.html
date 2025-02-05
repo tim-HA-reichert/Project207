@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div id="greetings-wrapper">
+<div class="info-wrapper">
         <h1>Good day.</h1>
         <h3>Use one of these to login:</h3>
     <div class="demo-login-cred">
@@ -38,6 +38,25 @@
       <input type="submit" value="Log in!" />
     </div>
 </form>
+<div class="info-wrapper">
+<h3>Or register a user of your own:</h3>
+</div>
+<form action="" method="POST" class="form-example" id="register-user">
+    <div class="login-form">
+      <label for="username">Username: </label>
+      <input type="text" name="username" id="new-user" required />
+    </div>
+
+    <div class="login-form">
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="new-password" required />
+    </div>
+
+    <div class="login-form">
+      <input type="submit" value="Register!" />
+    </div>
+</form>
+
 
 
 <script src="script.mjs" defer></script>
