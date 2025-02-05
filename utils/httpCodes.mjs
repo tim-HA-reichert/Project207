@@ -10,6 +10,7 @@ const HTTP_CODES = {
         NOT_FOUND: 404,
         UNAUTHORIZED: 401,
         BAD_INPUT: 400,
+        FORBIDDEN: 403
     }
 }
 

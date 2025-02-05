@@ -8,20 +8,38 @@
 </head>
 <body>
 
-    <div id="greetings-wrapper">
+<div id="greetings-wrapper">
         <h1>Good day.</h1>
-        <h3>Wanna become a user?</h3>
+        <h3>Use one of these to login:</h3>
+    <div class="demo-login-cred">
+        <h4>Username: User</h4>
+        <h4>password: 123</h4>
     </div>
-
-<div id="user-button-wrapper">
-    <button class="user-choice-btn">
-        No!
-    </button>
-
-    <button class="user-choice-btn">
-        Yes!
-    </button>
+    <p>or</p>
+    <div class="demo-login-cred">
+        <h4>Username: Admin</h4>
+        <h4>password: 123</h4>
+    </div>
 </div>
 
+
+<form action="" method="POST" class="form-example" id="login-form">
+    <div class="login-form">
+      <label for="username">Enter username: </label>
+      <input type="text" name="username" id="username" required />
+    </div>
+
+    <div class="login-form">
+      <label for="password">Enter password: </label>
+      <input type="password" name="password" id="password" required />
+    </div>
+
+    <div class="login-form">
+      <input type="submit" value="Log in!" />
+    </div>
+</form>
+
+
+<script src="script.mjs" defer></script>
 </body>
 </html>

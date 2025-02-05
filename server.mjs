@@ -17,8 +17,17 @@ server.use(express.static('public'));
 server.use(express.json());
 
 const users = [
+
 ];
 
+const createDemoUsers = async () => {
+    const demoUser = await auth.becomeUser("User", "123", "user");
+    const demoAdminUser = await auth.becomeUser("Admin", "123", "admin");
+    users.push(demoUser, demoAdminUser);
+    console.log("Demo user created:", demoUser);
+    console.log("Demo admin created:", demoAdminUser);
+};
+createDemoUsers();
 
 server.get("/", (req, res) => {
     res.status(HTTP_CODES.SUCCESS.OK).send().end();
@@ -31,7 +40,7 @@ server.get("/user", (req, res) => {
 
 
 server.post("/user", async (req, res) => {
-    const newUser = await auth.becomeUser(req.body.username, req.body.password);
+    const newUser = await auth.becomeUser(req.body.username, req.body.password, "user");
     users.push(newUser);
 
     res.status(HTTP_CODES.SUCCESS.ACCEPTED).send().end();
