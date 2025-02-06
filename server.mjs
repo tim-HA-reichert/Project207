@@ -1,10 +1,9 @@
 import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
-import log from './modules/log.mjs';
-import { LOGG_LEVELS, eventLogger } from './modules/log.mjs';
 import * as auth from './utils/authenticator.mjs';
 import dotenv from 'dotenv';
 import { tokenAuthentication, adminAccess } from './modules/usertoken.mjs';
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -15,6 +14,7 @@ const port = (process.env.PORT || 8000);
 server.set('port', port);
 server.use(express.static('public'));
 
+server.use(cookieParser());
 server.use(express.json());
 
 const users = [
@@ -23,8 +23,10 @@ const users = [
 
 const createDemoUsers = async () => {
     const demoUser = await auth.becomeUser("User", "123", "user");
+
     const demoAdminUser = await auth.becomeUser("Admin", "123", "admin");
     users.push(demoUser, demoAdminUser);
+
     console.log("Demo user created:", demoUser);
     console.log("Demo admin created:", demoAdminUser);
 };
@@ -61,25 +63,44 @@ server.post("/user/login", async (req, res) => {
     if (validPassword) {
         console.log("Login successful");
         const userToken = auth.generateToken(user);
-        res.json({ accessToken: userToken });
+
+        res.cookie("accessToken", userToken, {
+            httpOnly: true,
+            sameSite: "Strict",
+            maxAge: 5 * 60 * 1000 //5 mins
+        });
+
+        res.status(HTTP_CODES.SUCCESS.OK).send({ message: "Login successful" });
+       
     } else {
         console.log("Wrong password.");
         res.status(HTTP_CODES.CLIENT_ERROR.UNAUTHORIZED).send("Invalid credentials");
     }
 })
 
-server.listen(server.get('port'), function () {
-    console.log(`Server running on http://localhost:${port}`);
+server.post("/logout", (req, res) => {
+    res.cookie("accessToken", "", {
+        httpOnly: true,
+        sameSite: "Strict",
+        expires: new Date(0)
+    });
+
+    res.status(HTTP_CODES.SUCCESS.OK).send("Logged out!");
 });
 
 
-server.get("/protected", tokenAuthentication, (req, res) => {
+server.get("/userpage", tokenAuthentication, (req, res) => {
     res.json({ message: `Welcome, ${req.user.username}! You are authenticated.` });
 });
-//This returns object, object at the moment. 
-
-
 
 server.get("/admin", tokenAuthentication, adminAccess, (req, res) => {
     res.json({ message: `Hello Admin ${req.user.username}, you have full access!` });
+});
+
+
+
+
+
+server.listen(server.get('port'), function () {
+    console.log(`Server running on http://localhost:${port}`);
 });

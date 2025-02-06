@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<section id="log-in-section">
+
 <div class="info-wrapper">
         <h1>Good day.</h1>
         <h3>Use one of these to login:</h3>
@@ -22,44 +24,51 @@
     </div>
 </div>
 
+<div id="login-form-wrapper">
+<h3>Log in:</h3>
+  <form action="" method="POST" class="form-example" id="login-form">
+      <div class="login-form">
+        <label for="username">Enter username: </label>
+        <input type="text" name="username" id="username" required />
+      </div>
 
-<form action="" method="POST" class="form-example" id="login-form">
-    <div class="login-form">
-      <label for="username">Enter username: </label>
-      <input type="text" name="username" id="username" required />
-    </div>
+      <div class="login-form">
+        <label for="password">Enter password: </label>
+        <input type="password" name="password" id="password" required />
+      </div>
 
-    <div class="login-form">
-      <label for="password">Enter password: </label>
-      <input type="password" name="password" id="password" required />
-    </div>
-
-    <div class="login-form">
-      <input type="submit" value="Log in!" />
-    </div>
-</form>
-<div class="info-wrapper">
-<h3>Or register a user of your own:</h3>
+      <div class="login-form">
+        <input type="submit" value="Log in!" />
+      </div>
+  </form>
 </div>
-<form action="" method="POST" class="form-example" id="register-user">
-    <div class="login-form">
-      <label for="username">Username: </label>
-      <input type="text" name="username" id="new-user" required />
-    </div>
 
-    <div class="login-form">
-      <label for="password">Password: </label>
-      <input type="password" name="password" id="new-password" required />
-    </div>
+  <div class="info-wrapper">
+    <h3>Or register a user of your own:</h3>
 
-    <div class="login-form">
-      <input type="submit" value="Register!" />
-    </div>
-</form>
+  <form action="" method="POST" class="form-example" id="register-user">
+      <div class="login-form">
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="new-user" required />
+      </div>
 
-<button id="fetchButton">Check if you are logged in</button>
+      <div class="login-form">
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="new-password" required />
+      </div>
 
+      <div class="login-form">
+        <input type="submit" value="Register!" />
+      </div>
+  </form>
+</div>
 
+<button id="userButton">Check if you are a user</button>
+<button id="adminButton">Check if you are a admin</button>
+
+<button id="log-out-button">Log out</button>
+
+</section>
 <script src="script.mjs" defer></script>
 </body>
 </html>

@@ -26,8 +26,11 @@ export const loginUser = async (regularPassword, hashedPassword) => {
 
 export const generateToken = (user, res) => {
 
-    const accessToken = jwt.sign({username: user}, 
-        process.env.ACCESS_TOKEN_SECRET);
+    const accessToken = jwt.sign({
+        username: user.username,
+        role: user.role
+    }, 
+        process.env.ACCESS_TOKEN_SECRET, {expiresIn: "5min"});
 
     return accessToken
 }
