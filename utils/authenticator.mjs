@@ -2,11 +2,6 @@ import express from 'express'
 import bcrypt, { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-
-//Add a state for users that are logged in? <- token authenticator check.
-//Add a check for already existing usernames?
-//Create better user saving (currently it is an array in server.mjs)
-
 export const becomeUser = async (aName, aPassword, aRole) => {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(aPassword, salt);
