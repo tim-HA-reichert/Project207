@@ -6,6 +6,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
 
     const response = await fetch("/user/login", {
         method: "POST",
+        credentials: "same-origin",
         headers: {
             "Content-Type": "application/json"
         },
@@ -13,18 +14,14 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     });
 
     if(!response.ok){
-        alert("login failed");
+        console.log("login failed");
         return;
     } 
 
     const data = await response.json();
-    sessionStorage.setItem("accessToken", data.accessToken);
-    alert("Login successful!");
+
+    console.log("Login successful!");
 });
-
-
-
-
 
 document.getElementById("register-user").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -34,42 +31,65 @@ document.getElementById("register-user").addEventListener("submit", async (e) =>
 
     const response = await fetch("/user", {
         method: "POST",
-        headers:{
-            "Content-Type" : "application/json"
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json" 
         },
         body: JSON.stringify({username, password})
     });
 
     if(response.ok){
     console.log("New user created:", username, " with password: ", password);
-}
-
+    }
 })
 
+document.getElementById("userButton").addEventListener("click", async () => {
 
-// Function to fetch protected data
-async function fetchProtectedData() {
-    const token = sessionStorage.getItem("accessToken");
+    const response = await fetch("/userpage", {
+        method: "GET",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
 
-    if (!token) {
-        alert("You need to log in first!");
-        return;
+    if(!response.ok){
+        console.log("You are not a user.");
+        return
     }
 
-    const response = await fetch("/protected", {
+    const data = await response.json();
+    console.log(data);
+});
+
+document.getElementById("adminButton").addEventListener("click", async () => {
+
+    const response = await fetch("/admin", {
         method: "GET",
+        credentials: "same-origin",
         headers: {
-            "Authorization": `Bearer ${token}`
-        }
+            "Content-Type": "application/json"
+        },
     });
 
     if (!response.ok) {
-        alert("Failed to fetch protected data.");
+        console.log("You are not an admin.");
         return;
     }
 
     const data = await response.json();
     console.log(data); 
-}
+});
 
-document.getElementById("fetchButton").addEventListener("click", fetchProtectedData);
+
+
+document.getElementById("log-out-button").addEventListener("click", async () =>{
+
+    await fetch("/logout", {
+        method: "POST",
+        credentials: "include"
+    })
+
+    console.log("You have logged out.");
+
+})
