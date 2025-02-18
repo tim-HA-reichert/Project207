@@ -4,6 +4,7 @@ import * as auth from './utils/authenticator.mjs';
 import dotenv from 'dotenv';
 import { tokenAuthentication, adminAccess } from './modules/usertoken.mjs';
 import cookieParser from "cookie-parser";
+import recipeRoutes from './router/recipeRoutes.mjs';
 
 dotenv.config();
 
@@ -16,6 +17,9 @@ server.use(express.static('public'));
 
 server.use(cookieParser());
 server.use(express.json());
+
+
+server.use('/recipes', recipeRoutes);
 
 const users = [];
 

@@ -5,6 +5,7 @@
       "servings": 2,
       "cookingTime": 30,
       "difficulty": "easy",
+      "mealType": "dinner",
       "ingredients": [
         { "name": "pasta", "amount": "200", "unit": "g" },
         { "name": "crushed tomatoes", "amount": "400", "unit": "g" },
@@ -15,8 +16,7 @@
         "Heat olive oil and add tomatoes",
         "Mix sauce with pasta and serve"
       ],
-      "nationality": "italian",
-      "categories": ["pasta", "quick"]
+      "nationality": "italian"
     },
     {
       "id": 2,
@@ -24,6 +24,7 @@
       "servings": 1,
       "cookingTime": 10,
       "difficulty": "easy",
+      "mealType": "breakfast",
       "ingredients": [
         { "name": "eggs", "amount": "2", "unit": "" },
         { "name": "butter", "amount": "1", "unit": "tbsp" },
@@ -34,7 +35,6 @@
         "Melt butter in pan over medium heat",
         "Pour in eggs and cook until set"
       ],
-      "nationality": "french",
-      "categories": ["breakfast", "quick"]
+      "nationality": "french"
     }
-  ]
+]

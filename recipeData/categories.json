@@ -1,0 +1,47 @@
+{
+    "difficulties": [
+        {
+            "id": "easy", 
+            "name": "Easy", 
+            "description": "Simple recipes for beginners"
+        },
+        {
+            "id": "medium", 
+            "name": "Medium", 
+            "description": "Some cooking experience required"
+        },
+        {
+            "id": "hard",
+            "name": "Hard",
+            "description": "Complex recipes requiring patience and love"
+        }
+    ],
+    "nationalities": [
+        {
+            "id": "italian",
+            "name": "Italian",
+            "description": "Cuisine from Italy"
+        },
+        {
+            "id": "french",
+            "name": "French",
+            "description": "Cuisine from France"
+        },
+        {
+            "id": "american",
+            "name": "American",
+            "description": "Cuisine from America"
+        }
+    ],
+    "mealTypes": [
+        {
+            "id": "breakfast"
+        },
+        {
+            "id":"lunch"
+        },
+        {
+            "id": "dinner"
+        }
+    ]
+  }
