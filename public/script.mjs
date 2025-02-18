@@ -4,7 +4,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    const response = await fetch("/user/login", {
+    const response = await fetch("/authentication/user/login", {
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -29,7 +29,7 @@ document.getElementById("register-user").addEventListener("submit", async (e) =>
     const username = document.getElementById("new-user").value;
     const password = document.getElementById("new-password").value;
 
-    const response = await fetch("/user", {
+    const response = await fetch("/authentication/user", {
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -45,7 +45,7 @@ document.getElementById("register-user").addEventListener("submit", async (e) =>
 
 document.getElementById("userButton").addEventListener("click", async () => {
 
-    const response = await fetch("/userpage", {
+    const response = await fetch("/authentication/userpage", {
         method: "GET",
         credentials: "same-origin",
         headers: {
@@ -64,7 +64,7 @@ document.getElementById("userButton").addEventListener("click", async () => {
 
 document.getElementById("adminButton").addEventListener("click", async () => {
 
-    const response = await fetch("/admin", {
+    const response = await fetch("/authentication/admin", {
         method: "GET",
         credentials: "same-origin",
         headers: {
@@ -85,7 +85,7 @@ document.getElementById("adminButton").addEventListener("click", async () => {
 
 document.getElementById("log-out-button").addEventListener("click", async () =>{
 
-    await fetch("/logout", {
+    await fetch("/authentication/logout", {
         method: "POST",
         credentials: "include"
     })
