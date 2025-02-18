@@ -45,10 +45,7 @@ const recipes = [
 ];
 
 
-
-
 recipeRouter.get("/", (req, res) => {
-  console.log(recipes);
   res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
 })
 
