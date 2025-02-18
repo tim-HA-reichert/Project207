@@ -17,9 +17,7 @@ server.use(express.static('public'));
 server.use(cookieParser());
 server.use(express.json());
 
-const users = [
-
-];
+const users = [];
 
 const createDemoUsers = async () => {
     const demoUser = await auth.becomeUser("User", "123", "user");
