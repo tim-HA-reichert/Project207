@@ -12,7 +12,7 @@ export const tokenAuthentication = (req, res, next) => {
         return res.status(HTTP_CODES.CLIENT_ERROR.UNAUTHORIZED).send("No token provided");
     }
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
     if(err){
         return res.status(HTTP_CODES.CLIENT_ERROR.FORBIDDEN).send("Invalid token");
     }

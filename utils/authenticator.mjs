@@ -25,7 +25,7 @@ export const generateToken = (user, res) => {
         username: user.username,
         role: user.role
     }, 
-        process.env.ACCESS_TOKEN_SECRET, {expiresIn: "5min"});
+        process.env.JWT_SECRET_KEY, {expiresIn: "5min"});
 
     return accessToken
 }
