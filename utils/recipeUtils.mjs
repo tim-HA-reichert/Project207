@@ -1,3 +1,9 @@
+export const findRecipe = (aCollectionOfRecipes, aRecipeID) => {
+    const idToFind = parseInt(aRecipeID);
+    const recipe = aCollectionOfRecipes.find(recipe => recipe.id === idToFind);
+    return recipe;
+}
+
 export const createNewRecipe = (aName, aCollectionOfRecipes) => {
     
     const existingIds = aCollectionOfRecipes.map(recipe => recipe.id);
@@ -10,5 +16,4 @@ export const createNewRecipe = (aName, aCollectionOfRecipes) => {
 
         aCollectionOfRecipes.push(newRecipe);
     return aCollectionOfRecipes;
-
 }

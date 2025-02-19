@@ -1,7 +1,6 @@
 import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
-import { findRecipe } from '../utils/recipeUtils/findRecipe.mjs';
-import { createNewRecipe } from '../utils/recipeUtils/createRecipe.mjs';
+import * as recipeUtils from '../utils/recipeUtils.mjs';
 
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
@@ -29,13 +28,12 @@ const recipes = [
 ];
 
 recipeRouter.get("/", (req, res) => {
-  console.log(recipes.length);
   res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
 })
 
 recipeRouter.get("/:id", (req, res) => {
     const id = req.params.id;
-    const recipe = findRecipe(recipes, id);
+    const recipe = recipeUtils.findRecipe(recipes, id);
 
     if(recipe){
       res.status(HTTP_CODES.SUCCESS.OK).send(recipe).end();
@@ -46,13 +44,22 @@ recipeRouter.get("/:id", (req, res) => {
 
 recipeRouter.post("/", (req, res) => {
   const recipeName = req.body.title;
-
-  createNewRecipe(recipeName, recipes);
-
+  
+  recipeUtils.createNewRecipe(recipeName, recipes);
   res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
 });
 
+recipeRouter.patch("/:id", (req, res) => {
+  const id = req.params.id;
+  const recipeChanges = req.body;
 
+  const recipeToChange = recipeUtils.findRecipe(recipes, id);
+
+  if(recipeToChange){
+
+  }
+
+})
 
 
 
