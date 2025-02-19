@@ -2,17 +2,14 @@
     "difficulties": [
         {
             "id": "easy", 
-            "name": "Easy", 
             "description": "Simple recipes for beginners"
         },
         {
             "id": "medium", 
-            "name": "Medium", 
             "description": "Some cooking experience required"
         },
         {
             "id": "hard",
-            "name": "Hard",
             "description": "Complex recipes requiring patience and love"
         }
     ],

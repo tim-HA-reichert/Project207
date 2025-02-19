@@ -20,8 +20,8 @@ const createDemoUsers = async () => {
     const demoAdminUser = await auth.becomeUser("Admin", "123", "admin");
     users.push(demoUser, demoAdminUser);
 
-    console.log("Demo user created:", demoUser);
-    console.log("Demo admin created:", demoAdminUser);
+    //console.log("Demo user created:", demoUser);
+    //console.log("Demo admin created:", demoAdminUser);
 };
 createDemoUsers();
 

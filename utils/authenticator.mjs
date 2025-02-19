@@ -1,4 +1,3 @@
-import express from 'express'
 import bcrypt, { compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
