@@ -5,16 +5,16 @@
       "servings": 2,
       "cookingTime": 30,
       "difficulty": "easy",
+      "timeOfCook": "medium",
       "mealType": "dinner",
       "ingredients": [
         { "name": "pasta", "amount": "200", "unit": "g" },
-        { "name": "crushed tomatoes", "amount": "400", "unit": "g" },
-        { "name": "olive oil", "amount": "2", "unit": "tbsp" }
+        { "name": "crushed tomatoes", "amount": "400", "unit": "g" }
       ],
       "instructions": [
-        "Boil pasta according to package instructions",
-        "Heat olive oil and add tomatoes",
-        "Mix sauce with pasta and serve"
+        "BOIL SOME PASTA!",
+        "ADD TOMATOES!",
+        "MIX EM' AND SERVE."
       ],
       "nationality": "italian"
     },
@@ -23,17 +23,17 @@
       "title": "Simple Omelette",
       "servings": 1,
       "cookingTime": 10,
+      "timeOfCook": "short",
       "difficulty": "easy",
       "mealType": "breakfast",
       "ingredients": [
         { "name": "eggs", "amount": "2", "unit": "" },
-        { "name": "butter", "amount": "1", "unit": "tbsp" },
-        { "name": "salt", "amount": "1", "unit": "pinch" }
+        { "name": "butter", "amount": "1", "unit": "tbsp" }
       ],
       "instructions": [
-        "Beat eggs in a bowl",
-        "Melt butter in pan over medium heat",
-        "Pour in eggs and cook until set"
+        "BEAT THE EGGS.",
+        "FRY EM' WITH BUTTER!",
+        "EAT IT!"
       ],
       "nationality": "french"
     }

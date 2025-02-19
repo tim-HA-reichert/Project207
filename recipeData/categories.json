@@ -40,5 +40,19 @@
         {
             "id": "dinner"
         }
+    ],
+    "timeOfCook": [
+        {
+            "id": "short",
+            "description": "Quick recipes!"
+        },
+        {
+            "id": "medium",
+             "description": "This takes some more time.."
+        },
+        {
+            "id": "long",
+             "description": "Damn you love cooking!"
+        }
     ]
   }
