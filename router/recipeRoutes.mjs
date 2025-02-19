@@ -9,7 +9,7 @@ recipeRouter.use(express.json());
 
 const recipes = [
     {
-      id: 1,
+      id: 0,
       title: "Pasta with Tomato Sauce",
       servings: 2,
       cookingTime: 30,
@@ -18,7 +18,7 @@ const recipes = [
       nationality: "italian",
     },
     {
-      id: 2,
+      id: 1,
       title: "Simple Omelette",
       servings: 1,
       cookingTime: 10,
@@ -29,6 +29,7 @@ const recipes = [
 ];
 
 recipeRouter.get("/", (req, res) => {
+  console.log(recipes.length);
   res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
 })
 
@@ -44,13 +45,11 @@ recipeRouter.get("/:id", (req, res) => {
 });
 
 recipeRouter.post("/", (req, res) => {
-  const recipeID = req.body.id;
   const recipeName = req.body.title;
 
-  createNewRecipe(recipeID, recipeName, recipes);
+  createNewRecipe(recipeName, recipes);
 
   res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
-
 });
 
 
