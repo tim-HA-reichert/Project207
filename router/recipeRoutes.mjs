@@ -1,8 +1,11 @@
 import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
 import { findRecipe } from '../utils/recipeUtils/findRecipe.mjs';
+import { createNewRecipe } from '../utils/recipeUtils/createRecipe.mjs';
 
 const recipeRouter = express.Router();
+recipeRouter.use(express.json());
+
 
 const recipes = [
     {
@@ -40,6 +43,15 @@ recipeRouter.get("/:id", (req, res) => {
     }
 });
 
+recipeRouter.post("/", (req, res) => {
+  const recipeID = req.body.id;
+  const recipeName = req.body.title;
+
+  createNewRecipe(recipeID, recipeName, recipes);
+
+  res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
+
+});
 
 
 
