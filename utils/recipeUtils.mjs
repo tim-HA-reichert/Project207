@@ -4,7 +4,7 @@ export const findRecipe = (aCollectionOfRecipes, aRecipeID) => {
     return recipe;
 }
 
-export const createNewRecipe = (aName, aCollectionOfRecipes) => {
+export const createNewRecipe = (aCollectionOfRecipes, aName) => {
     
     const existingIds = aCollectionOfRecipes.map(recipe => recipe.id);
     const newId = Math.max(...existingIds) + 1;
@@ -16,4 +16,21 @@ export const createNewRecipe = (aName, aCollectionOfRecipes) => {
 
         aCollectionOfRecipes.push(newRecipe);
     return aCollectionOfRecipes;
+}
+
+export const changeExistingRecipe = (aCollectionOfRecipes, recipeId, recipeChanges) => {
+
+    const id = parseInt(recipeId);
+    const recipeIndex = aCollectionOfRecipes.findIndex(recipe => recipe.id === id);
+
+
+    aCollectionOfRecipes[recipeIndex] = {
+        ...aCollectionOfRecipes[recipeIndex],
+        ...recipeChanges,
+        id: id
+    }
+
+    return aCollectionOfRecipes[id]
+
+
 }
