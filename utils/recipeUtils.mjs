@@ -1,6 +1,6 @@
 export const findRecipe = (aCollectionOfRecipes, aRecipeID) => {
-    const idToFind = parseInt(aRecipeID);
-    const recipe = aCollectionOfRecipes.find(recipe => recipe.id === idToFind);
+        const idToFind = parseInt(aRecipeID);
+        const recipe = aCollectionOfRecipes.find(recipe => recipe.id === idToFind);
     return recipe;
 }
 
@@ -23,14 +23,11 @@ export const changeExistingRecipe = (aCollectionOfRecipes, recipeId, recipeChang
     const id = parseInt(recipeId);
     const recipeIndex = aCollectionOfRecipes.findIndex(recipe => recipe.id === id);
 
-
-    aCollectionOfRecipes[recipeIndex] = {
-        ...aCollectionOfRecipes[recipeIndex],
-        ...recipeChanges,
-        id: id
-    }
+        aCollectionOfRecipes[recipeIndex] = {
+            ...aCollectionOfRecipes[recipeIndex],
+            ...recipeChanges,
+            id: id
+        }
 
     return aCollectionOfRecipes[id]
-
-
 }

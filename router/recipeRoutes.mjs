@@ -5,7 +5,6 @@ import * as recipeUtils from '../utils/recipeUtils.mjs';
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
 
-
 const recipes = [
     {
       id: 1,
@@ -57,7 +56,6 @@ recipeRouter.patch("/:id", (req, res) => {
   const recipeToChange = recipeUtils.findRecipe(recipes, id);
   
   if(recipeToChange){
-
     const updatedRecipe = recipeUtils.changeExistingRecipe(recipes, id, recipeChanges);
 
     res.status(HTTP_CODES.SUCCESS.ACCEPTED).send(updatedRecipe).end();
@@ -65,7 +63,5 @@ recipeRouter.patch("/:id", (req, res) => {
     res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT).send({message: `Please enter a valid ID.`}).end();
   }
 })
-
-
 
 export default recipeRouter;
