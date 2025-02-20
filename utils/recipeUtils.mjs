@@ -26,7 +26,12 @@ export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe) => {
 
         const newRecipe = {
             id: newId,
-            ...aNewRecipe
+            title: aNewRecipe.title,
+            servings: aNewRecipe.servings,
+            cookingTime: aNewRecipe.cookingTime,
+            difficulty: aNewRecipe.difficulty,
+            mealType: aNewRecipe.mealType,
+            nationality: aNewRecipe.nationality
         }
 
         aCollectionOfRecipes.push(newRecipe);
