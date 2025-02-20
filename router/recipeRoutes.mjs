@@ -43,7 +43,7 @@ recipeRouter.get("/:id", (req, res) => {
 });
 
 recipeRouter.post("/", (req, res) => {
-  const recipeName = req.body.title;
+  const recipeName = req.body;
   
   recipeUtils.createNewRecipe(recipes, recipeName);
   res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
