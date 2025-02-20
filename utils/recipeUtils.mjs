@@ -5,9 +5,15 @@ export const findRecipe = (aCollectionOfRecipes, aRecipeID) => {
 }
 
 export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe) => {
-    //Create a JSON file reading or something, so that more things can be added. 
-    //Add a check for if difficulty has been thosen, as well as mealtype. 
-    //These two and title are all mandatory to be able to add a new recipe.
+
+    const validDifficulty = ["easy", "medium", "hard"];
+    const validMealType = ["breakfast", "lunch", "dinner"];
+
+    if (!aNewRecipe.title || !aNewRecipe.difficulty || !aNewRecipe.mealType) {
+        throw new Error("Cannot create recipe: title, difficulty, and mealType are mandatory fields");
+    }
+
+
     const existingIds = aCollectionOfRecipes.map(recipe => recipe.id);
     const newId = Math.max(...existingIds) + 1;
 
@@ -17,7 +23,7 @@ export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe) => {
             servings: aNewRecipe.servings,
             cookingTime: aNewRecipe.cookingTime,
             difficulty: aNewRecipe.difficulty,
-            mealType: aNewRecipe.mealtype,
+            mealType: aNewRecipe.mealType,
             nationality: aNewRecipe.nationality
         }
 

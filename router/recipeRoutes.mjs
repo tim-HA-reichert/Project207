@@ -43,9 +43,9 @@ recipeRouter.get("/:id", (req, res) => {
 });
 
 recipeRouter.post("/", (req, res) => {
-  const recipeName = req.body;
+  const newRecipe = req.body;
   
-  recipeUtils.createNewRecipe(recipes, recipeName);
+  recipeUtils.createNewRecipe(recipes, newRecipe);
   res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
 });
 
