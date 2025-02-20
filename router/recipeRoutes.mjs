@@ -66,7 +66,15 @@ recipeRouter.patch("/:id", (req, res) => {
 
 recipeRouter.delete("/:id", (req, res) => {
     const id = req.params.id;
+    const originalRecipeListLength = recipes.length;
 
+    recipeUtils.deleteRecipe(recipes, id);
+
+    if(recipes.length < originalRecipeListLength){
+      res.status(HTTP_CODES.SUCCESS.NO_CONTENT).end();
+    } else {
+      res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send().end();
+    }
 })
 
 
