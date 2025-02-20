@@ -62,6 +62,12 @@ recipeRouter.patch("/:id", (req, res) => {
   } else {
     res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT).send({message: `Please enter a valid ID.`}).end();
   }
+});
+
+recipeRouter.delete("/:id", (req, res) => {
+    const id = req.params.id;
+
 })
+
 
 export default recipeRouter;

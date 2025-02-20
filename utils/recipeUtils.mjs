@@ -31,3 +31,9 @@ export const changeExistingRecipe = (aCollectionOfRecipes, recipeId, recipeChang
 
     return aCollectionOfRecipes[id]
 }
+
+
+export const deleteRecipe = (aCollectionOfRecipes, recipeId) => {
+
+
+}
