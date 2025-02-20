@@ -12,7 +12,14 @@ export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe) => {
     if (!aNewRecipe.title || !aNewRecipe.difficulty || !aNewRecipe.mealType) {
         throw new Error("Cannot create recipe: title, difficulty, and mealType are mandatory fields");
     }
+    
+    if (!validDifficulty.includes(aNewRecipe.difficulty)) {
+        throw new Error(`Please choose a difficulty. Must be one of: ${validDifficulty.join(', ')}`);
+    }
 
+    if (!validMealType.includes(aNewRecipe.mealType)) {
+        throw new Error(`Gotta have a mealtype, man. Must be one of: ${validMealType.join(', ')}`);
+    }
 
     const existingIds = aCollectionOfRecipes.map(recipe => recipe.id);
     const newId = Math.max(...existingIds) + 1;
