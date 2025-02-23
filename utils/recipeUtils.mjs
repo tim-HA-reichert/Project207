@@ -35,20 +35,16 @@ export const searchRecipes = (aCollectionOfRecipes, searchParams) => {
   };
 
 
+export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe, difficulties, mealTypes) => {
 
-
-
-
-export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe) => {
-
-    const validDifficulty = ["easy", "medium", "hard"];
-    const validMealType = ["breakfast", "lunch", "dinner"];
+    const validDifficulties = Object.values(difficulties);
+    const validMealType = Object.values(mealTypes);
 
     if (!aNewRecipe.title || !aNewRecipe.difficulty || !aNewRecipe.mealType) {
         throw new Error("Cannot create recipe: title, difficulty, and mealType are mandatory fields");
     }
     
-    if (!validDifficulty.includes(aNewRecipe.difficulty)) {
+    if (!validDifficulties.includes(aNewRecipe.difficulty)) {
         throw new Error(`Please choose a difficulty. Must be one of: ${validDifficulty.join(', ')}`);
     }
 

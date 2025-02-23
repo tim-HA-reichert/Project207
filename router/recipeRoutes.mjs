@@ -5,6 +5,18 @@ import * as recipeUtils from '../utils/recipeUtils.mjs';
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
 
+const difficulties = {
+  easy: "easy",
+  medium: "medium",
+  hard: "hard"
+}
+
+const mealTypes = {
+  breakfast: "breakfast",
+  lunch: "lunch",
+  dinner: "dinner"
+}
+
 const recipes = [
   //noen jalla oppskrifter
     {
@@ -12,8 +24,8 @@ const recipes = [
       title: "Pasta with Tomato Sauce",
       servings: 2,
       cookingTime: 30,
-      difficulty: "easy",
-      mealType: "dinner",
+      difficulty: difficulties.easy,
+      mealType: mealTypes.dinner,
       nationality: "italian",
       ingredients: [
         { "name": "pasta", "amount": "200", "unit": "g" },
@@ -25,8 +37,8 @@ const recipes = [
       title: "Simple Omelette",
       servings: 1,
       cookingTime: 10,
-      difficulty: "easy",
-      mealType: "breakfast",
+      difficulty: difficulties.easy,
+      mealType: mealTypes.breakfast,
       nationality: "french",
       ingredients: [
         { "name": "eggs", "amount": "2", "unit": "" },
@@ -37,8 +49,8 @@ const recipes = [
       title: "Beef Stir Fry",
       servings: 4,
       cookingTime: 35,
-      difficulty: "medium",
-      mealType: "dinner",
+      difficulty: difficulties.medium,
+      mealType: mealTypes.dinner,
       nationality: "chinese",
       ingredients: [
         { "name": "beef strips", "amount": "500", "unit": "g" },
@@ -50,8 +62,8 @@ const recipes = [
       title: "Beef Wellington",
       servings: 6,
       cookingTime: 120,
-      difficulty: "hard",
-      mealType: "dinner",
+      difficulty: difficulties.hard,
+      mealType: mealTypes.dinner,
       nationality: "british",
       ingredients: [
         { "name": "beef tenderloin", "amount": "1", "unit": "kg" },
@@ -94,7 +106,7 @@ recipeRouter.get("/:id", (req, res) => {
 recipeRouter.post("/", (req, res) => {
   const newRecipe = req.body;
   
-  recipeUtils.createNewRecipe(recipes, newRecipe);
+  recipeUtils.createNewRecipe(recipes, newRecipe, difficulties, mealTypes);
   res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
 });
 
