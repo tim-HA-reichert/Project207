@@ -14,6 +14,10 @@ const recipes = [
       difficulty: "easy",
       mealType: "dinner",
       nationality: "italian",
+      ingredients: [
+        { "name": "pasta", "amount": "200", "unit": "g" },
+        { "name": "crushed tomatoes", "amount": "400", "unit": "g" }
+      ]
     },
     {
       id: 2,
@@ -23,17 +27,28 @@ const recipes = [
       difficulty: "easy",
       mealType: "breakfast",
       nationality: "french",
+      ingredients: [
+        { "name": "eggs", "amount": "2", "unit": "" },
+        { "name": "butter", "amount": "1", "unit": "tbsp" }
+      ],
     }
 ];
 
 recipeRouter.get("/", (req, res) => {
   console.log(recipes)
+
+  const searchCriteriaExists = Object.keys(req.query).length > 0;
+
+  if(!searchCriteriaExists){
+    return res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
+  }
+
   res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
 })
 
 recipeRouter.get("/:id", (req, res) => {
     const id = req.params.id;
-    const recipe = recipeUtils.findRecipe(recipes, id);
+    const recipe = recipeUtils.findRecipeById(recipes, id);
 
     if(recipe){
       res.status(HTTP_CODES.SUCCESS.OK).send(recipe).end();
@@ -53,7 +68,7 @@ recipeRouter.patch("/:id", (req, res) => {
   const id = req.params.id;
   const recipeChanges = req.body;
 
-  const recipeToChange = recipeUtils.findRecipe(recipes, id);
+  const recipeToChange = recipeUtils.findRecipeById(recipes, id);
   
   if(recipeToChange){
     const updatedRecipe = recipeUtils.changeExistingRecipe(recipes, id, recipeChanges);
