@@ -6,6 +6,7 @@ const recipeRouter = express.Router();
 recipeRouter.use(express.json());
 
 const recipes = [
+  //noen jalla oppskrifter
     {
       id: 1,
       title: "Pasta with Tomato Sauce",
@@ -31,19 +32,49 @@ const recipes = [
         { "name": "eggs", "amount": "2", "unit": "" },
         { "name": "butter", "amount": "1", "unit": "tbsp" }
       ],
+    }, {
+      id: 3,
+      title: "Beef Stir Fry",
+      servings: 4,
+      cookingTime: 35,
+      difficulty: "medium",
+      mealType: "dinner",
+      nationality: "chinese",
+      ingredients: [
+        { "name": "beef strips", "amount": "500", "unit": "g" },
+        { "name": "broccoli", "amount": "2", "unit": "cups" },
+      ]
+    },
+    {
+      id: 4,
+      title: "Beef Wellington",
+      servings: 6,
+      cookingTime: 120,
+      difficulty: "hard",
+      mealType: "dinner",
+      nationality: "british",
+      ingredients: [
+        { "name": "beef tenderloin", "amount": "1", "unit": "kg" },
+        { "name": "prosciutto", "amount": "8", "unit": "slices" },
+        { "name": "puff pastry", "amount": "500", "unit": "g" },
+      ]
     }
 ];
 
 recipeRouter.get("/", (req, res) => {
-  console.log(recipes)
-
   const searchCriteriaExists = Object.keys(req.query).length > 0;
 
   if(!searchCriteriaExists){
     return res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
   }
 
-  res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
+  const findRecipe = recipeUtils.searchRecipes(recipes, req.query);
+  if(findRecipe){
+    res.status(HTTP_CODES.SUCCESS.OK).send(findRecipe).end();
+  } else {
+    res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
+  }
+
 })
 
 recipeRouter.get("/:id", (req, res) => {

@@ -28,6 +28,11 @@
             "id": "american",
             "name": "American",
             "description": "Cuisine from America"
+        },
+        {
+            "id": "chinese",
+            "name": "Chinese",
+            "description": "Cuisine from China"
         }
     ],
     "mealTypes": [

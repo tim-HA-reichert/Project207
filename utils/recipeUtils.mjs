@@ -4,9 +4,21 @@ export const findRecipeById = (aCollectionOfRecipes, aRecipeID) => {
     return recipe;
 }
 
-export const searchRecipe = (aCollectionOfRecipes, aSearchReq) => {
+export const searchRecipes = (aCollectionOfRecipes, searchParams) => {
+   return aCollectionOfRecipes.filter(recipe => {
 
-}
+      for (const [searchField, searchValue] of Object.entries(searchParams)) {
+
+        const valueInRecipe = String(recipe[searchField]).toLowerCase();
+        const valueToFind = String(searchValue).toLowerCase();
+        
+        if (!valueInRecipe.includes(valueToFind)) {
+          return false;
+        }
+      }
+      return true
+    });
+  };
 
 
 
