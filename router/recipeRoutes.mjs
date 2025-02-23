@@ -66,15 +66,17 @@ recipeRouter.get("/", (req, res) => {
 
   if(!searchCriteriaExists){
     return res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
-  }
-
-  const findRecipe = recipeUtils.searchRecipes(recipes, req.query);
-  if(findRecipe){
-    res.status(HTTP_CODES.SUCCESS.OK).send(findRecipe).end();
   } else {
-    res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
-  }
 
+    const findRecipe = recipeUtils.searchRecipes(recipes, req.query);
+      if(findRecipe.length > 0){
+        res.status(HTTP_CODES.SUCCESS.OK).send(findRecipe).end();
+      } else {
+        res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND)
+          .send({message:"No recipes found with your criteria."})
+            .end();
+      }
+  }
 })
 
 recipeRouter.get("/:id", (req, res) => {
