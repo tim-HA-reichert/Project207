@@ -6,9 +6,23 @@ export const findRecipeById = (aCollectionOfRecipes, aRecipeID) => {
 
 export const searchRecipes = (aCollectionOfRecipes, searchParams) => {
    return aCollectionOfRecipes.filter(recipe => {
-
       for (const [searchField, searchValue] of Object.entries(searchParams)) {
 
+        if(searchField === "ingredients"){
+            const searchIngredients = searchValue.split(",")
+                .map(ingredient => ingredient.trim().toLowerCase());
+
+            const hasIngredient = searchIngredients.every(ingredient => 
+                    recipe.ingredients.some(
+                        element => element.name.toLowerCase().includes(searchIngredients)
+            )
+        );
+            if(!hasIngredient){
+                return false
+            } 
+                continue
+        }
+        
         const valueInRecipe = String(recipe[searchField]).toLowerCase();
         const valueToFind = String(searchValue).toLowerCase();
         
@@ -42,6 +56,13 @@ export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe) => {
         throw new Error(`Gotta have a mealtype, man. Must be one of: ${validMealType.join(', ')}`);
     }
 
+    if (aNewRecipe.ingredients) {
+        if (!Array.isArray(aNewRecipe.ingredients)) {
+            throw new Error("Ingredients must be an array");
+        }
+    }
+
+
     const existingIds = aCollectionOfRecipes.map(recipe => recipe.id);
     const newId = Math.max(...existingIds) + 1;
 
@@ -52,12 +73,14 @@ export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe) => {
             cookingTime: aNewRecipe.cookingTime,
             difficulty: aNewRecipe.difficulty,
             mealType: aNewRecipe.mealType,
-            nationality: aNewRecipe.nationality
+            nationality: aNewRecipe.nationality,
+            ingredients: aNewRecipe.ingredients || []
         }
 
         aCollectionOfRecipes.push(newRecipe);
     return aCollectionOfRecipes;
 }
+
 
 export const changeExistingRecipe = (aCollectionOfRecipes, recipeId, recipeChanges) => {
 

@@ -57,6 +57,7 @@ const recipes = [
         { "name": "beef tenderloin", "amount": "1", "unit": "kg" },
         { "name": "prosciutto", "amount": "8", "unit": "slices" },
         { "name": "puff pastry", "amount": "500", "unit": "g" },
+        { "name": "butter", "amount": "1", "unit": "tbsp" }
       ]
     }
 ];
