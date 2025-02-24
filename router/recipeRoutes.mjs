@@ -2,6 +2,15 @@ import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
 import * as recipeUtils from '../utils/recipeUtils.mjs';
 
+import { 
+  findRecipeById, 
+  searchRecipes, 
+  createNewRecipe, 
+  changeExistingRecipe, 
+  deleteRecipe 
+} from '../utils/recipe/index.mjs';
+
+
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
 
@@ -81,7 +90,7 @@ recipeRouter.get("/", (req, res) => {
     return res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
   } else {
 
-    const findRecipe = recipeUtils.searchRecipes(recipes, req.query);
+    const findRecipe = searchRecipes(recipes, req.query);
       if(findRecipe.length > 0){
         res.status(HTTP_CODES.SUCCESS.OK).send(findRecipe).end();
       } else {
@@ -94,7 +103,7 @@ recipeRouter.get("/", (req, res) => {
 
 recipeRouter.get("/:id", (req, res) => {
     const id = req.params.id;
-    const recipe = recipeUtils.findRecipeById(recipes, id);
+    const recipe = findRecipeById(recipes, id);
 
     if(recipe){
       res.status(HTTP_CODES.SUCCESS.OK).send(recipe).end();
@@ -106,7 +115,7 @@ recipeRouter.get("/:id", (req, res) => {
 recipeRouter.post("/", (req, res) => {
   const newRecipe = req.body;
   
-  recipeUtils.createNewRecipe(recipes, newRecipe, difficulties, mealTypes);
+  createNewRecipe(recipes, newRecipe, difficulties, mealTypes);
   res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
 });
 
@@ -114,10 +123,10 @@ recipeRouter.patch("/:id", (req, res) => {
   const id = req.params.id;
   const recipeChanges = req.body;
 
-  const recipeToChange = recipeUtils.findRecipeById(recipes, id);
+  const recipeToChange = findRecipeById(recipes, id);
   
   if(recipeToChange){
-    const updatedRecipe = recipeUtils.changeExistingRecipe(recipes, id, recipeChanges);
+    const updatedRecipe = changeExistingRecipe(recipes, id, recipeChanges);
 
     res.status(HTTP_CODES.SUCCESS.ACCEPTED).send(updatedRecipe).end();
   } else {
@@ -129,7 +138,7 @@ recipeRouter.delete("/:id", (req, res) => {
     const id = req.params.id;
     const originalRecipeListLength = recipes.length;
 
-    recipeUtils.deleteRecipe(recipes, id);
+    deleteRecipe(recipes, id);
 
     if(recipes.length < originalRecipeListLength){
       res.status(HTTP_CODES.SUCCESS.NO_CONTENT).end();
