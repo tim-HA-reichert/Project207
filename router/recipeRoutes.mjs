@@ -1,6 +1,5 @@
 import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
-import * as recipeUtils from '../utils/recipeUtils.mjs';
 
 import { 
   findRecipeById, 
