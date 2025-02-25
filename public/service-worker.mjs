@@ -1,9 +1,18 @@
-
-
 const addResourceToCache = async (resources) => {
     const cache = await caches.open("v1");
     await cache.addAll(resources);
 }
+
+const cacheFirst = async (request) => {
+    const resFromCache = await caches.match(request);
+    
+    if(resFromCache){
+        return resFromCache;
+    }
+
+    return fetch(request);
+}
+
 
 
 self.addEventListener("install", (e) => {
@@ -19,8 +28,11 @@ self.addEventListener("install", (e) => {
     );
 });
 
+
+
+
+
 self.addEventListener("fetch", (event) => {
-    console.log(event);
-    event.respondWith(caches.match(event.request));
+    event.respondWith(cacheFirst(event.request));
 });
 
