@@ -3,14 +3,22 @@ const addResourceToCache = async (resources) => {
     await cache.addAll(resources);
 }
 
-const cacheFirst = async (request) => {
+const putInCache = async (request, response) => {
+    const cache = await caches.open("v1");
+    await cache.put(request, response);
+}
+
+const cacheFirst = async (request, event) => {
     const resFromCache = await caches.match(request);
     
     if(resFromCache){
         return resFromCache;
     }
 
-    return fetch(request);
+    const resFromNetwork = await fetch(request);
+    event.waitUntil(putInCache(request, resFromNetwork.clone()));
+    return resFromNetwork;
+
 }
 
 
@@ -33,6 +41,6 @@ self.addEventListener("install", (e) => {
 
 
 self.addEventListener("fetch", (event) => {
-    event.respondWith(cacheFirst(event.request));
+    event.respondWith(cacheFirst(event.request, event));
 });
 
