@@ -14,7 +14,7 @@ const HTTP_CODES = {
     }
 }
 
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = "v1";
 
 const addResourceToCache = async (resources) => {
     const cache = await caches.open(CACHE_VERSION);
@@ -26,12 +26,21 @@ const putInCache = async (request, response) => {
     await cache.put(request, response);
 }
 
-const cacheFirst = async (request, fallbackURL, event) => {
+
+const cacheFirst = async ({request, preloadResPromise, fallbackURL, event}) => {
     const resFromCache = await caches.match(request);
     
     if(resFromCache){
         return resFromCache;
     }
+
+    const preloadRes = await preloadResPromise;
+    if(preloadRes){
+        console.info("using preload response", preloadRes);
+        event.waitUntil(putInCache(request, preloadRes.clone()));
+        return preloadRes;
+    }
+
 
     try{
         const resFromNetwork = await fetch(request);
@@ -64,9 +73,22 @@ const deleteOldCaches = async () =>{
     await Promise.all(cachesToDelete.map(deleteCache));
 } 
 
+const enableNavigationPreload = async () => {
+    if(self.registration.navigationPreload){
+        await self.registration.navigationPreload.enable();
+    }
+}
+
+
 self.addEventListener("activate", (event) => {
-    event.waitUntil(deleteOldCaches());
+    event.waitUntil(
+        Promise.all([
+            deleteOldCaches(),
+            enableNavigationPreload()
+        ])
+    )
 })
+
 
 self.addEventListener("install", (event) => {
     event.waitUntil(
@@ -83,10 +105,11 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
     event.respondWith(
-        cacheFirst(
-            event.request, 
-            "/index.html", 
+        cacheFirst({
+            request: event.request, 
+            preloadResPromise: event.preloadRes,
+            fallbackURL: "/index.html", 
             event
-        )
+        })
     );
 });
