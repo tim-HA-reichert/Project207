@@ -14,26 +14,26 @@ const HTTP_CODES = {
     }
 }
 
+const CACHE_VERSION = "v2";
 
 const addResourceToCache = async (resources) => {
-    const cache = await caches.open("v2");
+    const cache = await caches.open(CACHE_VERSION);
     await cache.addAll(resources);
 }
 
 const putInCache = async (request, response) => {
-    const cache = await caches.open("v1");
+    const cache = await caches.open(CACHE_VERSION);
     await cache.put(request, response);
 }
 
-const cacheFirst = async (request, event) => {
+const cacheFirst = async (request, fallbackURL, event) => {
     const resFromCache = await caches.match(request);
     
-        if(resFromCache){
-            return resFromCache;
-        }
+    if(resFromCache){
+        return resFromCache;
+    }
 
     try{
-        
         const resFromNetwork = await fetch(request);
         event.waitUntil(putInCache(request, resFromNetwork.clone()));
         
@@ -42,9 +42,9 @@ const cacheFirst = async (request, event) => {
     }catch(error){
         
         const fallbackRes = await caches.match(fallbackURL);
-            if(fallbackRes){
-                return fallbackRes;
-            }
+        if(fallbackRes){
+            return fallbackRes;
+        }
         
         return new Response("Network error happened", {
             status: HTTP_CODES.CLIENT_ERROR.REQ_TIMEOUT,
@@ -58,7 +58,7 @@ const deleteCache = async (key) => {
 }
 
 const deleteOldCaches = async () =>{
-    const cacheKeepList = ["v2"];
+    const cacheKeepList = [CACHE_VERSION];
     const keyList = await caches.keys();
     const cachesToDelete = keyList.filter((key) => !cacheKeepList.includes(key));
     await Promise.all(cachesToDelete.map(deleteCache));
@@ -68,8 +68,8 @@ self.addEventListener("activate", (event) => {
     event.waitUntil(deleteOldCaches());
 })
 
-self.addEventListener("install", (e) => {
-    e.waitUntil(
+self.addEventListener("install", (event) => {
+    event.waitUntil(
         addResourceToCache([
             "/",
             "/index.html",
@@ -81,14 +81,12 @@ self.addEventListener("install", (e) => {
     );
 });
 
-
 self.addEventListener("fetch", (event) => {
     event.respondWith(
-        cacheFirst({
-            request: event.request,
-            fallbackURL: "/index.html",
+        cacheFirst(
+            event.request, 
+            "/index.html", 
             event
-            })
-        );
+        )
+    );
 });
-
