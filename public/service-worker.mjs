@@ -1,7 +1,22 @@
-import HTTP_CODES from "../utils/httpCodes.mjs";
+const HTTP_CODES = {
+    SUCCESS: {
+        OK: 200,
+        CREATED: 201,
+        ACCEPTED: 202,
+        NO_CONTENT: 204,
+    },
+    CLIENT_ERROR: {
+        NOT_FOUND: 404,
+        UNAUTHORIZED: 401,
+        BAD_INPUT: 400,
+        FORBIDDEN: 403,
+        REQ_TIMEOUT: 408
+    }
+}
+
 
 const addResourceToCache = async (resources) => {
-    const cache = await caches.open("v1");
+    const cache = await caches.open("v2");
     await cache.addAll(resources);
 }
 
@@ -23,6 +38,7 @@ const cacheFirst = async (request, event) => {
         event.waitUntil(putInCache(request, resFromNetwork.clone()));
         
         return resFromNetwork;
+
     }catch(error){
         
         const fallbackRes = await caches.match(fallbackURL);
@@ -37,7 +53,20 @@ const cacheFirst = async (request, event) => {
     }
 };
 
+const deleteCache = async (key) => {
+    await caches.delete(key);
+}
 
+const deleteOldCaches = async () =>{
+    const cacheKeepList = ["v2"];
+    const keyList = await caches.keys();
+    const cachesToDelete = keyList.filter((key) => !cacheKeepList.includes(key));
+    await Promise.all(cachesToDelete.map(deleteCache));
+} 
+
+self.addEventListener("activate", (event) => {
+    event.waitUntil(deleteOldCaches());
+})
 
 self.addEventListener("install", (e) => {
     e.waitUntil(
