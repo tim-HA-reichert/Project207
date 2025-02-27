@@ -1,0 +1,18 @@
+{
+    "short_name": "plateful",
+    "name": "plateful",
+    "icons": [
+        {
+            "src":"/icons/192x192.png",
+            "sizes":"192x192",
+            "type":"image/png"
+        },
+        {
+            "src":"/icons/512x512.png",
+            "sizes":"512x512",
+            "type":"image/png"
+        }
+    ],
+    "display":"standalone",
+    "start_url":"/"
+}
