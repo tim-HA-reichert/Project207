@@ -1,5 +1,3 @@
-
-
 class Recipe{
     constructor(id, authorID, recipeTitle, nationality, cookingTime, difficulty){
         this.id = id;
