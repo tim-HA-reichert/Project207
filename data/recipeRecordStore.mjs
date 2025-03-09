@@ -34,8 +34,10 @@ class StoreRecipeRecord extends RecordStoreInterface {
 
     }
 
-    readAll(){
+    async readAll(){
         let query = `SELECT * FROM recipes`;
+
+        return await db.read(query);
     }
 
     read(){
