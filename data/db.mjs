@@ -1,5 +1,5 @@
 import pg from 'pg'
-const { Client, Pool } = pg
+const { Pool } = pg
 
 const config = {
     connectionString: process.env.DB_EXTERNAL_CRED,
@@ -8,16 +8,16 @@ const config = {
 
 const pool = new Pool(config);
 
-async function create(statement, ...values){
+export async function create(statement, ...values){
     return await runQuery(statement, ...values);
 }
-async function read(statement, ...values){
+export async function read(statement, ...values){
     return await runQuery(statement, ...values);
 }
-async function update(statement, ...values){
+export async function update(statement, ...values){
    return await runQuery(statement, ...values);
 }
-async function remove(statement, ...values){
+export async function remove(statement, ...values){
     return await runQuery(statement, ...values);
 }
 

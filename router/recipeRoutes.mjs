@@ -9,78 +9,8 @@ import {
   deleteRecipe 
 } from '../utils/recipe/index.mjs';
 
-
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
-
-const difficulties = {
-  easy: "easy",
-  medium: "medium",
-  hard: "hard"
-}
-
-const mealTypes = {
-  breakfast: "breakfast",
-  lunch: "lunch",
-  dinner: "dinner"
-}
-
-const recipes = [
-  //noen jalla oppskrifter
-    {
-      id: 1,
-      title: "Pasta with Tomato Sauce",
-      servings: 2,
-      cookingTime: 30,
-      difficulty: difficulties.easy,
-      mealType: mealTypes.dinner,
-      nationality: "italian",
-      ingredients: [
-        { "name": "pasta", "amount": "200", "unit": "g" },
-        { "name": "crushed tomatoes", "amount": "400", "unit": "g" }
-      ]
-    },
-    {
-      id: 2,
-      title: "Simple Omelette",
-      servings: 1,
-      cookingTime: 10,
-      difficulty: difficulties.easy,
-      mealType: mealTypes.breakfast,
-      nationality: "french",
-      ingredients: [
-        { "name": "eggs", "amount": "2", "unit": "" },
-        { "name": "butter", "amount": "1", "unit": "tbsp" }
-      ],
-    }, {
-      id: 3,
-      title: "Beef Stir Fry",
-      servings: 4,
-      cookingTime: 35,
-      difficulty: difficulties.medium,
-      mealType: mealTypes.dinner,
-      nationality: "chinese",
-      ingredients: [
-        { "name": "beef strips", "amount": "500", "unit": "g" },
-        { "name": "broccoli", "amount": "2", "unit": "cups" },
-      ]
-    },
-    {
-      id: 4,
-      title: "Beef Wellington",
-      servings: 6,
-      cookingTime: 120,
-      difficulty: difficulties.hard,
-      mealType: mealTypes.dinner,
-      nationality: "british",
-      ingredients: [
-        { "name": "beef tenderloin", "amount": "1", "unit": "kg" },
-        { "name": "prosciutto", "amount": "8", "unit": "slices" },
-        { "name": "puff pastry", "amount": "500", "unit": "g" },
-        { "name": "butter", "amount": "1", "unit": "tbsp" }
-      ]
-    }
-];
 
 recipeRouter.get("/", (req, res) => {
   const searchCriteriaExists = Object.keys(req.query).length > 0;
