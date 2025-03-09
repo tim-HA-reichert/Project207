@@ -9,8 +9,24 @@ import {
   deleteRecipe 
 } from '../utils/recipe/index.mjs';
 
+
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
+
+const difficulties = {
+  easy: "easy",
+  medium: "medium",
+  hard: "hard"
+}
+
+const mealTypes = {
+  breakfast: "breakfast",
+  lunch: "lunch",
+  dinner: "dinner"
+}
+
+const recipes = [
+];
 
 recipeRouter.get("/", (req, res) => {
   const searchCriteriaExists = Object.keys(req.query).length > 0;
