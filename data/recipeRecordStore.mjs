@@ -34,12 +34,16 @@ class StoreRecipeRecord extends RecordStoreInterface {
 
     }
 
+    readAll(){
+        let query = `SELECT * FROM recipes`;
+    }
+
     read(){
 
     }
 
     update(){
-
+        
     }
 
     remove(){
