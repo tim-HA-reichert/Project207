@@ -11,7 +11,7 @@ export default class UserRecordStore extends RecordStoreInterface {
                 role,
                 created_at
             )
-            VALUES ($1, $2, NOW()), $4)
+            VALUES ($1, $2, $3, NOW()))
             RETURNING *
             `;
 
