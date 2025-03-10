@@ -1,5 +1,6 @@
 class Recipe{
-    constructor(id, authorID, recipeTitle, servings, mealType, nationality, ingredients, cookingTime, difficulty, instructions){
+    constructor(recipeRecord, authorID, recipeTitle, servings, mealType, nationality, ingredients, cookingTime, difficulty, instructions){
+        this.recipeRecord = recipeRecord;
         this.authorID = authorID;
         this.recipeTitle = recipeTitle;
         this.servings = servings
@@ -11,7 +12,9 @@ class Recipe{
         this.instructions = instructions;
     }
 
-    read(id){};
+    read(id){
+    };
+
     update(id, authorID){};
     deletion(id, authorID){};
 

@@ -1,4 +1,4 @@
-export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe, difficulties, mealTypes) => {
+export const createNewRecipe = (aNewRecipe, difficulties, mealTypes) => {
     const validDifficulties = Object.values(difficulties);
     const validMealTypes = Object.values(mealTypes); 
 
@@ -14,11 +14,10 @@ export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe, difficulties, 
         throw new Error(`Gotta have a mealtype, man. Must be one of: ${validMealTypes.join(', ')}`);
     }
 
-    if (aNewRecipe.ingredients) {
-        if (!Array.isArray(aNewRecipe.ingredients)) {
+    if (aNewRecipe.ingredients && !Array.isArray(aNewRecipe.ingredients)) {
             throw new Error("Ingredients must be an array");
         }
-    }
+    
 
     const newRecipe = {
         recipeTitle: aNewRecipe.recipeTitle,

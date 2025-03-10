@@ -1,5 +1,6 @@
 import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
+import * as recipeDB from '../data/recipeRecordStore.mjs'
 
 import { 
   findRecipeById, 
@@ -57,12 +58,22 @@ recipeRouter.get("/:id", (req, res) => {
     }
 });
 
-recipeRouter.post("/", (req, res) => {
-  const newRecipe = req.body;
-  
-  createNewRecipe(recipes, newRecipe, difficulties, mealTypes);
-  res.status(HTTP_CODES.SUCCESS.CREATED).send(recipes).end();
+
+recipeRouter.post("/", async (req, res) => {
+  try{
+    const recipeData = req.body;
+    const newRecipe = createNewRecipe(recipeData, difficulties, mealTypes);
+
+    const addNewRecipe = await recipeDB.create(newRecipe);
+
+    res.status(HTTP_CODES.SUCCESS.CREATED).json(addNewRecipe);
+  }catch(error){
+
+  }
 });
+
+
+
 
 recipeRouter.patch("/:id", (req, res) => {
   const id = req.params.id;

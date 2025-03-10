@@ -2,6 +2,10 @@ import express from 'express'
 import HTTP_CODES from './utils/httpCodes.mjs';
 import recipeRouter from './router/recipeRoutes.mjs';
 import loginRouter from './router/loginRoutes.mjs';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const server = express();
 const port = (process.env.PORT || 8000);

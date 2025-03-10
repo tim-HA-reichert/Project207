@@ -9,27 +9,26 @@ const config = {
 const pool = new Pool(config);
 
 export async function create(statement, ...values){
-    return await runQuery(statement, ...values);
+    return await runQuery(statement, values);
 }
 export async function read(statement, ...values){
-    return await runQuery(statement, ...values);
+    return await runQuery(statement, values);
 }
 export async function update(statement, ...values){
-   return await runQuery(statement, ...values);
+   return await runQuery(statement, values);
 }
 export async function remove(statement, ...values){
-    return await runQuery(statement, ...values);
+    return await runQuery(statement, values);
 }
 
 async function runQuery(query, ...values){
     const client = await pool.connect();
     
     try{
-        await client.connect();
         const result = await client.query(query, values);
 
         if(result.rowCount <= 0){
-            throw new Error(console.log("Row count is 0. No records created."));
+            throw new Error("Row count is 0. No records created.");
         }
 
         return result.rows[0];
