@@ -68,7 +68,10 @@ recipeRouter.post("/", async (req, res) => {
 
     res.status(HTTP_CODES.SUCCESS.CREATED).json(addNewRecipe);
   }catch(error){
-
+    console.error("Error creating recipe:", error);
+    res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT)
+      .json({ message: error.message })
+      .end();
   }
 });
 

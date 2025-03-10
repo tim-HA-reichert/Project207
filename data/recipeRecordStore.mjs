@@ -30,7 +30,7 @@ class StoreRecipeRecord extends RecordStoreInterface {
             JSON.stringify(recipe.instructions || [])
         ]
 
-        return await db.create(query, ...values);
+        return await db.create(query, values);
 
     }
 
