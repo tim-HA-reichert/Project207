@@ -1,7 +1,7 @@
 import RecordStoreInterface from "./abstractRecordStoreInterface.mjs";
 import * as db from './db.mjs';
 
-class StoreRecipeRecord extends RecordStoreInterface {
+export default class StoreRecipeRecord extends RecordStoreInterface {
 
     async create(recipe){
         const query = `

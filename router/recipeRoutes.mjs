@@ -1,6 +1,7 @@
 import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
-import * as recipeDB from '../data/recipeRecordStore.mjs'
+import Recipe from '../models/recipeModel.mjs';
+import StoreRecipeRecord from '../data/recipeRecordStore.mjs';
 
 import { 
   findRecipeById, 
@@ -62,11 +63,14 @@ recipeRouter.get("/:id", (req, res) => {
 recipeRouter.post("/", async (req, res) => {
   try{
     const recipeData = req.body;
-    const newRecipe = createNewRecipe(recipeData, difficulties, mealTypes);
+    const validatedNewRecipeData = createNewRecipe(recipeData, difficulties, mealTypes);
 
-    const addNewRecipe = await recipeDB.create(newRecipe);
+    const recipeRecord = new StoreRecipeRecord();
+    const newRecipe = new Recipe(recipeRecord, validatedNewRecipeData);
 
-    res.status(HTTP_CODES.SUCCESS.CREATED).json(addNewRecipe);
+    const saveRecipe = await newRecipe.create();
+
+    res.status(HTTP_CODES.SUCCESS.CREATED).json(saveRecipe);
   }catch(error){
     console.error("Error creating recipe:", error);
     res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT)
