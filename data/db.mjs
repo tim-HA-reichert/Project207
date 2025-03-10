@@ -3,24 +3,23 @@ const { Pool } = pg
 
 const config = {
     connectionString: process.env.DB_EXTERNAL_CRED,
-    ssl: {
-        rejectUnauthorized: false  
-    }
+    ssl: process.env.DB_SSL === "true" ? process.env.DB_SSL : { "rejectUnauthorized": false }
+
 }
 
 const pool = new Pool(config);
 
 export async function create(statement, ...values){
-    return await runQuery(statement, values);
+    return await runQuery(statement, ...values);
 }
 export async function read(statement, ...values){
-    return await runQuery(statement, values);
+    return await runQuery(statement, ...values);
 }
 export async function update(statement, ...values){
-   return await runQuery(statement, values);
+   return await runQuery(statement, ...values);
 }
 export async function remove(statement, ...values){
-    return await runQuery(statement, values);
+    return await runQuery(statement, ...values);
 }
 
 async function runQuery(query, ...values){
