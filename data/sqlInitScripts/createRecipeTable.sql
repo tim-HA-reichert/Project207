@@ -19,3 +19,5 @@ CREATE TABLE users (
     role VARCHAR(20) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE recipes ADD COLUMN author_id INTEGER REFERENCES users(user_id);
