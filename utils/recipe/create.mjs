@@ -20,20 +20,16 @@ export const createNewRecipe = (aCollectionOfRecipes, aNewRecipe, difficulties, 
         }
     }
 
-    const existingIds = aCollectionOfRecipes.map(recipe => recipe.id);
-    const newId = Math.max(...existingIds) + 1;
-
     const newRecipe = {
-        id: newId,
-        title: aNewRecipe.title,
+        recipeTitle: aNewRecipe.recipeTitle,
         servings: aNewRecipe.servings,
         cookingTime: aNewRecipe.cookingTime,
         difficulty: difficulties[aNewRecipe.difficulty.toLowerCase()],
         mealType: mealTypes[aNewRecipe.mealType.toLowerCase()],
         nationality: aNewRecipe.nationality,
-        ingredients: aNewRecipe.ingredients || []
+        ingredients: aNewRecipe.ingredients || [],
+        instructions: aNewRecipe.instructions || []
     }
 
-    aCollectionOfRecipes.push(newRecipe);
-    return aCollectionOfRecipes;
+    return newRecipe
 }
