@@ -3,7 +3,9 @@ const { Pool } = pg
 
 const config = {
     connectionString: process.env.DB_EXTERNAL_CRED,
-    ssl: false 
+    ssl: {
+        rejectUnauthorized: false  
+    }
 }
 
 const pool = new Pool(config);
