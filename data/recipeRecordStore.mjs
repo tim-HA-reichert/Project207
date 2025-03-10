@@ -6,11 +6,11 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
     async create(recipe){
         const query = `
             INSERT INTO recipes (
-                recipeTitle,
+                title,
                 servings,
-                cookingTime,
+                cookingtime,
                 difficulty,
-                mealType,
+                mealtype,
                 nationality,
                 ingredients,
                 instructions
