@@ -75,9 +75,6 @@ recipeRouter.post("/", async (req, res) => {
   }
 });
 
-
-
-
 recipeRouter.patch("/:id", (req, res) => {
   const id = req.params.id;
   const recipeChanges = req.body;
@@ -93,6 +90,20 @@ recipeRouter.patch("/:id", (req, res) => {
   }
 });
 
+recipeRouter.delete("/:id", async (req, res) => {
+  const recipeId = req.params.id;
+  
+  const recipeToDelete = await recipeService.deleteRecipe(recipeId);
+
+  if(recipeToDelete){
+    res.status(HTTP_CODES.SUCCESS.NO_CONTENT).end();
+  } else {
+    res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send().end();
+  }
+})
+
+//#region old delete code
+/* 
 recipeRouter.delete("/:id", (req, res) => {
     const id = req.params.id;
     const originalRecipeListLength = recipes.length;
@@ -104,7 +115,7 @@ recipeRouter.delete("/:id", (req, res) => {
     } else {
       res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send().end();
     }
-})
-
+}) */
+//#endregion
 
 export default recipeRouter;

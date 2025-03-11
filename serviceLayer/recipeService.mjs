@@ -62,5 +62,10 @@ export default class RecipeService {
     return await this.recipeRecord.searchFor(searchTerms);
   }
   
+  async deleteRecipe(recipeId){
+    return await this.recipeRecord.remove(recipeId);
+  }
+
+
   
 }

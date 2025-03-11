@@ -65,12 +65,21 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
     
         return await db.read(query, ...values);
     }
+
     update(){
         
     }
 
-    remove(){
+    async remove(recipeId){
+        const query = `
+        DELETE FROM recipes
+        WHERE recipe_id = $1
+        RETURNING *
+        `;
 
+        const values = [recipeId];
+
+        return await db.remove(query, ...values);
     }
 
 }
