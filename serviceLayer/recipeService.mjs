@@ -36,27 +36,28 @@ export default class RecipeService {
     return await saveRecipe;
   }
   
-  async readAllRecipes() {
-    return await this.recipeRecord.readAll();
-  }
-  
   async searchForRecipe(searchCriteria) {
     console.log("Looking for recipe with criteria:", searchCriteria);
   
-    const filteredCriteria = Object.fromEntries(
-      Object.entries(searchCriteria).filter(([_, value]) => value) // Keep only non-empty values
-    );
+    const searchTerm = searchCriteria.search;
   
-    console.log("Filtered Search Criteria:", filteredCriteria);
-  
-    if (Object.keys(filteredCriteria).length === 0) {
+    if (!searchTerm) {
       return await this.readAllRecipes();
     }
   
-    const searchTerms = Object.values(filteredCriteria);
+    const searchTerms = searchTerm
+        .split(/[\s,;|&]+/)
+        .map(term => term.trim())  
+        .filter(Boolean);         
   
+    console.log("Search Terms:", searchTerms);
+  
+    if (searchTerms.length === 0) {
+      return await this.readAllRecipes();
+    }
     return await this.recipeRecord.searchFor(searchTerms);
   }
+  
   
   
 }
