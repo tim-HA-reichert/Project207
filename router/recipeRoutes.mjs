@@ -26,6 +26,8 @@ const recipeService = new RecipeService(recipeRecord);
 recipeRouter.get("/", async (req, res) => {
   const searchCriteriaExists = Object.keys(req.query).length > 0;
 
+  console.log(req.query);
+
   if(!searchCriteriaExists){
 
     const getAllRecipes = await recipeService.readAllRecipes();
@@ -33,6 +35,7 @@ recipeRouter.get("/", async (req, res) => {
 
   } else {
     const searchCriteria = req.query;
+    console.log('Processed Search Criteria:', searchCriteria);
     const findRecipes = await recipeService.searchForRecipe(searchCriteria);
       if(findRecipes.length > 0){
         res.status(HTTP_CODES.SUCCESS.OK).send(findRecipes).end();

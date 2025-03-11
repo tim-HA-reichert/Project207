@@ -42,16 +42,17 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
 
     async searchFor(searchTerms) {
         const terms = Array.isArray(searchTerms) ? searchTerms : [searchTerms];
-        
+
+
+
         const whereClauses = terms.map((term, index) => `(
             LOWER(title) LIKE LOWER($${index + 1}) OR
-            LOWER(CAST(servings AS VARCHAR)) LIKE LOWER($${index + 1}) OR
-            LOWER(CAST(cookingTime AS VARCHAR)) LIKE LOWER($${index + 1}) OR
+            LOWER(CAST(servings AS TEXT)) LIKE LOWER($${index + 1}) OR
+            LOWER(CAST(cookingTime AS TEXT)) LIKE LOWER($${index + 1}) OR
             LOWER(difficulty) LIKE LOWER($${index + 1}) OR
-            LOWER(mealType) LIKE LOWER($${index + 1}) OR
             LOWER(nationality) LIKE LOWER($${index + 1}) OR
-            LOWER(ingredients) LIKE LOWER($${index + 1}) OR
-            LOWER(instructions) LIKE LOWER($${index + 1})
+            LOWER(ingredients::text) LIKE LOWER($${index + 1}) OR
+            LOWER(instructions::text) LIKE LOWER($${index + 1})
         )`);
     
         const query = `
