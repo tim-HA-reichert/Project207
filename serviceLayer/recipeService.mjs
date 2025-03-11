@@ -40,7 +40,7 @@ export default class RecipeService {
     return await this.recipeRecord.readAll();
   }
   
-  async searchRecipes(searchCriteria) {
+  async searchForRecipe(searchCriteria) {
     return await this.recipeRecord.searchFor(searchCriteria);
   }
   

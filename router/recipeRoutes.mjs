@@ -32,8 +32,8 @@ recipeRouter.get("/", async (req, res) => {
     return res.status(HTTP_CODES.SUCCESS.OK).send(getAllRecipes).end();
 
   } else {
-
-    const findRecipes = recipeService.searchFor(req.query);
+    const searchCriteria = req.query;
+    const findRecipes = recipeService.searchForRecipe(searchCriteria);
       if(findRecipes.length > 0){
         res.status(HTTP_CODES.SUCCESS.OK).send(findRecipes).end();
       } else {
