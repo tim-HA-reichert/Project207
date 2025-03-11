@@ -40,12 +40,21 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         return await db.read(query);
     }
 
+    async readById(recipeId){
+        const query = `
+        SELECT * FROM recipes
+        WHERE recipe_id = $1
+        `;
+
+        return await db.read(query, ...[recipeId])
+    }
+
     async searchFor(searchTerms) {
         const terms = Array.isArray(searchTerms) ? searchTerms : [searchTerms];
 
         console.log("searchFor" + " " +searchTerms)
  
-        const whereClauses = terms.map((term, index) => `(
+        const whereClauses = terms.map((_nothing, index) => `(
             LOWER(title) LIKE LOWER($${index + 1}) OR
             LOWER(CAST(servings AS TEXT)) LIKE LOWER($${index + 1}) OR
             LOWER(CAST(cookingTime AS TEXT)) LIKE LOWER($${index + 1}) OR
@@ -66,8 +75,34 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         return await db.read(query, ...values);
     }
 
-    update(){
-        
+    async update(recipe_id, recipeChanges) {
+        const query = `
+            UPDATE recipes
+            SET title = $1,
+                servings = $2,
+                cookingtime = $3,
+                difficulty = $4,
+                mealtype = $5,
+                nationality = $6,
+                ingredients = $7,
+                instructions = $8
+            WHERE recipe_id = $9
+            RETURNING *
+        `;
+    
+        const values = [
+            recipeChanges.title, 
+            recipeChanges.servings, 
+            recipeChanges.cookingTime, 
+            recipeChanges.difficulty, 
+            recipeChanges.mealType, 
+            recipeChanges.nationality,
+            JSON.stringify(recipe.ingredients || []),
+            JSON.stringify(recipe.instructions || []),
+            recipe_id
+        ];
+    
+        return await db.update(query, ...values);
     }
 
     async remove(recipeId){

@@ -4,8 +4,8 @@ import StoreRecipeRecord from '../data/recipeRecordStore.mjs';
 import { 
     findRecipeById, 
     searchRecipes, 
-    createNewRecipe, 
-    changeExistingRecipe, 
+    validateRecipeData, 
+    applyRecipeChanges, 
     deleteRecipe 
   } from '../utils/recipe/index.mjs';
 
@@ -27,7 +27,7 @@ export default class RecipeService {
 }
 
   async createRecipe(recipeData) {
-      const validatedData = createNewRecipe(recipeData, this.difficulties, this.mealTypes);
+      const validatedData = validateRecipeData(recipeData, this.difficulties, this.mealTypes);
 
       const newRecipe = new Recipe(validatedData);
       
@@ -66,6 +66,19 @@ export default class RecipeService {
     return await this.recipeRecord.remove(recipeId);
   }
 
+  async changeExistingRecipe(recipeId, changes){
+    const originalRecipe = await this.recipeRecord.readById(recipeId)
 
+    if(!originalRecipe || originalRecipe == 0){
+        throw new Error(`No recipe with ${recipeId} found`);
+    }
+    
+    const updatedRecipe = applyRecipeChanges(originalRecipe, changes);
+
+    const validatedRecipeChanges = validateRecipeData(updatedRecipe, this.difficulties, this.mealTypes);
+
+
+    return await this.recipeRecord.update(recipeId, validatedRecipeChanges);
+  }
   
 }

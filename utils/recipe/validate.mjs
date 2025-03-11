@@ -1,4 +1,4 @@
-export const createNewRecipe = (aNewRecipe, difficulties, mealTypes) => {
+export const validateRecipeData = (aNewRecipe, difficulties, mealTypes) => {
     const validDifficulties = Object.values(difficulties);
     const validMealTypes = Object.values(mealTypes); 
     

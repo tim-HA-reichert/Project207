@@ -15,3 +15,17 @@ export const changeExistingRecipe = (aCollectionOfRecipes, recipeId, recipeChang
 
     return aCollectionOfRecipes[recipeIndex];
 }
+
+
+export const applyRecipeChanges = (existingRecipe, recipeChanges) => {
+    if (!existingRecipe) {
+        throw new Error('No recipe provided to update');
+    }
+    
+    const updatedRecipe = {
+        ...existingRecipe,
+        ...recipeChanges,
+    };
+
+    return updatedRecipe;
+};

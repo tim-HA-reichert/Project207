@@ -7,7 +7,7 @@ import RecipeService from '../serviceLayer/recipeService.mjs';
 import { 
   findRecipeById, 
   searchRecipes, 
-  createNewRecipe, 
+  validateRecipeData, 
   changeExistingRecipe, 
   deleteRecipe 
 } from '../utils/recipe/index.mjs';
@@ -75,18 +75,17 @@ recipeRouter.post("/", async (req, res) => {
   }
 });
 
-recipeRouter.patch("/:id", (req, res) => {
+recipeRouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const recipeChanges = req.body;
 
-  const recipeToChange = findRecipeById(recipes, id);
-  
-  if(recipeToChange){
-    const updatedRecipe = changeExistingRecipe(recipes, id, recipeChanges);
 
-    res.status(HTTP_CODES.SUCCESS.ACCEPTED).send(updatedRecipe).end();
+    const newRecipe = await recipeService.changeExistingRecipe(id, recipeChanges);
+
+    if(newRecipe){
+    res.status(HTTP_CODES.SUCCESS.ACCEPTED).send(newRecipe).end();
   } else {
-    res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT).send({message: `Please enter a valid ID.`}).end();
+    res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT).send({message: `No recipe with ${id} found.`}).end();
   }
 });
 
