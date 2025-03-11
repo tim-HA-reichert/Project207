@@ -36,6 +36,10 @@ export default class RecipeService {
     return await saveRecipe;
   }
   
+  async readAllRecipes() {
+    return await this.recipeRecord.readAll();
+  }
+  
   async searchForRecipe(searchCriteria) {
     console.log("Looking for recipe with criteria:", searchCriteria);
   
@@ -57,7 +61,6 @@ export default class RecipeService {
     }
     return await this.recipeRecord.searchFor(searchTerms);
   }
-  
   
   
 }

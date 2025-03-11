@@ -58,7 +58,7 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         const query = `
         SELECT *
         FROM recipes
-        WHERE ${whereClauses.join(' OR ')}
+        WHERE ${whereClauses.join(' AND ')}
         `;
     
         const values = terms.map(term => `%${term}%`);
