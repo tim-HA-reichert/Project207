@@ -43,8 +43,8 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
     async searchFor(searchTerms) {
         const terms = Array.isArray(searchTerms) ? searchTerms : [searchTerms];
 
-
-
+        console.log("searchFor" + " " +searchTerms)
+ 
         const whereClauses = terms.map((term, index) => `(
             LOWER(title) LIKE LOWER($${index + 1}) OR
             LOWER(CAST(servings AS TEXT)) LIKE LOWER($${index + 1}) OR

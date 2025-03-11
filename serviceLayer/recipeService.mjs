@@ -41,7 +41,22 @@ export default class RecipeService {
   }
   
   async searchForRecipe(searchCriteria) {
-    return await this.recipeRecord.searchFor(searchCriteria);
+    console.log("Looking for recipe with criteria:", searchCriteria);
+  
+    const filteredCriteria = Object.fromEntries(
+      Object.entries(searchCriteria).filter(([_, value]) => value) // Keep only non-empty values
+    );
+  
+    console.log("Filtered Search Criteria:", filteredCriteria);
+  
+    if (Object.keys(filteredCriteria).length === 0) {
+      return await this.readAllRecipes();
+    }
+  
+    const searchTerms = Object.values(filteredCriteria);
+  
+    return await this.recipeRecord.searchFor(searchTerms);
   }
+  
   
 }
