@@ -97,8 +97,8 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
             recipeChanges.difficulty, 
             recipeChanges.mealType, 
             recipeChanges.nationality,
-            JSON.stringify(recipe.ingredients || []),
-            JSON.stringify(recipe.instructions || []),
+            JSON.stringify(recipeChanges.ingredients || []),
+            JSON.stringify(recipeChanges.instructions || []),
             recipe_id
         ];
     
