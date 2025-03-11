@@ -1,8 +1,6 @@
 export default class RecipeModel {
     constructor(recipeData = {}) {
-        this.recipeRecord = recipeRecord;
-        
-        this.recipeTitle = recipeData.recipeTitle;
+        this.title = recipeData.title;
         this.servings = recipeData.servings;
         this.cookingTime = recipeData.cookingTime;
         this.difficulty = recipeData.difficulty;
@@ -14,7 +12,7 @@ export default class RecipeModel {
 
     recipeData(){
         const recipeData = {
-            recipeTitle: this.recipeTitle,
+            title: this.title,
             servings: this.servings,
             cookingTime: this.cookingTime,
             difficulty: this.difficulty,

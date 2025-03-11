@@ -20,7 +20,7 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         `;
 
         const values = [
-            recipe.recipeTitle, 
+            recipe.title, 
             recipe.servings, 
             recipe.cookingTime, 
             recipe.difficulty, 
