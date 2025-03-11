@@ -36,12 +36,12 @@ export default class RecipeService {
     return await saveRecipe;
   }
   
-  async getRecipeById(id) {
-    return await this.recipeRecord.findById(id);
+  async readAllRecipes() {
+    return await this.recipeRecord.readAll();
   }
   
   async searchRecipes(criteria) {
-    return await this.recipeRecord.search(criteria);
+    return await this.recipeRecord.searchFor(criteria);
   }
   
   // Additional methods for updating and deleting recipes

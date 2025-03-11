@@ -23,14 +23,15 @@ const recipeRecord = new StoreRecipeRecord();
 const recipeService = new RecipeService(recipeRecord);
 
 
-recipeRouter.get("/", (req, res) => {
+recipeRouter.get("/", async (req, res) => {
   const searchCriteriaExists = Object.keys(req.query).length > 0;
 
   if(!searchCriteriaExists){
-    return res.status(HTTP_CODES.SUCCESS.OK).send(recipes).end();
+    const getAllRecipes = await recipeService.readAllRecipes();
+    return res.status(HTTP_CODES.SUCCESS.OK).send(getAllRecipes).end();
   } else {
 
-    const findRecipe = searchRecipes(recipes, req.query);
+    const findRecipe = recipeService.searchFor(req.query);
       if(findRecipe.length > 0){
         res.status(HTTP_CODES.SUCCESS.OK).send(findRecipe).end();
       } else {
@@ -63,7 +64,7 @@ recipeRouter.post("/", async (req, res) => {
   }catch(error){
     console.error("Error creating recipe:", error);
     res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT)
-      .json({ message: error.message })
+      .send({ message: error.message })
       .end();
   }
 });

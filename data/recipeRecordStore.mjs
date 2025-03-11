@@ -40,7 +40,7 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         return await db.read(query);
     }
 
-    async readSpecific(criteria = {}){
+    async searchFor(criteria = {}){
         let query = `SELECT * FROM recipes`;
 
         const whereConditions = [];
@@ -49,7 +49,7 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         let paramCount = 1;
 
         if(criteria.mealType){
-            whereConditions.push(`mealType = $${paramCount++}`);
+            whereConditions.push(`mealtype = $${paramCount++}`);
             values.push(criteria.mealType);
         }
 
@@ -64,7 +64,7 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         }
 
         if(criteria.cookingTime){
-            whereConditions.push(`cookingTime = $${paramCount++}`);
+            whereConditions.push(`cookingtime = $${paramCount++}`);
             values.push(criteria.cookingTime);
         }
 
@@ -72,6 +72,7 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
             query += ' WHERE ' + whereConditions.join(' AND ');
           }
           
+          return await db.read(query, ...values)
     }
 
     update(){
