@@ -96,7 +96,9 @@ recipeRouter.delete("/:id", async (req, res) => {
   const recipeToDelete = await recipeService.deleteRecipe(recipeId);
 
   if(recipeToDelete){
-    res.status(HTTP_CODES.SUCCESS.NO_CONTENT).end();
+    res.status(HTTP_CODES.SUCCESS.NO_CONTENT).send({
+      message: `Recipe "${recipeId}" was deleted`,
+    }).end();
   } else {
     res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send().end();
   }
