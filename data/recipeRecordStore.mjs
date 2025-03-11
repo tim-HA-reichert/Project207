@@ -40,41 +40,30 @@ export default class StoreRecipeRecord extends RecordStoreInterface {
         return await db.read(query);
     }
 
-    async searchFor(criteria = {}){
-        let query = `SELECT * FROM recipes`;
-
-        const whereConditions = [];
-        const values = [];
-
-        let paramCount = 1;
-
-        if(criteria.mealType){
-            whereConditions.push(`mealtype = $${paramCount++}`);
-            values.push(criteria.mealType);
-        }
-
-        if(criteria.nationality){
-            whereConditions.push(`nationality = $${paramCount++}`);
-            values.push(criteria.nationality);
-        }
-
-        if(criteria.difficulty){
-            whereConditions.push(`difficulty = $${paramCount++}`);
-            values.push(criteria.difficulty);
-        }
-
-        if(criteria.cookingTime){
-            whereConditions.push(`cookingtime = $${paramCount++}`);
-            values.push(criteria.cookingTime);
-        }
-
-        if (whereConditions.length > 0) {
-            query += ' WHERE ' + whereConditions.join(' AND ');
-          }
-          
-          return await db.read(query, ...values)
+    async searchFor(searchTerms) {
+        const terms = Array.isArray(searchTerms) ? searchTerms : [searchTerms];
+        
+        const whereClauses = terms.map((term, index) => `(
+            LOWER(title) LIKE LOWER($${index + 1}) OR
+            LOWER(CAST(servings AS VARCHAR)) LIKE LOWER($${index + 1}) OR
+            LOWER(CAST(cookingTime AS VARCHAR)) LIKE LOWER($${index + 1}) OR
+            LOWER(difficulty) LIKE LOWER($${index + 1}) OR
+            LOWER(mealType) LIKE LOWER($${index + 1}) OR
+            LOWER(nationality) LIKE LOWER($${index + 1}) OR
+            LOWER(ingredients) LIKE LOWER($${index + 1}) OR
+            LOWER(instructions) LIKE LOWER($${index + 1})
+        )`);
+    
+        const query = `
+        SELECT *
+        FROM recipes
+        WHERE ${whereClauses.join(' OR ')}
+        `;
+    
+        const values = terms.map(term => `%${term}%`);
+    
+        return await db.read(query, ...values);
     }
-
     update(){
         
     }

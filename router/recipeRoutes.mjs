@@ -27,17 +27,20 @@ recipeRouter.get("/", async (req, res) => {
   const searchCriteriaExists = Object.keys(req.query).length > 0;
 
   if(!searchCriteriaExists){
+
     const getAllRecipes = await recipeService.readAllRecipes();
     return res.status(HTTP_CODES.SUCCESS.OK).send(getAllRecipes).end();
+
   } else {
 
-    const findRecipe = recipeService.searchFor(req.query);
-      if(findRecipe.length > 0){
-        res.status(HTTP_CODES.SUCCESS.OK).send(findRecipe).end();
+    const findRecipes = recipeService.searchFor(req.query);
+      if(findRecipes.length > 0){
+        res.status(HTTP_CODES.SUCCESS.OK).send(findRecipes).end();
       } else {
         res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND)
           .send({message:"No recipes found with your criteria."})
             .end();
+
       }
   }
 })

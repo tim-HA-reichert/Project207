@@ -40,9 +40,8 @@ export default class RecipeService {
     return await this.recipeRecord.readAll();
   }
   
-  async searchRecipes(criteria) {
-    return await this.recipeRecord.searchFor(criteria);
+  async searchRecipes(searchCriteria) {
+    return await this.recipeRecord.searchFor(searchCriteria);
   }
   
-  // Additional methods for updating and deleting recipes
 }
