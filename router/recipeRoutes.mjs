@@ -57,7 +57,7 @@ recipeRouter.post("/", async (req, res) => {
   try{
     const recipeData = req.body;
 
-    const saveRecipe = await recipeService.create(recipeData);
+    const saveRecipe = await recipeService.createRecipe(recipeData);
 
     res.status(HTTP_CODES.SUCCESS.CREATED).json(saveRecipe);
   }catch(error){
