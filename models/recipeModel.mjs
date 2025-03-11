@@ -1,5 +1,5 @@
-export default class Recipe {
-    constructor(recipeRecord, recipeData = {}) {
+export default class RecipeModel {
+    constructor(recipeData = {}) {
         this.recipeRecord = recipeRecord;
         
         this.recipeTitle = recipeData.recipeTitle;
@@ -12,7 +12,7 @@ export default class Recipe {
         this.instructions = recipeData.instructions;
     }
 
-    _recipeData(){
+    recipeData(){
         const recipeData = {
             recipeTitle: this.recipeTitle,
             servings: this.servings,
@@ -25,10 +25,4 @@ export default class Recipe {
         };
         return recipeData
     }
-
-    async create(){
-        const result = this.recipeRecord.create(this._recipeData());
-    
-        return await result;
-    };
 }

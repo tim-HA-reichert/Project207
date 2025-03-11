@@ -2,6 +2,7 @@ import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
 import Recipe from '../models/recipeModel.mjs';
 import StoreRecipeRecord from '../data/recipeRecordStore.mjs';
+import RecipeService from '../serviceLayer/recipeService.mjs';
 
 import { 
   findRecipeById, 
@@ -15,20 +16,12 @@ import {
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
 
-const difficulties = {
-  easy: "easy",
-  medium: "medium",
-  hard: "hard"
-}
-
-const mealTypes = {
-  breakfast: "breakfast",
-  lunch: "lunch",
-  dinner: "dinner"
-}
-
 const recipes = [
 ];
+
+const recipeRecord = new StoreRecipeRecord();
+const recipeService = new RecipeService(recipeRecord);
+
 
 recipeRouter.get("/", (req, res) => {
   const searchCriteriaExists = Object.keys(req.query).length > 0;
@@ -63,12 +56,8 @@ recipeRouter.get("/:id", (req, res) => {
 recipeRouter.post("/", async (req, res) => {
   try{
     const recipeData = req.body;
-    const validatedNewRecipeData = createNewRecipe(recipeData, difficulties, mealTypes);
 
-    const recipeRecord = new StoreRecipeRecord();
-    const newRecipe = new Recipe(recipeRecord, validatedNewRecipeData);
-
-    const saveRecipe = await newRecipe.create();
+    const saveRecipe = await newRecipe.create(recipeData);
 
     res.status(HTTP_CODES.SUCCESS.CREATED).json(saveRecipe);
   }catch(error){
