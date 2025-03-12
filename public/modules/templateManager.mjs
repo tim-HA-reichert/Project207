@@ -9,9 +9,9 @@ TemplateManager.fetchTemplate = async (path) => {
 
     let div = document.createElement("div");
     div.innerHTML = rawTemplate;
-    let template = div.firstChild;
-    return template;
 
+    const template = div.querySelector("template");
+    return template;
 }
 
 
