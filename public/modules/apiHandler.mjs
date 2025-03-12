@@ -12,10 +12,11 @@ const BASE_API_PROD = "https://project207.onrender.com/";
 const BASE_API = (isProd) ? BASE_API_PROD : null;
 
 const API_ENDPOINTS_RECIPES = {
-    GetRecipe: `${BASE_API}/recipes` 
+    GetAllRecipes: `${BASE_API}/recipes` 
 }
 
-async function runRequest(patch, method = HTTP_METHODS.GET, data = null){
+
+export default async function runRequest(path, method = HTTP_METHODS.GET, data = null){
 
     const request = {
         method,
@@ -29,7 +30,16 @@ async function runRequest(patch, method = HTTP_METHODS.GET, data = null){
     }
 
 
-    const response = await fetch (patch, request);
-
-    return await response.json();
+    try {
+        const response = await fetch(path, request);
+        
+        if (!response.ok) {
+            throw new Error(`API request failed with status: ${response.status}`);
+        }
+        console.log(response);
+        return await response.json();
+    } catch (error) {
+        console.error("API request error:", error);
+        throw error;
+    }
 }

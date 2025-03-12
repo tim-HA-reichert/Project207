@@ -26,19 +26,19 @@ const recipeService = new RecipeService(recipeRecord);
 recipeRouter.get("/", async (req, res) => {
   const searchCriteriaExists = Object.keys(req.query).length > 0;
 
-  console.log(req.query);
-
   if(!searchCriteriaExists){
 
     const getAllRecipes = await recipeService.readAllRecipes();
-    return res.status(HTTP_CODES.SUCCESS.OK).send(getAllRecipes).end();
+    console.log(getAllRecipes);
+    return res.status(HTTP_CODES.SUCCESS.OK).json(getAllRecipes);
 
   } else {
     const searchCriteria = req.query;
     console.log('Processed Search Criteria:', searchCriteria);
     const findRecipes = await recipeService.searchForRecipe(searchCriteria);
       if(findRecipes.length > 0){
-        res.status(HTTP_CODES.SUCCESS.OK).send(findRecipes).end();
+        console.log(findRecipes);
+        res.status(HTTP_CODES.SUCCESS.OK).json(findRecipes);
       } else {
         res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND)
           .send({message:"No recipes found with your criteria."})
@@ -53,7 +53,7 @@ recipeRouter.get("/:id", (req, res) => {
     const recipe = findRecipeById(recipes, id);
 
     if(recipe){
-      res.status(HTTP_CODES.SUCCESS.OK).send(recipe).end();
+      res.status(HTTP_CODES.SUCCESS.OK).json(recipe);
     } else {
       res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send({message: `No recipe with id ${id} found.`}).end();
     }
@@ -66,7 +66,7 @@ recipeRouter.post("/", async (req, res) => {
 
     const saveRecipe = await recipeService.createRecipe(recipeData);
 
-    res.status(HTTP_CODES.SUCCESS.CREATED).json(saveRecipe);
+    res.status(HTTP_CODES.SUCCESS.CREATED).send(saveRecipe).end();
   }catch(error){
     console.error("Error creating recipe:", error);
     res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT)

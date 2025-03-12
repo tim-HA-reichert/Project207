@@ -1,4 +1,5 @@
 import navbarViewController from "../controller/navbarView.mjs";
+import recipeViewController from "../controller/recipeView.mjs";
 
 console.log("App script loaded");
 const registerServiceWorker = async () => {
@@ -19,8 +20,10 @@ const registerServiceWorker = async () => {
         }
     }
 }
-const initApp = () => {
+const initApp = async () => {
     document.body.append(navbarViewController.view);
+    const recipes = await recipeViewController.view();
+    document.body.append(recipes);
     console.log("Navbar initialized:", navbarViewController.view);
 
 }

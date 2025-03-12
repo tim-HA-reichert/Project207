@@ -2,6 +2,9 @@ const TemplateManager = {};
 
 TemplateManager.fetchTemplate = async (path) => {
     const response = await fetch(path);
+    if(!response){
+        throw new Error(`Failed to fetch template: ${response.status}`)
+    }
     let rawTemplate = await response.text();
 
     let div = document.createElement("div");
