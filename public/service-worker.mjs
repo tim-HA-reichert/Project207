@@ -105,6 +105,8 @@ self.addEventListener("install", (event) => {
             "/controller/recipeView.mjs",
             "/views/navbarView.html",
             "/views/recipeView.html",
+            "/icons/192x192.png",
+            "/icons/512x512.png"
         ])
     );
 });

@@ -1,5 +1,6 @@
 import navbarViewController from "../controller/navbarView.mjs";
 
+console.log("App script loaded");
 const registerServiceWorker = async () => {
     if("serviceWorker" in navigator){
         try {
