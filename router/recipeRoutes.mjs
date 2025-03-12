@@ -103,20 +103,4 @@ recipeRouter.delete("/:id", async (req, res) => {
   }
 })
 
-//#region old delete code
-/* 
-recipeRouter.delete("/:id", (req, res) => {
-    const id = req.params.id;
-    const originalRecipeListLength = recipes.length;
-
-    deleteRecipe(recipes, id);
-
-    if(recipes.length < originalRecipeListLength){
-      res.status(HTTP_CODES.SUCCESS.NO_CONTENT).end();
-    } else {
-      res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send().end();
-    }
-}) */
-//#endregion
-
 export default recipeRouter;
