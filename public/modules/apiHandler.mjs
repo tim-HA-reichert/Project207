@@ -7,7 +7,7 @@ const HTTP_METHODS = {
 };
 
 const isProd = true;
-const BASE_API_PROD = "https://project207.onrender.com/";
+const BASE_API_PROD = "https://project207.onrender.com";
 
 const BASE_API = (isProd) ? BASE_API_PROD : null;
 
