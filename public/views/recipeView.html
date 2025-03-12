@@ -1,0 +1,32 @@
+<template>
+    <section id="recipe-container">
+        <div class="recipe-card">
+          <header class="recipe-header">
+            <h1 class="recipe-title">{{title}}</h1>
+            <div class="recipe-meta">
+              <span class="recipe-servings"><i class="icon-servings"></i> {{servings}} servings</span>
+              <span class="recipe-time"><i class="icon-time"></i> {{cookingTime}} minutes</span>
+              <span class="recipe-difficulty"><i class="icon-difficulty"></i> {{difficulty}}</span>
+            </div>
+            <div class="recipe-categories">
+              <span class="recipe-type">{{mealType}}</span>
+              <span class="recipe-nationality">{{nationality}}</span>
+            </div>
+          </header>
+
+          <section class="recipe-ingredients">
+            <h2>Ingredients</h2>
+            <ul id="ingredients-list">
+              <!-- Ingredients will be populated dynamically -->
+            </ul>
+          </section>
+
+          <section class="recipe-instructions">
+            <h2>Instructions</h2>
+            <ol id="instructions-list">
+              <!-- Instructions will be populated dynamically -->
+            </ol>
+          </section>
+        </div>
+    </section>
+</template>

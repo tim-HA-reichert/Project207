@@ -16,11 +16,11 @@ TemplateManager.cloneTemplate = (template, target, data) => {
     let html = clone.innerHTML;
 
     for (let key of Object.keys(data)){
-        html = html.replaceAll(RegExp(`/\{\{${key}\}\}gm`, data[key]));
+        html = html.replaceAll(new RegExp(`/\{\{${key}\}\}gm`, data[key]));
     }
 
     clone.innerHTML = html;
-    target.appendCHild(clone);
+    target.appendChild(clone);
     return clone;
 }
 
