@@ -25,7 +25,7 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null){
         }
     }
 
-    if([HTTP_METHODS.POST, HTTP_METHODS.PATCH].any(method)){
+    if([HTTP_METHODS.POST, HTTP_METHODS.PATCH].includes(method)){
         request.body = JSON.stringify(data);
     }
 

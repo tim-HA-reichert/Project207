@@ -9,7 +9,7 @@ async function renderAllRecipes() {
     const appContainer = document.getElementById("app");
     try{
         const recipes = await runRequest(API_ENDPOINTS_RECIPES.GetAllRecipes);
-        const template = TemplateManager.fetchTemplate(templateFile);
+        const template = await TemplateManager.fetchTemplate(templateFile);
 
         recipes.forEach(recipe => {
             TemplateManager.cloneTemplate(template, appContainer, recipe);
