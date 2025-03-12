@@ -1,6 +1,5 @@
 import TemplateManager from "../modules/templateManager.mjs";
-import runRequest from "../modules/apiHandler.mjs";
-import { API_ENDPOINTS_RECIPES } from "../modules/apiHandler.mjs";
+import { API_ENDPOINTS_RECIPES, runRequest } from "../modules/apiHandler.mjs";
 
 const templateFile = "./views/recipeView.html";
 const appContainer = document.getElementById("app");
