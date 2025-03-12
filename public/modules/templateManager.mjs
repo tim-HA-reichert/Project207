@@ -20,7 +20,8 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
     let html = clone.innerHTML;
 
     for (let key of Object.keys(data)) {
-        html = html.replaceAll(RegExp(`/\{\{${key}\}\}/gm`, data[key]));
+        const regex = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
+        html = html.replace(regex, data[key]);
     }
 
     clone.innerHTML = html;
