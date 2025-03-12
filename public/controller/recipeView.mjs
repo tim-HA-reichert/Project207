@@ -19,7 +19,7 @@ async function renderAllRecipes() {
 
 
 
-recipeViewController = {
+const recipeViewController = {
     view: async () => { await renderAllRecipes() },
 }
 
