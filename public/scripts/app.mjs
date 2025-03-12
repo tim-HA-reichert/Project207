@@ -22,8 +22,7 @@ const registerServiceWorker = async () => {
 }
 const initApp = async () => {
     document.body.append(navbarViewController.view);
-    const recipes = await recipeViewController.view();
-    document.body.append(recipes);
+    document.body.append(recipeViewController.view);
     console.log("Navbar initialized:", navbarViewController.view);
 
 }
