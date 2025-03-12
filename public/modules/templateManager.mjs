@@ -19,9 +19,24 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
     let html = clone.innerHTML;
 
+
+    if (!html) {
+        console.error("Empty template content");
+        target.appendChild(clone);
+        return clone;
+    }
+    
+    console.log("Template HTML:", html);
+    console.log("Data to insert:", data);
+
+
     for (let key of Object.keys(data)) {
-        const regex = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
-        html = html.replace(regex, data[key]);
+        if (data[key] !== undefined) {
+            const regex = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
+            html = html.replace(regex, data[key]);
+        } else {
+            console.warn(`Data for key "${key}" is undefined`);
+        }
     }
 
     clone.innerHTML = html;
