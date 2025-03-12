@@ -11,16 +11,16 @@ const BASE_API_PROD = "https://project207.onrender.com/";
 
 const BASE_API = (isProd) ? BASE_API_PROD : null;
 
-const API_ENDPOINTS_RECIPES = {
+export const API_ENDPOINTS_RECIPES = {
     GetAllRecipes: `${BASE_API}/recipes` 
 }
 
 
-export default async function runRequest(path, method = HTTP_METHODS.GET, data = null){
+export async function runRequest(path, method = HTTP_METHODS.GET, data = null){
 
     const request = {
         method,
-        headrs: {
+        headers: {
             "Content-Type" : "application/json"
         }
     }
