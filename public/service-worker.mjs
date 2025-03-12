@@ -14,7 +14,7 @@ const HTTP_CODES = {
     }
 }
 
-const CACHE_VERSION = "v2.1";
+const CACHE_VERSION = "v2.2";
 
 const addResourceToCache = async (resources) => {
     const cache = await caches.open(CACHE_VERSION);
@@ -98,7 +98,13 @@ self.addEventListener("install", (event) => {
             "/scripts/loginScript.mjs",
             "/css/loginStyle.css",
             "/css/styles.css",
-            "/login.html"
+            "/login.html",
+            "/modules/apiHandler.mjs",
+            "/modules/templateManager.mjs",
+            "/controller/navbarView.mjs",
+            "/controller/recipeView.mjs",
+            "/views/navbarView.html",
+            "/views/recipeView.html",
         ])
     );
 });
