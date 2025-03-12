@@ -1,5 +1,5 @@
 import TemplateManager from "../modules/templateManager.mjs";
-const templateFile = "recipeView.html";
+const templateFile = "/views/recipeView.html";
 const appContainer = document.getElementById("app");
 
 const template = TemplateManager.fetchTemplate(templateFile);

@@ -113,7 +113,7 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
         cacheFirst({
             request: event.request, 
-            preloadResPromise: event.preloadRes,
+            preloadResPromise: event.preloadResponse,
             fallbackURL: "/index.html", 
             event
         })

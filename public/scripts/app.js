@@ -1,3 +1,5 @@
+import navbarViewController from "../controller/navbarView.mjs";
+
 const registerServiceWorker = async () => {
     if("serviceWorker" in navigator){
         try {
@@ -16,5 +18,14 @@ const registerServiceWorker = async () => {
         }
     }
 }
+const initApp = () => {
+    document.body.append(navbarViewController.view);
+    console.log("Navbar initialized:", navbarViewController.view);
 
-registerServiceWorker();
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    registerServiceWorker();
+    initApp();
+});
