@@ -39,6 +39,10 @@ export default class RecipeService {
   async readAllRecipes() {
     return await this.recipeRecord.readAll();
   }
+
+  async readRecipeById(recipeId){
+    return await this.recipeRecord.readById(recipeId);
+  }
   
   async searchForRecipe(searchCriteria) {
     console.log("Looking for recipe with criteria:", searchCriteria);
