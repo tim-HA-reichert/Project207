@@ -16,9 +16,7 @@ TemplateManager.fetchTemplate = async (path) => {
 
 TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
-    console.log("Cloned template structure:", clone);
-    console.log("Edit button in clone:", clone.querySelector('.edit-button'));
-    // Replace simple text placeholders
+
     for (const key in data) {
         const value = data[key];
         if (!Array.isArray(value)) {
@@ -59,7 +57,7 @@ TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
         }
     }
     
-    // Important change: we append the clone and then find the actual DOM element that was just added
+
     const appendedElement = target.appendChild(clone);
     
     // Find the edit button within the newly added element

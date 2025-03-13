@@ -37,8 +37,9 @@ export default async function renderAllRecipes() {
                     };
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
+                    const buttonContainer = document.createElement('button-container');
                     const editRecipeButton = createFunctionButton(recipe.recipe_id, `edit-button`, renderEditRecipeView);
-                    recipeElement.appendChild(editRecipeButton);
+                    buttonContainer.appendChild(editRecipeButton);
 
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
