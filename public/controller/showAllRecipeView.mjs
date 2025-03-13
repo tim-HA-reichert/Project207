@@ -1,5 +1,6 @@
 import TemplateManager from "../modules/templateManager.mjs";
 import { getAllRecipes, getRecipeById } from "../modules/apiHandler.mjs";
+import renderEditRecipeView from "./editRecipeView.mjs";
 
 const templateFile = "./views/recipeView.html";
 
@@ -36,18 +37,14 @@ export default async function renderAllRecipes() {
                     };
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-                    const editButton = recipeElement.querySelector('.edit-button');
-                    
-                    if (editButton) {
-                        editButton.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            console.log("Editing recipe:", recipe.recipe_id);
-                            loadEditForm(recipe.recipe_id);
-                        });
+                    const editButton = createEditButton(recipe.recipe_id);
+                    const actionContainer = recipeElement.querySelector('.recipe-actions');
+                    if (actionContainer) {
+                        actionContainer.appendChild(editButton);
                     } else {
-                        console.log("DOM structure for recipe:", appendedElement.innerHTML);
-                        console.warn(`Edit button not found for recipe: ${recipe.title}`);
+                        console.warn(`Action container not found for recipe: ${recipe.title}`);
                     }
+
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }
@@ -65,13 +62,28 @@ export default async function renderAllRecipes() {
     }
 }
 
+function createEditButton(recipe) {
+    const editButton = document.createElement('button');
+    editButton.className = 'edit-button';
+    editButton.textContent = 'Edit';
+    
+    editButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+            console.log("Editing recipe:", recipe.recipe_id);
+            await renderEditRecipeView(recipe);
+        } catch (error) {
+            console.error("Error loading recipe for editing:", error);
+        }
+    });
+    
+    return editButton;
+}
+
 async function loadEditForm(recipeId) {
     try {
         const recipe = await getRecipeById(recipeId);
-        if (recipe) {
-            console.log("Retrieved recipe for editing:", recipe);
-
-        }
+        await renderEditRecipeView(recipe);
     } catch (error) {
         console.error("Error loading recipe for editing:", error);
     }
