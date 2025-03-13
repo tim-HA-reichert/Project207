@@ -20,17 +20,17 @@ async function initSearchbar() {
     }
 
 
-    TemplateManager.cloneTemplate(template, header);
+    const searchBarView = TemplateManager.cloneTemplate(template, header);
     
     // Debug: Check what's in the template
-    console.log("Template content:", searchbarView.innerHTML);
+    console.log("Template content:", searchBarView.innerHTML);
     
     // Get search elements - note template may have a root element
     // Try different selector approaches
-    const searchInput = searchbarView.querySelector("#recipe-search") || 
-                        searchbarView.querySelector(".search-input");
-    const searchButton = searchbarView.querySelector("#search-button") || 
-                         searchbarView.querySelector(".search-button");
+    const searchInput = searchBarView.querySelector("#recipe-search") || 
+                        searchBarView.querySelector(".search-input");
+    const searchButton = searchBarView.querySelector("#search-button") || 
+                         searchBarView.querySelector(".search-button");
     
     // Debug: Log what we found
     console.log("Search input found:", !!searchInput);
@@ -63,12 +63,10 @@ async function initSearchbar() {
         });
     } else {
         console.error("No button or input found in the template:", templateFile);
-        console.log("Template structure:", searchbarView.outerHTML);
+        console.log("Template structure:", searchBarView.outerHTML);
     }
-    
-    return {
-        view: searchbarView
-    };
+
+    return searchBarView;
 }
 
 // Create and export the controller with async initialization
