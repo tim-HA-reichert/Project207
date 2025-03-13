@@ -9,17 +9,21 @@ TemplateManager.fetchTemplate = async (path) => {
 
     let div = document.createElement("div");
     div.innerHTML = rawTemplate;
-    
-    let template = div.querySelector("template");
+    let template = div.firstChild;
+    console.log("Fetched template:", template);
     return template;
 }
 
-TemplateManager.cloneTemplate = async (template, target, data = {}) => {
+TemplateManager.cloneTemplate = (template, target, data = {}) => {
     try{
     const clone = template.content.cloneNode(true);
+    console.log(clone);
     let html = clone.innerHTML;
 
+    console.log(html);
+
     if (!html) {
+        console.log("Template content:", template.innerHTML);
         console.error("Empty template content");
         target.appendChild(clone);
         return clone;
