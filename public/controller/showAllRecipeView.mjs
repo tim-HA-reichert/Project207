@@ -60,9 +60,9 @@ function handleEditRecipe(aButton, recipeId) {
         aButton.addEventListener('click', () => {
             console.log(`Editing recipe with ID: ${recipeId}`);
             console.log(recipe.recipe_id);
+            loadEditForm(recipeId);
            });
     }
-    loadEditForm(recipeId);
 }
 
 async function loadEditForm(recipeId) {
