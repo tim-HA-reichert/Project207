@@ -5,6 +5,7 @@ const templateFile = "./views/recipeView.html";
 
 export default async function renderAllRecipes() {
     const appContainer = document.getElementById("app");
+    appContainer.innerHTML = '';
     try {
         const recipes = await getAllRecipes();
         
@@ -15,7 +16,6 @@ export default async function renderAllRecipes() {
         }
         
         if (recipes && recipes.length > 0) {
-            appContainer.innerHTML = '';
 
             recipes.forEach(recipe => {
                 try {

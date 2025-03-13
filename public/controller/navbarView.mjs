@@ -54,9 +54,6 @@ async function navigateTo(route) {
     }
     
     appContainer.innerHTML = '';
-    
-    const allRecipes = await renderAllRecipes();
-    const createRecipe = await renderCreateRecipeView()
 
     switch(route) {
         case 'home':
@@ -64,11 +61,11 @@ async function navigateTo(route) {
             break;
             
         case 'all-recipes':
-            allRecipes;
+            await renderAllRecipes();
             break;
             
         case 'create-recipe':
-            createRecipe;
+            await renderCreateRecipeView()
             break;
             
         case 'saved-recipes':
