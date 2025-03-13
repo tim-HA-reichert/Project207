@@ -15,21 +15,26 @@ async function renderAllRecipes() {
         console.log("Template loaded");
         
         if (recipes && recipes.length > 0) {
+
             appContainer.innerHTML = '';
             
+
             recipes.forEach(recipe => {
                 try {
                     const templateData = {
                         recipe_id: recipe.recipe_id,
                         title: recipe.title,
                         servings: recipe.servings,
-                        cookingtime: recipe.cookingtime,
+                        cookingTime: recipe.cookingtime, 
                         difficulty: recipe.difficulty,
-                        mealtype: recipe.mealtype,
+                        mealType: recipe.mealtype, 
                         nationality: recipe.nationality,
-                        // Join arrays for display
-                        ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients.join(', ') : '',
-                        instructions: Array.isArray(recipe.instructions) ? recipe.instructions.join(' ') : ''
+                        ingredients: Array.isArray(recipe.ingredients) 
+                            ? recipe.ingredients.map(ing => `* ${ing}`).join('\n') 
+                            : '',
+                        instructions: Array.isArray(recipe.instructions) 
+                            ? recipe.instructions.map((step, i) => `${i+1}. ${step}`).join('\n') 
+                            : ''
                     };
                     
                     console.log("Processing recipe:", templateData.title);
@@ -50,7 +55,7 @@ async function renderAllRecipes() {
     }
 }
 
-// Initialize view
+
 const recipeView = await renderAllRecipes();
 
 const recipeViewController = {
