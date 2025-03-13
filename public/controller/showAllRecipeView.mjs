@@ -27,15 +27,15 @@ export default async function renderAllRecipes() {
                         difficulty: recipe.difficulty,
                         mealtype: recipe.mealtype, 
                         nationality: recipe.nationality,
-                        ingredients: Array.isArray(recipe.ingredients) 
+   /*                      ingredients: Array.isArray(recipe.ingredients) 
                             ? recipe.ingredients 
                             : [],
                         instructions: Array.isArray(recipe.instructions) 
                             ? recipe.instructions 
-                            : []
+                            : [] */
                     };
                     
-                    const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
+                    const recipeElement = TemplateManager.cloneTemplate(template, appContainer, templateData);
                     const editButton = recipeElement.querySelector('.edit-button');
                     
                     if (editButton) {
