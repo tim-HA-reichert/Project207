@@ -6,8 +6,8 @@ const header = document.getElementById("navbar-container");
 const template = await TemplateManager.fetchTemplate(templateFile);
 const searchbarView = await TemplateManager.cloneTemplate(template, header);
 
-const searchInput = searchbarView.getElementById("recipe-search");
-const searchButton = searchbarView.getElementById("search-button");
+const searchInput = searchbarView.querySelector("#recipe-search");
+const searchButton = searchbarView.querySelector("#search-button");
 
 function performSearch() {
     const searchTerm = searchInput.value;
@@ -17,20 +17,24 @@ function performSearch() {
         
         const newUrl = `${window.location.pathname}?search=${encodedTerm}`;
         window.history.pushState({}, '', newUrl);
-        
-        renderSearchedRecipes({ search: searchTerm });
+
+        window.dispatchEvent(new PopStateEvent('popstate'));
     }
 }
 
-searchButton.addEventListener("click", performSearch);
+searchButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    performSearch
+});
 searchInput.addEventListener("keypress", (e) => {
+    e.preventDefault();
     if (e.key === "Enter") {
         performSearch();
     }
 });
 
 const searchViewController = {
-    view: searchInput
+    view: searchbarView
 }
 
 export default searchViewController
