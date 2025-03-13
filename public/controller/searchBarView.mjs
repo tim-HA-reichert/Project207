@@ -1,29 +1,19 @@
 import TemplateManager from '../modules/templateManager.mjs';
 const templateFile = "./views/searchbarView.html";
 
-// Create an async init function to handle the template loading and setup
 async function initSearchbar() {
     const header = document.getElementById("searchbar-container");
     
-    // Make sure header exists
     if (!header) {
         console.error("Navbar container not found in the DOM");
-        return { view: document.createElement('div') }; // Return empty view
     }
     
-    // Load and clone the template
+
     const template = await TemplateManager.fetchTemplate(templateFile);
+    const searchBarView = TemplateManager.staticCloneTemplate(template, header);
 
-    if (!template) {
-        console.error("Failed to load search template");
-        return searchContainer;
-    }
-
-
-    const searchBarView = TemplateManager.cloneTemplateOldVersion(template, header);
-    
     // Debug: Check what's in the template
-    console.log("Template content:", searchBarView.innerHTML);
+    console.log("Template content:", searchBarView);
     
     // Get search elements - note template may have a root element
     // Try different selector approaches

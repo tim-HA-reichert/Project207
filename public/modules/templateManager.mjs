@@ -65,17 +65,28 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
 };
 
 
-TemplateManager.cloneTemplateOldVersion = (template, target, data = {}) => {
+TemplateManager.cloneTemplateOldVersion = (template, target) => {
     const clone = template.content.cloneNode(true);
     let html = clone.innerHTML;
-
-    for (let key of Object.keys(data)) {
-        html = html.replaceAll(RegExp(`/\{\{${key}\}\}/gm`, data[key]));
-    }
 
     clone.innerHTML = html;
     target.appendChild(clone);
     return clone;
 }
+
+
+TemplateManager.staticCloneTemplate = (template, target) => {
+
+    if (template && template.tagName === 'TEMPLATE') {
+        const clone = template.content.cloneNode(true);
+        
+        target.appendChild(clone);
+        
+        return target;
+    } else {
+        console.error("Not a valid template element");
+        return null;
+    }
+};
 
 export default TemplateManager;
