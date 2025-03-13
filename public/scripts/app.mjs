@@ -42,6 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initApp();
 });
 
-window.addEventListener('popstate', () => {
-    initApp();
+window.addEventListener('popstate', async () => {
+    return await renderSearchedRecipes({ search: searchQuery });
 })

@@ -1,7 +1,7 @@
 <template>
-    <section id="recipe-container">
+    <article id="recipe-container">
         <div class="recipe-card">
-          <header class="recipe-header">
+          <section class="recipe-header">
             <h1 class="recipe-title">{{title}}</h1>
             <div class="recipe-meta">
               <span class="recipe-servings"><i class="icon-servings"></i> {{servings}} servings</span>
@@ -12,7 +12,7 @@
               <span class="recipe-type">{{mealtype}}</span>
               <span class="recipe-nationality">{{nationality}}</span>
             </div>
-          </header>
+          </section>
 
           <section class="recipe-ingredients">
             <h2>Ingredients</h2>
@@ -28,5 +28,5 @@
             </ol>
           </section>
         </div>
-    </section>
+    </article>
 </template>
