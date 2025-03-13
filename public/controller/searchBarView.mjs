@@ -15,6 +15,7 @@ async function initSearchbar() {
     
     const searchInput = searchBarView.querySelector("#recipe-search");
     const searchButton = searchBarView.querySelector("#search-button");
+    const showAllButton = searchBarView.querySelector("#show-all-recipes-button")
 
     if (searchInput && searchButton) {
         function performSearch() {

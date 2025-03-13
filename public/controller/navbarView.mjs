@@ -1,28 +1,25 @@
 import TemplateManager from "../modules/templateManager.mjs";
-import renderAllRecipes from "./showAllRecipeView.mjs";
-import renderSearchedRecipes from "./searchRecipeView.mjs";
-// Import your other view controllers here
+import showAllRecipeViewController from "./showAllRecipeView.mjs";
+import searchRecipeView from "./searchRecipeView.mjs";
+import createRecipeView from "./createRecipeView.mjs";
 
-const navbarTemplateFile = "./views/navbarView.html";
+const templateFile = "./views/navbarView.html";
 
 async function renderNavbar() {
     try {
-        const template = await TemplateManager.fetchTemplate(navbarTemplateFile);
+        const template = await TemplateManager.fetchTemplate(templateFile);
         if (!template) {
             console.error("Failed to load navbar template.");
-            return null;
+            return;
         }
         
-        // Create and insert the navbar at the top of the body
+        // Create navbar container
         const navbarContainer = document.createElement("div");
         navbarContainer.id = "navbar-container";
         navbarContainer.appendChild(template);
         
-        // Insert at the top of the body
-        document.body.insertBefore(navbarContainer, document.body.firstChild);
-        
-        // Add event listeners to the navbar items
-        setupNavigation();
+        // Add event listeners to navigation items
+        setupNavigation(navbarContainer);
         
         return navbarContainer;
     } catch (error) {
@@ -31,8 +28,8 @@ async function renderNavbar() {
     }
 }
 
-function setupNavigation() {
-    const navItems = document.querySelectorAll('.navbar-item-inner');
+function setupNavigation(navbarContainer) {
+    const navItems = navbarContainer.querySelectorAll('.navbar-item-inner');
     
     navItems.forEach(item => {
         item.addEventListener('click', async (event) => {
@@ -52,35 +49,35 @@ function setupNavigation() {
 }
 
 async function navigateTo(route) {
-    // Clear the app container
     const appContainer = document.getElementById("app");
+    if (!appContainer) {
+        console.error("App container not found");
+        return;
+    }
+    
     appContainer.innerHTML = '';
     
-    // Switch based on the route
     switch(route) {
         case 'home':
-            // Render the home page content
             appContainer.innerHTML = '<h1>Welcome to Recipe App</h1><p>Use the navigation to explore recipes.</p>';
             break;
             
         case 'all-recipes':
-            // Use your existing renderAllRecipes function
-            await renderAllRecipes();
+            document.body.append(showAllRecipeViewController.view);
+            break;
+            
+        case 'create-recipe':
+            // Either render the create recipe view or redirect to it
+            const createRecipeResult = await createRecipeView();
+            appContainer.appendChild(createRecipeResult);
             break;
             
         case 'saved-recipes':
-            // Render saved recipes (implement this function or import it)
             appContainer.innerHTML = '<h1>Saved Recipes</h1><p>Your saved recipes will appear here.</p>';
             break;
             
         case 'register':
-            // Render registration form (implement this function or import it)
             appContainer.innerHTML = '<h1>Register</h1><p>Registration form will go here.</p>';
-            break;
-            
-        case 'add-recipe':
-            // Render add recipe form (implement this function or import it)
-            appContainer.innerHTML = '<h1>Add Recipe</h1><p>Recipe submission form will go here.</p>';
             break;
             
         default:
@@ -88,9 +85,12 @@ async function navigateTo(route) {
     }
 }
 
-// Create an object to export
+// Render the navbar when this module is imported
+const navbarView = await renderNavbar();
+
+// Create view controller object to export
 const navbarViewController = {
-    render: renderNavbar,
+    view: navbarView,
     navigateTo: navigateTo
 };
 
