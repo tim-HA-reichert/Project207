@@ -37,8 +37,8 @@ export default async function renderAllRecipes() {
                     };
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-                    const editButton = createFunctionButton(recipe.recipe_id, editButton, renderEditRecipeView);
-                    recipeElement.appendChild(editButton);
+                    const editRecipeButton = createFunctionButton(recipe.recipe_id, editButton, renderEditRecipeView);
+                    recipeElement.appendChild(editRecipeButton);
 
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
@@ -58,9 +58,9 @@ export default async function renderAllRecipes() {
 }
 
 function createFunctionButton(recipe, buttonPurpose, functionForPurpose) {
-    const buttonPurpose = document.createElement('button');
-    buttonPurpose.className = 'edit-button';
-    buttonPurpose.textContent = 'Edit';
+    buttonPurpose = document.createElement('button');
+    buttonPurpose.className = `${buttonPurpose}`;
+    buttonPurpose.textContent = `${buttonPurpose}`;
     
     buttonPurpose.addEventListener('click', async (e) => {
         e.preventDefault();
