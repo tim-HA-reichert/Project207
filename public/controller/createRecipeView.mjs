@@ -175,14 +175,14 @@ function setupFormHandlers() {
         const recipeData = {
             title: formData.get('title'),
             servings: parseInt(formData.get('servings')),
-            cookingtime: parseInt(formData.get('cookingtime')),
+            cookingTime: parseInt(formData.get('cookingtime')),
             difficulty: formData.get('difficulty'),
-            mealtype: formData.get('mealtype'),
+            mealType: formData.get('mealtype'),
             nationality: formData.get('nationality'),
             ingredients: ingredients,
             instructions: instructions
         };
-        
+        console.log("Submitting recipe data:", recipeData); // Debug log to see the data being sent
         // Submit the recipe
         try {
             const submitButton = form.querySelector('button[type="submit"]');
@@ -205,14 +205,6 @@ function setupFormHandlers() {
             });
         } catch (error) {
             console.error('Error creating recipe:', error);
-            
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'error-message';
-            errorMessage.textContent = `Failed to create recipe: ${error.message || 'Unknown error'}`;
-            form.prepend(errorMessage);
-            
-            submitButton.textContent = originalButtonText;
-            submitButton.disabled = false;
         }
     });
 }

@@ -52,6 +52,9 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
     }
 }
 
+export async function createRecipe(recipeData) {
+    return runRequest(API_ENDPOINTS.RECIPES.Create, HTTP_METHODS.POST, recipeData);
+}
 
 export async function getAllRecipes() {
     return runRequest(API_ENDPOINTS.RECIPES.GetAll, HTTP_METHODS.GET);
@@ -59,10 +62,6 @@ export async function getAllRecipes() {
 
 export async function getRecipeById(id) {
     return runRequest(API_ENDPOINTS.RECIPES.GetById(id), HTTP_METHODS.GET);
-}
-
-export async function createRecipe(recipeData) {
-    return runRequest(API_ENDPOINTS.RECIPES.Create, HTTP_METHODS.POST, recipeData);
 }
 
 export async function updateRecipe(id, recipeChanges) {
