@@ -1,0 +1,85 @@
+<template>
+    <div class="edit-recipe-container">
+      <h1>Edit Recipe</h1>
+      
+      <form id="edit-recipe-form" class="recipe-form">
+        <div class="form-group">
+          <label for="recipe-title">Recipe Title</label>
+          <input type="text" id="recipe-title" name="title" required>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="recipe-servings">Servings</label>
+            <input type="number" id="recipe-servings" name="servings" min="1" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="recipe-cookingtime">Cooking Time (minutes)</label>
+            <input type="number" id="recipe-cookingtime" name="cookingtime" min="1" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="recipe-difficulty">Difficulty</label>
+            <select id="recipe-difficulty" name="difficulty" required>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+          
+
+          <div class="form-group">
+            <label for="create-mealtype">Meal Type</label>
+            <select id="create-mealtype" name="mealtype" required>
+              <option value="" disabled selected>Select meal type</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="create-nationality">Nationality</label>
+            <input type="text" id="create-nationality" name="nationality" placeholder="e.g., Italian, Mexican, Thai" required>
+          </div>
+        
+        <div class="form-group">
+          <h2>Ingredients</h2>
+          <input type="hidden" id="ingredients-data" name="ingredients">
+          
+          <div id="ingredients-list" class="items-list">
+            <!-- Ingredients will be populated here -->
+          </div>
+          
+          <div class="add-item-container">
+            <input type="text" id="new-ingredient-quantity" placeholder="Quantity (e.g., 2 cups)">
+            <input type="text" id="new-ingredient-name" placeholder="Ingredient name">
+            <button type="button" id="add-ingredient-btn">Add Ingredient</button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <h2>Instructions</h2>
+          <input type="hidden" id="instructions-data" name="instructions">
+          
+          <div id="instructions-list" class="items-list">
+            <!-- Instructions will be populated here -->
+          </div>
+          
+          <div class="add-item-container">
+            <textarea id="new-instruction" placeholder="Enter instruction step"></textarea>
+            <button type="button" id="add-instruction-btn">Add Step</button>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="primary-button">Update Recipe</button>
+          <button type="button" id="cancel-edit-btn" class="secondary-button">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </template>
+ 

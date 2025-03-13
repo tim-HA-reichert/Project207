@@ -20,7 +20,7 @@ export default async function renderAllRecipes() {
             recipes.forEach(recipe => {
                 try {
                     const templateData = {
-                        id: recipe.recipe_id,
+                        recipe_id: recipe.recipe_id,
                         title: recipe.title,
                         servings: recipe.servings,
                         cookingtime: recipe.cookingtime, 
@@ -37,7 +37,7 @@ export default async function renderAllRecipes() {
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
-                    const editButton = recipeElement.querySelector('.edit-button');
+                    const editButton = recipeElement.querySelector('#edit-recipe-button');
                     if (editButton) {
                         editButton.addEventListener('click', () => {
                             console.log(recipe.recipe_id);
@@ -71,10 +71,7 @@ async function loadEditForm(recipeId) {
         const recipe = await getRecipeById(recipeId);
         if (recipe) {
             console.log("Retrieved recipe for editing:", recipe);
-            
-            // Example: Load an edit template and show it in a modal or dedicated area
-            // const editFormTemplate = await TemplateManager.fetchTemplate('./views/editRecipeForm.html');
-            // TemplateManager.renderEditForm(editFormTemplate, recipe);
+
         }
     } catch (error) {
         console.error("Error loading recipe for editing:", error);
