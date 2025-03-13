@@ -18,7 +18,7 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
     let html = clone.innerHTML;
 
-    handleListElements(clone, data);
+/*     handleListElements(clone, data); */
 
     if (!html) {
         console.error("Empty template content");
@@ -47,7 +47,7 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
     return clone;
 }
 
-function handleListElements(element, data) {
+/* function handleListElements(element, data) {
 
     if (data.ingredients && Array.isArray(data.ingredients)) {
         const ingredientsList = element.querySelector('#ingredients-list');
@@ -74,7 +74,7 @@ function handleListElements(element, data) {
             });
         
     }
-}
+} */
 
 
 
