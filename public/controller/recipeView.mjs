@@ -15,9 +15,9 @@ async function renderAllRecipes() {
             const recipeData = {
                 title: recipe.title,
                 servings: recipe.servings,
-                cookingTime: recipe.cooking_time,
+                cookingTime: recipe.cookingtime,
                 difficulty: recipe.difficulty,
-                mealType: recipe.meal_type,
+                mealType: recipe.mealtype,
                 nationality: recipe.nationality,
                 ingredients: recipe.ingredients,
                 instructions: recipe.instructions

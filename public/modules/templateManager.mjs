@@ -10,7 +10,10 @@ TemplateManager.fetchTemplate = async (path) => {
     let div = document.createElement("div");
     div.innerHTML = rawTemplate;
     let template = div.firstChild;
-    console.log("Fetched template:", template);
+    if (!template || template.nodeName !== 'TEMPLATE') {
+        console.error("Invalid template structure:", div.innerHTML.substring(0, 100));
+        throw new Error('No template element found in the fetched file');
+    }
     return template;
 }
 
@@ -39,6 +42,8 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
             const listElement = clone.querySelector(`#${key}-list`);
             if (listElement) {
                 handleListData(listElement, data[key]);
+            } else {
+                data[key] = data[key].join(", ");
             }
         };
 
