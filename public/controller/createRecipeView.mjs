@@ -228,16 +228,10 @@ function setupFormHandlers() {
             submitButton.disabled = false;
         }
     });
-    
-
 }
 
-// Initialize and export the view
-const createRecipeView = await renderCreateRecipeView();
-
 const createRecipeViewController = {
-    view: createRecipeView,
-    render: renderCreateRecipeView
+    view: renderCreateRecipeView
 };
 
 export default createRecipeViewController;

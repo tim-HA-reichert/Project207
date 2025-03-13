@@ -30,19 +30,24 @@ async function performSearch(){
         console.log("Search query found in URL:", searchQuery);
         await renderSearchedRecipes(searchQuery);
     } else {
-        document.body.append(recipeViewController.view);
+        await recipeViewController.view;
     }
 }
 
 const initApp = async () => {
-    document.body.append(navbarViewController.view);
+    if (!document.getElementById("app")) {
+        const appContainer = document.createElement("div");
+        appContainer.id = "app";
+        document.body.appendChild(appContainer);
+    }
+    await navbarViewController.view;
     
     document.body.append(searchViewController.view);
 
     const showAllButton = searchBarView.querySelector("#show-all-recipes-button");
     showAllButton.addEventListener("click", async (e) => {
         e.preventDefault();
-        await renderAllRecipes();
+        await recipeViewController.view;
     });
     console.log(showAllButton);
 }

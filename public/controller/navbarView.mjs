@@ -61,11 +61,11 @@ async function navigateTo(route) {
             break;
             
         case 'all-recipes':
-            appContainer.append(recipeViewController.view);
+            await recipeViewController.view;
             break;
             
         case 'create-recipe':
-            appContainer.appendChild(createRecipeViewController.view);
+            await createRecipeViewController.view;
             break;
             
         case 'saved-recipes':

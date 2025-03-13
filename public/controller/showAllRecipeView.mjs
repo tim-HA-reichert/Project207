@@ -51,10 +51,9 @@ async function renderAllRecipes() {
     }
 }
 
-const recipeView = await renderAllRecipes();
 
 const recipeViewController = {
-    view: recipeView
+    view: renderAllRecipes,
 };
 
 export default recipeViewController;
