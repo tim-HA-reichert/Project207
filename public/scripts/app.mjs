@@ -35,6 +35,7 @@ async function performSearch(){
     }
 }
 
+
 const initApp = async () => {
     if (!document.getElementById("app")) {
         const appContainer = document.createElement("div");
