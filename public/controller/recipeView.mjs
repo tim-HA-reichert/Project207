@@ -12,7 +12,17 @@ async function renderAllRecipes() {
         const template = await TemplateManager.fetchTemplate(templateFile);
 
         recipes.forEach(recipe => {
-            TemplateManager.cloneTemplate(template, appContainer, recipe);
+            const recipeData = {
+                title: recipe.title,
+                servings: recipe.servings,
+                cookingTime: recipe.cooking_time,
+                difficulty: recipe.difficulty,
+                mealType: recipe.meal_type,
+                nationality: recipe.nationality,
+                ingredients: recipe.ingredients,
+                instructions: recipe.instructions
+            };
+            TemplateManager.cloneTemplate(template, appContainer, recipeData);
         })
     } catch(error){
         console.log("Error rendering recipes: ", error)
