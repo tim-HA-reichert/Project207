@@ -4,11 +4,12 @@ import { searchRecipes, getAllRecipes } from "../modules/apiHandler.mjs";
 
 const recipeTemplateFile = "./views/recipeView.html";
 
-export default async function renderSearchedRecipes(criteria) {
+export default async function renderSearchedRecipes(searchQuery) {
     const appContainer = document.getElementById("app");
     appContainer.innerHTML = '';
 
     try {
+        const criteria = { search: searchQuery }
         const recipes = await searchRecipes(criteria);
         console.log("Recipe fetched:", recipes);
 
