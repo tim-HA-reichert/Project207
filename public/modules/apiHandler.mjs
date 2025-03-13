@@ -8,8 +8,9 @@ const HTTP_METHODS = {
 
 const isProd = true;
 const BASE_API_PROD = "https://project207.onrender.com";
+const BASE_API_DEV = "http://localhost:8000";
 
-const BASE_API = (isProd) ? BASE_API_PROD : null;
+const BASE_API = (isProd) ? BASE_API_PROD : BASE_API_DEV;
 
 export const API_ENDPOINTS = {
     RECIPES: {

@@ -22,7 +22,7 @@ export default async function renderSearchedRecipes(criteria) {
             return appContainer;
         }
         
-        if (recipes && recipes.length > 0) {
+        if (recipe && recipes.length > 0) {
             const resultsContainer = document.createElement('div');
             resultsContainer.className = 'search-results-container';
             

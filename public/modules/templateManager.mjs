@@ -65,16 +65,6 @@ TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
 };
 
 
-TemplateManager.cloneTemplateOldVersion = (template, target) => {
-    const clone = template.content.cloneNode(true);
-    let html = clone.innerHTML;
-
-    clone.innerHTML = html;
-    target.appendChild(clone);
-    return clone;
-}
-
-
 TemplateManager.staticCloneTemplate = (template, target) => {
 
     if (template && template.tagName === 'TEMPLATE') {

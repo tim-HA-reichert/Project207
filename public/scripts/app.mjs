@@ -1,7 +1,7 @@
 import navbarViewController from "../controller/navbarView.mjs";
 import searchViewController from "../controller/searchBarView.mjs";
 import renderSearchedRecipes from "../controller/searchRecipeView.mjs";
-import recipeViewController from "../controller/allRecipesView.mjs"
+import recipeViewController from "../controller/showAllRecipeView.mjs"
 
 const registerServiceWorker = async () => {
     if("serviceWorker" in navigator){
