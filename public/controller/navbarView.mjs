@@ -6,8 +6,6 @@ const header = document.getElementById("navbar-container");
 const template = await TemplateManager.fetchTemplate(templateFile);
 const navbarView = TemplateManager.cloneTemplate(template, header);
 
-console.log("navbar loaded")
-
 const navbarViewController = {
     view: navbarView
 }

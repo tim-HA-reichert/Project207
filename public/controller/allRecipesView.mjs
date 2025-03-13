@@ -3,13 +3,10 @@ import { getAllRecipes } from "../modules/apiHandler.mjs";
 
 const templateFile = "./views/recipeView.html";
 
-console.log("recipeView");
-
 async function renderAllRecipes() {
     const appContainer = document.getElementById("app");
     try {
         const recipes = await getAllRecipes();
-        console.log("Recipes fetched:", recipes);
         
         const template = await TemplateManager.fetchTemplate(templateFile);
         if (!template) {
@@ -37,7 +34,6 @@ async function renderAllRecipes() {
                             : []
                     };
                     
-                    console.log("Processing recipe:", templateData.title);
                     TemplateManager.cloneTemplate(template, appContainer, templateData);
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);

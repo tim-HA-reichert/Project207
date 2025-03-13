@@ -3,7 +3,6 @@ import searchViewController from "../controller/searchBarView.mjs";
 import renderSearchedRecipes from "../controller/searchRecipeView.mjs";
 import recipeViewController from "../controller/allRecipesView.mjs"
 
-console.log("App script loaded");
 const registerServiceWorker = async () => {
     if("serviceWorker" in navigator){
         try {

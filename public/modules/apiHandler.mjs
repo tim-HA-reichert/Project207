@@ -44,7 +44,6 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
             throw new Error(`API request failed with status: ${response.status}`);
         }
         
-        console.log("API response:", response);
         return await response.json();
     } catch (error) {
         console.error("API request error:", error);

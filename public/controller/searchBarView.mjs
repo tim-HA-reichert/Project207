@@ -3,7 +3,7 @@ const templateFile = "./views/searchbarView.html";
 
 // Create an async init function to handle the template loading and setup
 async function initSearchbar() {
-    const header = document.getElementById("navbar-container");
+    const header = document.getElementById("searchbar-container");
     
     // Make sure header exists
     if (!header) {
@@ -13,7 +13,14 @@ async function initSearchbar() {
     
     // Load and clone the template
     const template = await TemplateManager.fetchTemplate(templateFile);
-    const searchbarView = await TemplateManager.cloneTemplate(template, header);
+
+    if (!template) {
+        console.error("Failed to load search template");
+        return searchContainer;
+    }
+
+
+    const searchbarView = await TemplateManager.cloneTemplate(template, header, {});
     
     // Debug: Check what's in the template
     console.log("Template content:", searchbarView.innerHTML);
