@@ -15,7 +15,7 @@ const BASE_API = (isProd) ? BASE_API_PROD : BASE_API_DEV;
 export const API_ENDPOINTS = {
     RECIPES: {
         GetAll: `${BASE_API}/recipes`,
-        GetById: (id) => `${BASE_API}/recipes/${id}`,
+        GetById: (id) => `${BASE_API}/recipes/?id=${id}`,
         Create: `${BASE_API}/recipes`,
         Update: (id) => `${BASE_API}/recipes/${id}`,
         Delete: (id) => `${BASE_API}/recipes/${id}`,
