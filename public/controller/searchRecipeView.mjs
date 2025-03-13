@@ -24,8 +24,6 @@ export default async function renderSearchedRecipes(criteria) {
         if (recipes && recipes.length > 0) {
             const resultsContainer = document.createElement('div');
             resultsContainer.className = 'search-results-container';
-
-            resultsContainer.appendChild(searchHeader);
             
             recipes.forEach(recipe => {
                 try {
