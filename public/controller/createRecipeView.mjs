@@ -3,7 +3,7 @@ import { createRecipe } from "../modules/apiHandler.mjs";
 
 const templateFile = "./views/createRecipeView.html";
 
-async function renderCreateRecipeView() {
+export default async function renderCreateRecipeView() {
     const appContainer = document.getElementById("app");
     if (!appContainer) {
         console.error("App container not found");
@@ -11,10 +11,8 @@ async function renderCreateRecipeView() {
     }
     
     try {
-        // Clear the container
         appContainer.innerHTML = '';
         
-        // Fetch the template
         const template = await TemplateManager.fetchTemplate(templateFile);
         if (!template) {
             console.error("Failed to load create recipe template.");
@@ -230,8 +228,4 @@ function setupFormHandlers() {
     });
 }
 
-const createRecipeViewController = {
-    view: renderCreateRecipeView
-};
 
-export default createRecipeViewController;

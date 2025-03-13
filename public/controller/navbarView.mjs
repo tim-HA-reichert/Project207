@@ -1,10 +1,10 @@
 import TemplateManager from "../modules/templateManager.mjs";
-import recipeViewController from "./showAllRecipeView.mjs";
-import createRecipeViewController from "./createRecipeView.mjs";
+import renderAllRecipes from "./showAllRecipeView.mjs";
+import renderCreateRecipeView from "./createRecipeView.mjs";
 
 const templateFile = "./views/navbarView.html";
 
-async function renderNavbar() {
+export default async function renderNavbar() {
     try {
         const template = await TemplateManager.fetchTemplate(templateFile);
         if (!template) {
@@ -61,11 +61,11 @@ async function navigateTo(route) {
             break;
             
         case 'all-recipes':
-            await recipeViewController.view;
+            await renderAllRecipes();
             break;
             
         case 'create-recipe':
-            await createRecipeViewController.view;
+            await renderCreateRecipeView()
             break;
             
         case 'saved-recipes':
@@ -81,13 +81,3 @@ async function navigateTo(route) {
     }
 }
 
-// Render the navbar when this module is imported
-const navbarView = await renderNavbar();
-
-// Create view controller object to export
-const navbarViewController = {
-    view: navbarView,
-    navigateTo: navigateTo
-};
-
-export default navbarViewController;

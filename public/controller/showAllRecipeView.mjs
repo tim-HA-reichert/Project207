@@ -3,7 +3,7 @@ import { getAllRecipes } from "../modules/apiHandler.mjs";
 
 const templateFile = "./views/recipeView.html";
 
-async function renderAllRecipes() {
+export default async function renderAllRecipes() {
     const appContainer = document.getElementById("app");
     try {
         const recipes = await getAllRecipes();
@@ -52,8 +52,3 @@ async function renderAllRecipes() {
 }
 
 
-const recipeViewController = {
-    view: renderAllRecipes,
-};
-
-export default recipeViewController;

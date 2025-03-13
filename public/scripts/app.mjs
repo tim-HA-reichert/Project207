@@ -1,7 +1,8 @@
-import navbarViewController from "../controller/navbarView.mjs";
-import searchViewController from "../controller/searchBarView.mjs";
+import renderNavbar from "../controller/navbarView.mjs";
+import initSearchbar from "../controller/searchBarView.mjs";
 import renderSearchedRecipes from "../controller/searchRecipeView.mjs";
-import recipeViewController from "../controller/showAllRecipeView.mjs";
+import renderAllRecipes from "../controller/showAllRecipeView.mjs";
+
 
 const registerServiceWorker = async () => {
     if("serviceWorker" in navigator){
@@ -40,14 +41,13 @@ const initApp = async () => {
         appContainer.id = "app";
         document.body.appendChild(appContainer);
     }
-    await navbarViewController.view;
-    
-    document.body.append(searchViewController.view);
+    await renderNavbar();
+    await initSearchbar();
 
     const showAllButton = searchBarView.querySelector("#show-all-recipes-button");
     showAllButton.addEventListener("click", async (e) => {
         e.preventDefault();
-        await recipeViewController.view;
+        await renderAllRecipes();
     });
     console.log(showAllButton);
 }

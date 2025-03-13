@@ -2,7 +2,7 @@ import TemplateManager from '../modules/templateManager.mjs';
 
 const templateFile = "./views/searchbarView.html";
 
-async function initSearchbar() {
+export default async function initSearchbar() {
     const header = document.getElementById("navbar-container");
     
     if (!header) {
@@ -55,6 +55,3 @@ async function initSearchbar() {
     return searchBarView;
 }
 
-const searchViewController = await initSearchbar();
-
-export default searchViewController;
