@@ -5,11 +5,12 @@ import { searchRecipes, getAllRecipes } from "../modules/apiHandler.mjs";
 const recipeTemplateFile = "./views/recipeView.html";
 const searchTemplateFile = "./views/recipeView.html";
 
-async function renderSearchedRecipes(recipeId) {
+export default async function renderSearchedRecipes(criteria) {
     const appContainer = document.getElementById("app");
+    appContainer.innerHTML = '';
 
     try {
-        const recipe = await searchRecipes(recipeId);
+        const recipe = await searchRecipes(criteria);
         console.log("Recipe fetched:", recipe);
 
         const recipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
@@ -21,41 +22,49 @@ async function renderSearchedRecipes(recipeId) {
             return appContainer;
         }
         
-        if (recipe) {
-            appContainer.innerHTML = '';
-
-            try {
-                const templateData = {
-                    title: recipe.title,
-                    servings: recipe.servings,
-                    cookingtime: recipe.cookingtime, 
-                    difficulty: recipe.difficulty,
-                    mealtype: recipe.mealtype, 
-                    nationality: recipe.nationality,
-                    ingredients: Array.isArray(recipe.ingredients) 
-                        ? recipe.ingredients 
-                        : [],
-                    instructions: Array.isArray(recipe.instructions) 
-                        ? recipe.instructions 
-                        : []
-                };
-                
-                console.log("Processing recipe:", templateData.title);
-                TemplateManager.cloneTemplate(recipeTemplate, appContainer, templateData);
-            } catch (err) {
-                console.error("Error processing recipe:", recipe.title, err);
-            }
+        if (recipes && recipes.length > 0) {
+            const resultsContainer = document.createElement('div');
+            resultsContainer.className = 'search-results-container';
+            
+            const searchHeader = document.createElement('h2');
+            searchHeader.textContent = `Search results for: "${criteria.search}"`;
+            resultsContainer.appendChild(searchHeader);
+            
+            recipes.forEach(recipe => {
+                try {
+                    const templateData = {
+                        title: recipe.title,
+                        servings: recipe.servings,
+                        cookingtime: recipe.cookingtime, 
+                        difficulty: recipe.difficulty,
+                        mealtype: recipe.mealtype, 
+                        nationality: recipe.nationality,
+                        ingredients: Array.isArray(recipe.ingredients) 
+                            ? recipe.ingredients 
+                            : [],
+                        instructions: Array.isArray(recipe.instructions) 
+                            ? recipe.instructions 
+                            : []
+                    };
+                    
+                    console.log("Processing recipe:", templateData.title);
+                    TemplateManager.cloneTemplate(recipeTemplate, resultsContainer, templateData);
+                } catch (err) {
+                    console.error("Error processing recipe:", recipe.title, err);
+                }
+            });
+            
+            appContainer.appendChild(resultsContainer);
         } else {
-            appContainer.innerHTML = '<div class="no-recipe">Recipe not found</div>';
+            appContainer.innerHTML = '<div class="no-recipe">No recipes found matching your search criteria</div>';
         }
         
         return appContainer;
     } catch (error) {
-        console.error("Error rendering recipe:", error);
-        appContainer.innerHTML = '<div class="error">Error loading recipe. Please try again later.</div>';
+        console.error("Error rendering recipes:", error);
+        appContainer.innerHTML = '<div class="error">Error loading recipes. Please try again later.</div>';
         return appContainer;
     }
 }
 
 
-const recipeView = await renderSingleRecipe();

@@ -1,5 +1,6 @@
 import navbarViewController from "../controller/navbarView.mjs";
 import searchViewController from "../controller/searchBarView.mjs";
+
 import recipeViewController from "../controller/allRecipesView.mjs"
 
 console.log("App script loaded");
@@ -24,11 +25,23 @@ const registerServiceWorker = async () => {
 const initApp = async () => {
     document.body.append(navbarViewController.view);
     document.body.append(searchViewController.view);
-    document.body.append(recipeViewController.view);
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('search');
+    
+    if (searchQuery) {
+        console.log("Search query found in URL:", searchQuery);
+        await renderSearchedRecipes({ search: searchQuery });
+    } else {
+        document.body.append(recipeViewController.view);
+    }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     registerServiceWorker();
     initApp();
 });
+
+window.addEventListener('popstate', () => {
+    initApp();
+})
