@@ -38,7 +38,16 @@ export default async function renderAllRecipes() {
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
                     const editButton = recipeElement.querySelector('#edit-recipe-button');
-                    handleEditRecipe(editButton, recipe.recipe_id)
+                    if(editButton){
+                    editButton.addEventListener('click', (e) => {
+                        console.log(e.detail)
+                        e.preventDefault();
+                        console.log("editing: ", recipe.recipe_id);
+                        loadEditForm(recipe.recipe_id);
+                    })
+                    }else{
+                        console.warn(`Edit button not found for recipe: ${recipe.title}`);
+                    }
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }
@@ -52,16 +61,6 @@ export default async function renderAllRecipes() {
         console.error("Error rendering recipes:", error);
         appContainer.innerHTML = '<div class="error">Error loading recipes. Please try again later.</div>';
         return appContainer;
-    }
-}
-
-function handleEditRecipe(aButton, recipeId) {
-    if (aButton) {
-        aButton.addEventListener('click', () => {
-            console.log(`Editing recipe with ID: ${recipeId}`);
-            console.log(recipe.recipe_id);
-            loadEditForm(recipeId);
-           });
     }
 }
 
