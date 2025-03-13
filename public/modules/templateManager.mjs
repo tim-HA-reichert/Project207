@@ -8,21 +8,28 @@ TemplateManager.fetchTemplate = async (path) => {
     div.innerHTML = rawTemplate;
     let template = div.firstChild;
     return template;
-
 }
 
 TemplateManager.cloneTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
-    let html = clone.innerHTML;
+    
+    const tempContainer = document.createElement("div");
+    tempContainer.appendChild(clone);
+    let html = tempContainer.innerHTML;
 
     for (let key of Object.keys(data)) {
-        html = html.replaceAll(RegExp(`/\{\{${key}\}\}/gm`, data[key]));
+        const value = data[key] !== undefined ? data[key] : '';
+        const regex = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
+        html = html.replace(regex, value);
     }
 
-    clone.innerHTML = html;
-    target.appendChild(clone);
-    return clone;
-}
-
+    tempContainer.innerHTML = html;
+    
+    while (tempContainer.firstChild) {
+        target.appendChild(tempContainer.firstChild);
+    }
+    
+    return target.lastChild;
+};
 
 export default TemplateManager
