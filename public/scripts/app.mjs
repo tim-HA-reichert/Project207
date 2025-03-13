@@ -1,5 +1,6 @@
 import navbarViewController from "../controller/navbarView.mjs";
-import recipeViewController from "../controller/recipeView.mjs";
+import searchViewController from "../controller/searchBarView.mjs";
+import recipeViewController from "../controller/allRecipesView.mjs"
 
 console.log("App script loaded");
 const registerServiceWorker = async () => {
@@ -22,9 +23,8 @@ const registerServiceWorker = async () => {
 }
 const initApp = async () => {
     document.body.append(navbarViewController.view);
+    document.body.append(searchViewController.view);
     document.body.append(recipeViewController.view);
-    console.log("Navbar initialized:", navbarViewController.view);
-
 }
 
 
