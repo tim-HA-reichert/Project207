@@ -37,7 +37,7 @@ export default async function renderAllRecipes() {
                     };
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-                    const editRecipeButton = createFunctionButton(recipe.recipe_id, editButton, renderEditRecipeView);
+                    const editRecipeButton = createFunctionButton(recipe.recipe_id, `edit-button`, renderEditRecipeView);
                     recipeElement.appendChild(editRecipeButton);
 
                 } catch (err) {
@@ -57,21 +57,21 @@ export default async function renderAllRecipes() {
     }
 }
 
-function createFunctionButton(recipe, buttonPurpose, functionForPurpose) {
-    buttonPurpose = document.createElement('button');
-    buttonPurpose.className = `${buttonPurpose}`;
-    buttonPurpose.textContent = `${buttonPurpose}`;
-    
-    buttonPurpose.addEventListener('click', async (e) => {
+function createFunctionButton(recipe, buttonText, functionForPurpose) {
+    const button = document.createElement('button');
+    button.className = buttonText;
+    button.textContent = buttonText;
+
+    button.addEventListener('click', async (e) => {
         e.preventDefault();
         try {
-            console.log("Editing recipe:", recipe);
+            console.log(`Performing ${buttonText} on `, recipe);
             await functionForPurpose(recipe);
         } catch (error) {
             console.error("Error loading recipe for editing:", error);
         }
     });   
-    return buttonPurpose;
+    return button;
 }
 
 async function loadEditForm(recipeId) {
