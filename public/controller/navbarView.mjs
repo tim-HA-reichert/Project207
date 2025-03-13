@@ -1,6 +1,5 @@
 import TemplateManager from "../modules/templateManager.mjs";
 import showAllRecipeViewController from "./showAllRecipeView.mjs";
-import searchRecipeView from "./searchRecipeView.mjs";
 import createRecipeView from "./createRecipeView.mjs";
 
 const templateFile = "./views/navbarView.html";
