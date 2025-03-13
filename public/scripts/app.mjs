@@ -22,10 +22,8 @@ const registerServiceWorker = async () => {
         }
     }
 }
-const initApp = async () => {
-    document.body.append(navbarViewController.view);
-    document.body.append(searchViewController.view);
-    
+
+async function performSearch(){
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('search');
     
@@ -37,11 +35,16 @@ const initApp = async () => {
     }
 }
 
+const initApp = async () => {
+    document.body.append(navbarViewController.view);
+    document.body.append(searchViewController.view);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     registerServiceWorker();
     initApp();
 });
 
 window.addEventListener('popstate', async () => {
-    return await renderSearchedRecipes({ search: searchQuery });
-})
+    await performSearch();
+});

@@ -9,6 +9,7 @@ const searchbarView = await TemplateManager.cloneTemplate(template, header);
 const searchInput = searchbarView.querySelector("#recipe-search");
 const searchButton = searchbarView.querySelector("#search-button");
 
+if(searchInput && searchButton){
 function performSearch() {
     const searchTerm = searchInput.value;
     
@@ -24,15 +25,17 @@ function performSearch() {
 
 searchButton.addEventListener("click", (e) => {
     e.preventDefault();
-    performSearch
+    performSearch();
 });
-searchInput.addEventListener("keypress", (e) => {
+searchInput.addEventListener("keypress", async (e) => {
     e.preventDefault();
     if (e.key === "Enter") {
         performSearch();
     }
 });
-
+} else {
+    console.log("No button or input found.")
+}
 const searchViewController = {
     view: searchbarView
 }
