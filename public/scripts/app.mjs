@@ -1,6 +1,6 @@
 import navbarViewController from "../controller/navbarView.mjs";
 import searchViewController from "../controller/searchBarView.mjs";
-
+import renderSearchedRecipes from "../controller/searchRecipeView.mjs";
 import recipeViewController from "../controller/allRecipesView.mjs"
 
 console.log("App script loaded");
