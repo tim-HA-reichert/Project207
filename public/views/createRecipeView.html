@@ -1,0 +1,81 @@
+<template>
+  <article id="create-recipe-container">
+      <div class="create-recipe-card">
+        <section class="create-recipe-header">
+          <h1 class="create-recipe-title">Create New Recipe</h1>
+        </section>
+
+        <form id="create-recipe-form">
+          <div class="form-group">
+            <label for="create-title">Title</label>
+            <input type="text" id="create-title" name="title" placeholder="Recipe title" required>
+          </div>
+
+          <div class="form-group">
+            <label for="create-servings">Servings</label>
+            <input type="number" id="create-servings" name="servings" placeholder="Number of servings" required>
+          </div>
+
+          <div class="form-group">
+            <label for="create-cookingtime">Cooking Time (minutes)</label>
+            <input type="number" id="create-cookingtime" name="cookingtime" placeholder="Total cooking time" required>
+          </div>
+
+          <div class="form-group">
+            <label for="create-difficulty">Difficulty</label>
+            <select id="create-difficulty" name="difficulty" required>
+              <option value="" disabled selected>Select difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="create-mealtype">Meal Type</label>
+            <select id="create-mealtype" name="mealtype" required>
+              <option value="" disabled selected>Select meal type</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="create-nationality">Nationality</label>
+            <input type="text" id="create-nationality" name="nationality" placeholder="e.g., Italian, Mexican, Thai" required>
+          </div>
+
+          <div class="form-group">
+            <label for="ingredients-container">Ingredients</label>
+            <div id="ingredients-container" class="editable-list-container">
+              <div class="list-items" id="ingredients-list">
+                <!-- Dynamic ingredients will be added here -->
+              </div>
+              <div class="list-input-group">
+                <input type="text" id="new-ingredient" placeholder="Add a new ingredient (e.g., 2 cups flour)">
+                <button type="button" id="add-ingredient-btn">Add</button>
+              </div>
+            </div>
+            <input type="hidden" id="ingredients-data" name="ingredients" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="instructions-container">Instructions</label>
+            <div id="instructions-container" class="editable-list-container">
+              <div class="list-items" id="instructions-list">
+                <!-- Dynamic instructions will be added here -->
+              </div>
+              <div class="list-input-group">
+                <input type="text" id="new-instruction" placeholder="Add a new instruction step">
+                <button type="button" id="add-instruction-btn">Add</button>
+              </div>
+            </div>
+            <input type="hidden" id="instructions-data" name="instructions" required>
+          </div>
+
+          <button type="submit" class="create-recipe-button">Create Recipe</button>
+        </form>
+      </div>
+  </article>
+</template>
