@@ -65,4 +65,17 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
 };
 
 
+TemplateManager.cloneTemplateOldVersion = (template, target, data = {}) => {
+    const clone = template.content.cloneNode(true);
+    let html = clone.innerHTML;
+
+    for (let key of Object.keys(data)) {
+        html = html.replaceAll(RegExp(`/\{\{${key}\}\}/gm`, data[key]));
+    }
+
+    clone.innerHTML = html;
+    target.appendChild(clone);
+    return clone;
+}
+
 export default TemplateManager;

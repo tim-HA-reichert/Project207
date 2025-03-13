@@ -20,7 +20,7 @@ async function initSearchbar() {
     }
 
 
-    const searchBarView = TemplateManager.cloneTemplate(template, header);
+    const searchBarView = TemplateManager.cloneTemplateOldVersion(template, header);
     
     // Debug: Check what's in the template
     console.log("Template content:", searchBarView.innerHTML);
