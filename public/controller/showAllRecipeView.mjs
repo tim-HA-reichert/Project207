@@ -36,7 +36,20 @@ export default async function renderAllRecipes() {
                     };
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
+                    const editButton = recipeElement.querySelector('.edit-button');
                     
+                    if (editButton) {
+                        editButton.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            console.log("Editing recipe:", recipe.recipe_id);
+                            loadEditForm(recipe.recipe_id);
+                        });
+                    } else {
+                        console.warn(`Edit button not found for recipe: ${recipe.title}`);
+                    }
+                        }else{
+                            console.warn(`Edit button not found for recipe: ${recipe.title}`);
+                        }
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }
@@ -45,18 +58,7 @@ export default async function renderAllRecipes() {
         } else {
             appContainer.innerHTML = '<div class="no-recipes">No recipes found</div>';
         }
-        const editButton = appContainer.querySelector('#edit-recipe-button');
 
-        if(editButton){
-            editButton.addEventListener('click', (e) => {
-                console.log(e.detail)
-                e.preventDefault();
-                console.log("editing: ", recipe.recipe_id);
-                loadEditForm(recipe.recipe_id);
-            })
-            }else{
-                console.warn(`Edit button not found for recipe: ${recipe.title}`);
-            }
         return appContainer;
     } catch (error) {
         console.error("Error rendering recipes:", error);
