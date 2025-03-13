@@ -13,10 +13,10 @@ export default async function renderSearchedRecipes(searchQuery) {
         const recipes = await searchRecipes(criteria);
         console.log("Recipe fetched:", recipes);
 
-        const recipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
-            console.log(recipeTemplate);
+        const template = await TemplateManager.fetchTemplate(recipeTemplateFile);
+            console.log(template);
 
-        if (!recipeTemplate) {
+        if (!template) {
             console.error("Failed to load templates.");
             appContainer.innerHTML = '<div class="error">Error loading templates. Please try again later.</div>';
             return appContainer;
@@ -45,7 +45,7 @@ export default async function renderSearchedRecipes(searchQuery) {
                     };
                     
                     console.log("Processing recipe:", templateData.title);
-                    TemplateManager.cloneRecipeTemplate(recipeTemplate, resultsContainer, templateData);
+                    const recipeElement = TemplateManager.cloneRecipeTemplate(template, resultsContainer, templateData);
 
                     const editButton = recipeElement.querySelector('.edit-button');
                     if (editButton) {

@@ -39,7 +39,9 @@ export default async function renderAllRecipes() {
                     
                     const editButton = recipeElement.querySelector('.edit-button');
                     if (editButton) {
-                        editButton.addEventListener('click', () => handleEditRecipe(recipe.recipe_id));
+                        editButton.addEventListener('click', () => {
+                            console.log(recipe.recipe_id);
+                            handleEditRecipe(recipe.recipe_id)});
                     }
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
