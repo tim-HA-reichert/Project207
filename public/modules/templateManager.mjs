@@ -16,8 +16,11 @@ TemplateManager.fetchTemplate = async (path) => {
 
 TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
+    let html = clone.innerHTML;
+    
     console.log("Cloned template structure:", clone);
     console.log("Edit button in clone:", clone.querySelector('.edit-button'));
+
     
         for (let key of Object.keys(data)) {
             if (Array.isArray(data[key])) {
