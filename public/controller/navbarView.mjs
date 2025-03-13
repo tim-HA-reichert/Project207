@@ -55,17 +55,20 @@ async function navigateTo(route) {
     
     appContainer.innerHTML = '';
     
+    const allRecipes = await renderAllRecipes();
+    const createRecipe = await renderCreateRecipeView()
+
     switch(route) {
         case 'home':
             appContainer.innerHTML = '<h1>Welcome to Recipe App</h1><p>Use the navigation to explore recipes.</p>';
             break;
             
         case 'all-recipes':
-            await renderAllRecipes();
+            allRecipes;
             break;
             
         case 'create-recipe':
-            await renderCreateRecipeView()
+            createRecipe;
             break;
             
         case 'saved-recipes':

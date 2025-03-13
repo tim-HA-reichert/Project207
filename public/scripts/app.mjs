@@ -31,7 +31,7 @@ async function performSearch(){
         console.log("Search query found in URL:", searchQuery);
         await renderSearchedRecipes(searchQuery);
     } else {
-        await recipeViewController.view;
+        await renderAllRecipes();
     }
 }
 
@@ -43,13 +43,6 @@ const initApp = async () => {
     }
     await renderNavbar();
     await initSearchbar();
-
-    const showAllButton = searchBarView.querySelector("#show-all-recipes-button");
-    showAllButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await renderAllRecipes();
-    });
-    console.log(showAllButton);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
