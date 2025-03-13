@@ -10,7 +10,7 @@ export default async function renderSearchedRecipes(criteria) {
 
     try {
         const recipes = await searchRecipes(criteria);
-        console.log("Recipe fetched:", recipe);
+        console.log("Recipe fetched:", recipes);
 
         const recipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
             console.log(recipeTemplate);
