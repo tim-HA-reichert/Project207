@@ -16,40 +16,56 @@ TemplateManager.fetchTemplate = async (path) => {
 
 TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
-    let html = clone.innerHTML;
-    
     console.log("Cloned template structure:", clone);
     console.log("Edit button in clone:", clone.querySelector('.edit-button'));
-
-    
-        for (let key of Object.keys(data)) {
-            if (Array.isArray(data[key])) {
-                // Handle arrays by joining elements with a comma and space
-                html = html.replaceAll(`{{${key}}}`, data[key].join(", "));
-    
-                // Also check for list containers and populate them
-                const container = clone.querySelector(`#${key}-list, .${key}-list, [data-array="${key}"]`);
-                if (container) {
-                    container.innerHTML = ""; // Clear existing placeholder content
-                    data[key].forEach(item => {
-                        const listItem = document.createElement(container.tagName === "UL" || container.tagName === "OL" ? "LI" : "DIV");
-                        listItem.textContent = item;
-                        container.appendChild(listItem);
-                    });
+    // Replace simple text placeholders
+    for (const key in data) {
+        const value = data[key];
+        if (!Array.isArray(value)) {
+            const textNodes = document.createTreeWalker(clone, NodeFilter.SHOW_TEXT, null, false);
+            
+            while (textNodes.nextNode()) {
+                let node = textNodes.currentNode;
+                if (node.nodeValue.includes(`{{${key}}}`)) {
+                    node.nodeValue = node.nodeValue.replaceAll(`{{${key}}}`, value);
                 }
-            } else {
-                // Keep original replacement logic for non-array values
-                html = html.replaceAll(RegExp(`/\{\{${key}\}\}/gm`, data[key]));
             }
         }
+    }
     
-        clone.innerHTML = html;
-        target.appendChild(clone);
-        return clone;
-    };
+    // Handle array data separately
+    for (const key in data) {
+        const value = data[key];
+        
+        if (Array.isArray(value)) {
+            let container = clone.querySelector(`#${key}-list, .${key}-list, [data-array="${key}"]`);
+            
+            if (!container) {
+                // If no specific container, replace occurrences in text
+                const textNodes = document.createTreeWalker(clone, NodeFilter.SHOW_TEXT, null, false);
+                while (textNodes.nextNode()) {
+                    let node = textNodes.currentNode;
+                    if (node.nodeValue.includes(`{{${key}}}`)) {
+                        node.nodeValue = node.nodeValue.replaceAll(`{{${key}}}`, value.join(', '));
+                    }
+                }
+                continue;
+            }
+            
+            // Create and append list items
+            value.forEach(item => {
+                const listItem = document.createElement(container.tagName === 'UL' || container.tagName === 'OL' ? 'LI' : 'DIV');
+                listItem.textContent = item;
+                container.appendChild(listItem);
+            });
+        }
+    }
     
-    
+    target.appendChild(clone);
+    return clone;
 
+
+};
 
 
 TemplateManager.staticCloneTemplate = (template, target) => {
