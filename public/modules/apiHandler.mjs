@@ -6,7 +6,7 @@ const HTTP_METHODS = {
     DELETE: "DELETE"
 };
 
-const isProd = false;
+const isProd = true;
 const BASE_API_PROD = "https://project207.onrender.com";
 const BASE_API_DEV = "http://localhost:8000";
 
