@@ -15,9 +15,7 @@ async function renderAllRecipes() {
         console.log("Template loaded");
         
         if (recipes && recipes.length > 0) {
-
             appContainer.innerHTML = '';
-            
 
             recipes.forEach(recipe => {
                 try {
@@ -30,11 +28,11 @@ async function renderAllRecipes() {
                         mealType: recipe.mealtype, 
                         nationality: recipe.nationality,
                         ingredients: Array.isArray(recipe.ingredients) 
-                            ? recipe.ingredients.map(ing => `* ${ing}`).join('\n') 
-                            : '',
+                            ? recipe.ingredients 
+                            : [],
                         instructions: Array.isArray(recipe.instructions) 
-                            ? recipe.instructions.map((step, i) => `${i+1}. ${step}`).join('\n') 
-                            : ''
+                            ? recipe.instructions 
+                            : []
                     };
                     
                     console.log("Processing recipe:", templateData.title);
@@ -54,7 +52,6 @@ async function renderAllRecipes() {
         return appContainer;
     }
 }
-
 
 const recipeView = await renderAllRecipes();
 
