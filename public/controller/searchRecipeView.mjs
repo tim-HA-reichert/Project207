@@ -29,6 +29,7 @@ export default async function renderSearchedRecipes(searchQuery) {
             recipes.forEach(recipe => {
                 try {
                     const templateData = {
+                        id: recipe.recipe_id,
                         title: recipe.title,
                         servings: recipe.servings,
                         cookingtime: recipe.cookingtime, 
@@ -45,6 +46,12 @@ export default async function renderSearchedRecipes(searchQuery) {
                     
                     console.log("Processing recipe:", templateData.title);
                     TemplateManager.cloneRecipeTemplate(recipeTemplate, resultsContainer, templateData);
+
+                    const editButton = recipeElement.querySelector('.edit-button');
+                    if (editButton) {
+                        editButton.addEventListener('click', () => handleEditRecipe(recipe.recipe_id));
+                    }
+
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }
@@ -63,4 +70,24 @@ export default async function renderSearchedRecipes(searchQuery) {
     }
 }
 
+function handleEditRecipe(recipeId) {
+    console.log(`Editing recipe with ID: ${recipeId}`);
+    
+    loadEditForm(recipeId);
+}
+
+async function loadEditForm(recipeId) {
+    try {
+        const recipe = await getRecipeById(recipeId);
+        if (recipe) {
+            console.log("Retrieved recipe for editing:", recipe);
+            
+            // Example: Load an edit template and show it in a modal or dedicated area
+            // const editFormTemplate = await TemplateManager.fetchTemplate('./views/editRecipeForm.html');
+            // TemplateManager.renderEditForm(editFormTemplate, recipe);
+        }
+    } catch (error) {
+        console.error("Error loading recipe for editing:", error);
+    }
+}
 
