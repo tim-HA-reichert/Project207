@@ -10,11 +10,12 @@ TemplateManager.fetchTemplate = async (path) => {
     let div = document.createElement("div");
     div.innerHTML = rawTemplate;
     
-    let template = div.firstChild;
+    let template = div.querySelector("template");
     return template;
 }
 
-TemplateManager.cloneTemplate = (template, target, data = {}) => {
+TemplateManager.cloneTemplate = async (template, target, data = {}) => {
+    try{
     const clone = template.content.cloneNode(true);
     let html = clone.innerHTML;
 
@@ -48,6 +49,9 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
     clone.innerHTML = html;
     target.appendChild(clone);
     return clone;
+    } catch(error){
+        console.log(error);
+    }
 }
 
 function handleListData(element, arrayOfData) {
