@@ -45,6 +45,7 @@ export default async function renderAllRecipes() {
                             loadEditForm(recipe.recipe_id);
                         });
                     } else {
+                        console.log("DOM structure for recipe:", appendedElement.innerHTML);
                         console.warn(`Edit button not found for recipe: ${recipe.title}`);
                     }
                 } catch (err) {

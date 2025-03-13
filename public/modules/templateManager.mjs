@@ -33,7 +33,6 @@ TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
         }
     }
     
-    // Handle array data separately
     for (const key in data) {
         const value = data[key];
         
@@ -41,7 +40,6 @@ TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
             let container = clone.querySelector(`#${key}-list, .${key}-list, [data-array="${key}"]`);
             
             if (!container) {
-                // If no specific container, replace occurrences in text
                 const textNodes = document.createTreeWalker(clone, NodeFilter.SHOW_TEXT, null, false);
                 while (textNodes.nextNode()) {
                     let node = textNodes.currentNode;
@@ -52,7 +50,7 @@ TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
                 continue;
             }
             
-            // Create and append list items
+
             value.forEach(item => {
                 const listItem = document.createElement(container.tagName === 'UL' || container.tagName === 'OL' ? 'LI' : 'DIV');
                 listItem.textContent = item;
@@ -61,10 +59,14 @@ TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
         }
     }
     
-    target.appendChild(clone);
-    return clone;
-
-
+    // Important change: we append the clone and then find the actual DOM element that was just added
+    const appendedElement = target.appendChild(clone);
+    
+    // Find the edit button within the newly added element
+    const editButton = appendedElement.querySelector('#edit-recipe-button, .edit-button');
+    console.log("Found edit button after append:", editButton);
+    
+    return appendedElement;
 };
 
 
