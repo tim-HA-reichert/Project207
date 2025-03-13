@@ -37,13 +37,8 @@ export default async function renderAllRecipes() {
                     };
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-                    const editButton = createEditButton(recipe.recipe_id);
-                    const actionContainer = recipeElement.querySelector('.recipe-actions');
-                    if (actionContainer) {
-                        actionContainer.appendChild(editButton);
-                    } else {
-                        console.warn(`Action container not found for recipe: ${recipe.title}`);
-                    }
+                    const editButton = createFunctionButton(recipe.recipe_id, editButton, renderEditRecipeView);
+                    recipeElement.appendChild(editButton);
 
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
@@ -62,22 +57,21 @@ export default async function renderAllRecipes() {
     }
 }
 
-function createEditButton(recipe) {
-    const editButton = document.createElement('button');
-    editButton.className = 'edit-button';
-    editButton.textContent = 'Edit';
+function createFunctionButton(recipe, buttonPurpose, functionForPurpose) {
+    const buttonPurpose = document.createElement('button');
+    buttonPurpose.className = 'edit-button';
+    buttonPurpose.textContent = 'Edit';
     
-    editButton.addEventListener('click', async (e) => {
+    buttonPurpose.addEventListener('click', async (e) => {
         e.preventDefault();
         try {
-            console.log("Editing recipe:", recipe.recipe_id);
-            await renderEditRecipeView(recipe);
+            console.log("Editing recipe:", recipe);
+            await functionForPurpose(recipe);
         } catch (error) {
             console.error("Error loading recipe for editing:", error);
         }
-    });
-    
-    return editButton;
+    });   
+    return buttonPurpose;
 }
 
 async function loadEditForm(recipeId) {
