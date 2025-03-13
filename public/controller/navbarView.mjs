@@ -1,6 +1,6 @@
 import TemplateManager from "../modules/templateManager.mjs";
-import showAllRecipeViewController from "./showAllRecipeView.mjs";
-import createRecipeView from "./createRecipeView.mjs";
+import recipeViewController from "./showAllRecipeView.mjs";
+import createRecipeViewController from "./createRecipeView.mjs";
 
 const templateFile = "./views/navbarView.html";
 
@@ -13,9 +13,8 @@ async function renderNavbar() {
         }
         
         // Create navbar container
-        const navbarContainer = document.createElement("div");
-        navbarContainer.id = "navbar-container";
-        navbarContainer.appendChild(template);
+        const navbarContainer = document.getElementById("navbar-container");
+        TemplateManager.staticCloneTemplate(template, navbarContainer);
         
         // Add event listeners to navigation items
         setupNavigation(navbarContainer);
@@ -62,13 +61,11 @@ async function navigateTo(route) {
             break;
             
         case 'all-recipes':
-            document.body.append(showAllRecipeViewController.view);
+            appContainer.append(recipeViewController.view);
             break;
             
         case 'create-recipe':
-            // Either render the create recipe view or redirect to it
-            const createRecipeResult = await createRecipeView();
-            appContainer.appendChild(createRecipeResult);
+            appContainer.appendChild(createRecipeViewController.view);
             break;
             
         case 'saved-recipes':
