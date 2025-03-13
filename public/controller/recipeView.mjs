@@ -12,7 +12,10 @@ async function renderAllRecipes() {
         console.log("Recipes fetched:", recipes);
         
         const template = await TemplateManager.fetchTemplate(templateFile);
-        console.log("Template loaded");
+        if (!template) {
+            console.error("Failed to load template.");
+            return;
+        }
         
         if (recipes && recipes.length > 0) {
             appContainer.innerHTML = '';
@@ -20,12 +23,11 @@ async function renderAllRecipes() {
             recipes.forEach(recipe => {
                 try {
                     const templateData = {
-                        recipe_id: recipe.recipe_id,
                         title: recipe.title,
                         servings: recipe.servings,
-                        cookingTime: recipe.cookingtime, 
+                        cookingtime: recipe.cookingtime, 
                         difficulty: recipe.difficulty,
-                        mealType: recipe.mealtype, 
+                        mealtype: recipe.mealtype, 
                         nationality: recipe.nationality,
                         ingredients: Array.isArray(recipe.ingredients) 
                             ? recipe.ingredients 
