@@ -21,7 +21,6 @@ export default async function renderCreateRecipeView() {
         
         TemplateManager.cloneRecipeTemplate(template, appContainer);
         
-        // Set up event handlers for the form
         setupFormHandlers();
         
         return appContainer;
@@ -33,137 +32,135 @@ export default async function renderCreateRecipeView() {
 }
 
 function setupFormHandlers() {
-    // Get form elements
     const form = document.getElementById('create-recipe-form');
-    const ingredientsContainer = document.getElementById('ingredients-container');
-    const instructionsContainer = document.getElementById('instructions-container');
-    
-    // Set up ingredients handling
-    const newIngredientInput = document.getElementById('new-ingredient');
+
+    const ingredientQuantityInput = document.getElementById('new-ingredient-quantity');
+    const ingredientNameInput = document.getElementById('new-ingredient-name');
     const addIngredientBtn = document.getElementById('add-ingredient-btn');
     const ingredientsList = document.getElementById('ingredients-list');
     const ingredientsData = document.getElementById('ingredients-data');
-    
-    // Set up instructions handling
-    const newInstructionInput = document.getElementById('new-instruction');
+
+    const instructionInput = document.getElementById('new-instruction');
     const addInstructionBtn = document.getElementById('add-instruction-btn');
     const instructionsList = document.getElementById('instructions-list');
     const instructionsData = document.getElementById('instructions-data');
-    
-    // Initialize empty arrays for ingredients and instructions
+
     let ingredients = [];
     let instructions = [];
-    
-    // Update hidden fields with JSON data
+
     function updateHiddenFields() {
         ingredientsData.value = JSON.stringify(ingredients);
         instructionsData.value = JSON.stringify(instructions);
     }
     
-    // Add new ingredient
-    addIngredientBtn.addEventListener('click', () => {
-        const ingredientText = newIngredientInput.value.trim();
-        if (ingredientText) {
-            // Add to array
-            ingredients.push(ingredientText);
-            
-            // Create UI element
-            const item = document.createElement('div');
-            item.className = 'list-item';
-            
-            const itemText = document.createElement('span');
-            itemText.textContent = ingredientText;
-            item.appendChild(itemText);
-            
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-item-btn';
-            removeBtn.textContent = 'Remove';
-            removeBtn.type = 'button';
-            removeBtn.addEventListener('click', () => {
-                // Remove from array
-                const index = ingredients.indexOf(ingredientText);
-                if (index !== -1) {
-                    ingredients.splice(index, 1);
-                }
-                
-                // Remove from UI
-                ingredientsList.removeChild(item);
-                
-                // Update hidden field
-                updateHiddenFields();
-            });
-            
-            item.appendChild(removeBtn);
-            ingredientsList.appendChild(item);
-            
-            // Clear input
-            newIngredientInput.value = '';
-            
-            // Update hidden field
-            updateHiddenFields();
+    addIngredientBtn.addEventListener('click', function() {
+        const quantity = ingredientQuantityInput.value.trim();
+        const name = ingredientNameInput.value.trim();
+        
+        if (!quantity) {
+            alert('Please enter ingredient quantity');
+            return;
         }
+        
+        if (!name) {
+            alert('Please enter ingredient name');
+            return;
+        }
+        
+        const ingredientText = `${quantity} ${name}`;
+        
+        ingredients.push(ingredientText);
+        
+        const item = document.createElement('div');
+        item.className = 'list-item';
+
+        const itemText = document.createElement('span');
+        itemText.textContent = ingredientText;
+        item.appendChild(itemText);
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-item-btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.type = 'button';
+        
+        removeBtn.addEventListener('click', function() {
+            const index = ingredients.indexOf(ingredientText);
+            if (index !== -1) {
+                ingredients.splice(index, 1);
+            }
+            
+            ingredientsList.removeChild(item);
+            
+            updateHiddenFields();
+        });
+        
+        item.appendChild(removeBtn);
+        
+        ingredientsList.appendChild(item);
+        
+        ingredientQuantityInput.value = '';
+        ingredientNameInput.value = '';
+        
+        updateHiddenFields();
     });
     
-    // Add new instruction
-    addInstructionBtn.addEventListener('click', () => {
-        const instructionText = newInstructionInput.value.trim();
-        if (instructionText) {
-            // Add to array
-            instructions.push(instructionText);
+    addInstructionBtn.addEventListener('click', function() {
+        const instructionText = instructionInput.value.trim();
+        
+        if (!instructionText) {
+            return; 
+        }
+        
+        instructions.push(instructionText);
+        
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        
+        const stepNumber = document.createElement('span');
+        stepNumber.className = 'step-number';
+        stepNumber.textContent = `Step ${instructions.length}: `;
+        item.appendChild(stepNumber);
+        
+        const itemText = document.createElement('span');
+        itemText.textContent = instructionText;
+        item.appendChild(itemText);
+        
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-item-btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.type = 'button';
+        
+
+        removeBtn.addEventListener('click', function() {
+            const index = instructions.indexOf(instructionText);
+            if (index !== -1) {
+                instructions.splice(index, 1);
+            }
             
-            // Create UI element
-            const item = document.createElement('div');
-            item.className = 'list-item';
+            instructionsList.removeChild(item);
             
-            const stepNumber = document.createElement('span');
-            stepNumber.className = 'step-number';
-            stepNumber.textContent = `Step ${instructions.length}: `;
-            item.appendChild(stepNumber);
-            
-            const itemText = document.createElement('span');
-            itemText.textContent = instructionText;
-            item.appendChild(itemText);
-            
-            const removeBtn = document.createElement('button');
-            removeBtn.className = 'remove-item-btn';
-            removeBtn.textContent = 'Remove';
-            removeBtn.type = 'button';
-            removeBtn.addEventListener('click', () => {
-                // Remove from array
-                const index = instructions.indexOf(instructionText);
-                if (index !== -1) {
-                    instructions.splice(index, 1);
-                }
-                
-                // Remove from UI
-                instructionsList.removeChild(item);
-                
-                // Renumber steps
-                const stepItems = instructionsList.querySelectorAll('.list-item');
-                stepItems.forEach((step, idx) => {
-                    step.querySelector('.step-number').textContent = `Step ${idx + 1}: `;
-                });
-                
-                // Update hidden field
-                updateHiddenFields();
+            const stepItems = instructionsList.querySelectorAll('.list-item');
+            stepItems.forEach((step, idx) => {
+                step.querySelector('.step-number').textContent = `Step ${idx + 1}: `;
             });
             
-            item.appendChild(removeBtn);
-            instructionsList.appendChild(item);
-            
-            // Clear input
-            newInstructionInput.value = '';
-            
-            // Update hidden field
             updateHiddenFields();
-        }
+        });
+        
+        item.appendChild(removeBtn);
+        
+        instructionsList.appendChild(item);
+        
+        instructionInput.value = '';
+        
+        updateHiddenFields();
     });
     
-    // Handle form submission
-    form.addEventListener('submit', async (event) => {
+
+    form.addEventListener('submit', async function(event) {
         event.preventDefault();
         
-        // Validate that at least one ingredient and instruction are added
         if (ingredients.length === 0) {
             alert('Please add at least one ingredient');
             return;
@@ -174,7 +171,6 @@ function setupFormHandlers() {
             return;
         }
         
-        // Get form data
         const formData = new FormData(form);
         const recipeData = {
             title: formData.get('title'),
@@ -187,36 +183,29 @@ function setupFormHandlers() {
             instructions: instructions
         };
         
+        // Submit the recipe
         try {
             const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
             submitButton.textContent = 'Creating...';
             submitButton.disabled = true;
             
             const savedRecipe = await createRecipe(recipeData);
             
-            // Show success message
             form.innerHTML = `
                 <div class="success-message">
                     <h2>Recipe Created Successfully!</h2>
                     <p>Your recipe "${savedRecipe.title}" has been saved.</p>
-                    <button type="button" id="view-recipe-btn">View Recipe</button>
                     <button type="button" id="create-another-btn">Create Another Recipe</button>
                 </div>
             `;
             
-            // Add event listeners to the success buttons
-            document.getElementById('view-recipe-btn').addEventListener('click', () => {
-                // Redirect to view the created recipe
-                window.location.href = `#recipe/${savedRecipe._id}`;
-            });
-            
-            document.getElementById('create-another-btn').addEventListener('click', () => {
-                // Refresh the create recipe form
+            document.getElementById('create-another-btn').addEventListener('click', function() {
                 renderCreateRecipeView();
             });
         } catch (error) {
             console.error('Error creating recipe:', error);
-            // Show error message
+            
             const errorMessage = document.createElement('div');
             errorMessage.className = 'error-message';
             errorMessage.textContent = `Failed to create recipe: ${error.message || 'Unknown error'}`;
@@ -227,5 +216,3 @@ function setupFormHandlers() {
         }
     });
 }
-
-

@@ -53,7 +53,8 @@
                 <!-- Dynamic ingredients will be added here -->
               </div>
               <div class="list-input-group">
-                <input type="text" id="new-ingredient" placeholder="Add a new ingredient (e.g., 2 cups flour)">
+                <input type="number" id="new-ingredient-quantity" min="0.01" step="0.01" placeholder="Quantity">
+                <input type="text" id="new-ingredient-name" placeholder="Ingredient name (e.g., flour)">
                 <button type="button" id="add-ingredient-btn">Add</button>
               </div>
             </div>
