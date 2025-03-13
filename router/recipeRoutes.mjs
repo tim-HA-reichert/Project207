@@ -48,9 +48,9 @@ recipeRouter.get("/", async (req, res) => {
   }
 })
 
-recipeRouter.get("/:id", (req, res) => {
-    const id = req.params.id;
-    const recipe = findRecipeById(recipes, id);
+recipeRouter.get("/:id", async (req, res) => {
+    const id = req.params.user_id;
+    const recipe = await recipeService.readById(recipes, id);
 
     if(recipe){
       res.status(HTTP_CODES.SUCCESS.OK).json(recipe);
