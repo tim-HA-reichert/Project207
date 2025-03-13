@@ -1,4 +1,4 @@
-import navbarViewController from "../controller/navbarView.mjs";
+/* import navbarViewController from "../controller/navbarView.mjs"; */
 import searchViewController from "../controller/searchBarView.mjs";
 import renderSearchedRecipes from "../controller/searchRecipeView.mjs";
 import recipeViewController from "../controller/showAllRecipeView.mjs"
@@ -35,7 +35,7 @@ async function performSearch(){
 }
 
 const initApp = async () => {
-    document.body.append(navbarViewController.view);
+/*     document.body.append(navbarViewController.view); */
     document.body.append(searchViewController.view);
 }
 
