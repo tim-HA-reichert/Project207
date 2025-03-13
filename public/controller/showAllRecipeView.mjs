@@ -47,9 +47,6 @@ export default async function renderAllRecipes() {
                     } else {
                         console.warn(`Edit button not found for recipe: ${recipe.title}`);
                     }
-                        }else{
-                            console.warn(`Edit button not found for recipe: ${recipe.title}`);
-                        }
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }
