@@ -34,7 +34,7 @@ async function renderAllRecipes() {
                             : []
                     };
                     
-                    TemplateManager.cloneTemplate(template, appContainer, templateData);
+                    TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }

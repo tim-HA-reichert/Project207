@@ -48,7 +48,7 @@ export default async function renderSearchedRecipes(criteria) {
                     };
                     
                     console.log("Processing recipe:", templateData.title);
-                    TemplateManager.cloneTemplate(recipeTemplate, resultsContainer, templateData);
+                    TemplateManager.cloneRecipeTemplate(recipeTemplate, resultsContainer, templateData);
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }

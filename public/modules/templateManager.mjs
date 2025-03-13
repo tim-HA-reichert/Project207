@@ -14,7 +14,7 @@ TemplateManager.fetchTemplate = async (path) => {
     return template;
 };
 
-TemplateManager.cloneTemplate = (template, target, data = {}) => {
+TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
     
     // Replace simple text placeholders
