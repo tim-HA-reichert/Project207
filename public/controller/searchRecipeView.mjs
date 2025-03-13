@@ -3,31 +3,28 @@ import { searchRecipes, getAllRecipes } from "../modules/apiHandler.mjs";
 
 
 const recipeTemplateFile = "./views/recipeView.html";
-const searchTemplateFile = "./views/recipeView.html";
 
 export default async function renderSearchedRecipes(criteria) {
     const appContainer = document.getElementById("app");
     appContainer.innerHTML = '';
 
     try {
-        const recipe = await searchRecipes(criteria);
+        const recipes = await searchRecipes(criteria);
         console.log("Recipe fetched:", recipe);
 
         const recipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
-        const searchTemplate = await TemplateManager.fetchTemplate(searchTemplateFile);
-        
-        if (!recipeTemplate || !searchTemplate) {
+            console.log(recipeTemplate);
+
+        if (!recipeTemplate) {
             console.error("Failed to load templates.");
             appContainer.innerHTML = '<div class="error">Error loading templates. Please try again later.</div>';
             return appContainer;
         }
         
-        if (recipe && recipe.length > 0) {
+        if (recipes && recipes.length > 0) {
             const resultsContainer = document.createElement('div');
             resultsContainer.className = 'search-results-container';
-            
-            const searchHeader = document.createElement('h2');
-            searchHeader.textContent = `Search results for: "${criteria.search}"`;
+
             resultsContainer.appendChild(searchHeader);
             
             recipes.forEach(recipe => {

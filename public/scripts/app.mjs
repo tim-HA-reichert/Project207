@@ -28,7 +28,7 @@ async function performSearch(){
     
     if (searchQuery) {
         console.log("Search query found in URL:", searchQuery);
-        await renderSearchedRecipes({ search: searchQuery });
+        await renderSearchedRecipes(searchQuery);
     } else {
         document.body.append(recipeViewController.view);
     }
