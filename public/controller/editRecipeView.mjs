@@ -22,7 +22,14 @@ export default async function renderEditRecipeView(recipeId) {
         flexContainer.style.gap = '20px';
         flexContainer.style.margin = '20px 0';
         appContainer.appendChild(flexContainer);
-        
+
+        const originalRecipeContainer = document.createElement('div');
+        originalRecipeContainer.className = 'original-recipe-container';
+        originalRecipeContainer.style.flex = '1';
+        originalRecipeContainer.style.border = '1px solid #ddd';
+        originalRecipeContainer.style.borderRadius = '5px';
+        originalRecipeContainer.style.padding = '15px';
+        flexContainer.appendChild(originalRecipeContainer);
         
         // Create container for edit form
         const editFormContainer = document.createElement('div');
