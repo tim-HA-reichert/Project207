@@ -272,9 +272,7 @@ function setupFormHandlers(recipe) {
                 recipe_id: recipe.recipe_id,
                 title: formData.get('title'),
                 servings: parseInt(formData.get('servings')),
-                cookingtime: parseInt(formData.get('cookingtime')),
                 difficulty: formData.get('difficulty'),
-                mealtype: formData.get('mealtype'),
                 nationality: formData.get('nationality'),
                 ingredients: ingredients,
                 instructions: instructions

@@ -37,6 +37,9 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
     if ([HTTP_METHODS.POST, HTTP_METHODS.PUT, HTTP_METHODS.PATCH].includes(method)) {
         request.body = JSON.stringify(data);
     }
+    console.log(`Sending request to: ${path}`);
+    console.log(`Method: ${method}`);
+    console.log(`Request Body:`, request.body);
 
     try {
         const response = await fetch(path, request);

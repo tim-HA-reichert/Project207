@@ -82,10 +82,9 @@ recipeRouter.post("/", /* tokenAuthentication,  */async (req, res) => {
 recipeRouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
   const recipeChanges = req.body;
-
+  console.log("Updating recipe:", id, recipeChanges);
 
     const newRecipe = await recipeService.changeExistingRecipe(id, recipeChanges);
-
     if(newRecipe){
     res.status(HTTP_CODES.SUCCESS.ACCEPTED).send(newRecipe).end();
   } else {
