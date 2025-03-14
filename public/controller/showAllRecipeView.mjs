@@ -57,7 +57,7 @@ export default async function renderAllRecipes() {
                         e.preventDefault();
                         console.log("delete button pressed")
                         console.log(`Deleting recipe:`, recipe.recipe_id);
-                        await deleteRecipe(recipe);
+                        await deleteRecipe(recipe.recipe_id);
                     });
                     
                 } catch (err) {
