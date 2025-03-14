@@ -83,7 +83,7 @@ export async function updateRecipe(id, recipeChanges) {
 
 export async function deleteRecipe(id) {
     try {
-        const response = await runRequest(API_ENDPOINTS.RECIPES.Delete(id), HTTP_METHODS.DELETE);
+        const response = await runRequest(API_ENDPOINTS.RECIPES.Delete(id), HTTP_METHODS.DELETE, id);
         console.log("Delete API Response:", response);
         return response;
     } catch (error) {
