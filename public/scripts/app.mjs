@@ -28,7 +28,6 @@ async function performSearch(){
     const searchQuery = urlParams.get('search');
     
     if (searchQuery) {
-        console.log("Search query found in URL:", searchQuery);
         await renderSearchedRecipes(searchQuery);
     } else {
         await renderAllRecipes();
