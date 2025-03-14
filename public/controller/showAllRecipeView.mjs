@@ -37,7 +37,7 @@ export default async function renderAllRecipes() {
                     };
                     TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
-                    if (recipeElement) {
+                    if (template) {
                         const editButton = document.createElement('button');
                         editButton.className = 'edit-button';
                         editButton.textContent = 'Edit Recipe';
