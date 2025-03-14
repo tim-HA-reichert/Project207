@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { tokenAuthentication, adminAccess } from '../modules/usertoken.mjs';
 import StoreUserRecord from '../data/userRecordStore.mjs';
-import UserService from '../services/userService.mjs';
+import UserService from '../serviceLayer/userService.mjs';
 
 dotenv.config();
 
