@@ -20,7 +20,7 @@ const userRecord = new StoreUserRecord();
 const userService = new UserService(userRecord);
 
 
-const createDemoUsers = async () => {
+/* const createDemoUsers = async () => {
     try {
         const demoUser = await auth.becomeUser("User", "123", "user");
         const demoAdminUser = await auth.becomeUser("Admin", "123", "admin");
@@ -33,7 +33,7 @@ const createDemoUsers = async () => {
         console.error("Error creating demo users:", error);
     }
 };
-createDemoUsers();
+createDemoUsers(); */
 
 
 loginRouter.get("/user", async (req, res) => {
