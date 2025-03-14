@@ -13,7 +13,6 @@ export default async function renderSearchedRecipes(searchQuery) {
         const recipes = await searchRecipes(criteria);
 
         const template = await TemplateManager.fetchTemplate(recipeTemplateFile);
-            console.log(template);
 
         if (!template) {
             console.error("Failed to load templates.");
