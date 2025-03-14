@@ -69,6 +69,11 @@ export default async function renderAllRecipes() {
                         console.log(`Editing recipe:`, recipe.recipe_id);
                         await renderEditRecipeView(recipe.recipe_id);
                     });
+                    deleteButton.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        console.log(`Deleting recipe:`, recipe.recipe_id);
+                        await deleteRecipe(recipe.recipe_id);
+                    });
                     
                 } catch (err) {
                     console.error(`Error processing recipe ${index}:`, err);
