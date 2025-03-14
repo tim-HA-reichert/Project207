@@ -12,6 +12,7 @@ export default async function renderAllRecipes() {
         console.log("Recipes loaded:", recipes); // Log to verify structure
         
         const template = await TemplateManager.fetchTemplate(templateFile);
+        console.log("Template content:", template.outerHTML); 
         if (!template) {
             console.error("Failed to load template.");
             return;
@@ -39,7 +40,8 @@ export default async function renderAllRecipes() {
                     if (template) {
 
                         const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-                        
+                        console.log("Cloned recipe element:", recipeElement);
+   
                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
                         
                         const editButton = document.createElement('button');
@@ -64,7 +66,7 @@ export default async function renderAllRecipes() {
         } else {
             appContainer.innerHTML = '<div class="no-recipes">No recipes found</div>';
         }
-
+        console.log("Container after appending:", containerElement?.children?.length || "No container");
         return appContainer;
     } catch (error) {
         console.error("Error rendering recipes:", error);

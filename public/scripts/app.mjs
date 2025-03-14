@@ -44,6 +44,7 @@ const initApp = async () => {
     }
     await renderNavbar();
     await initSearchbar();
+    await performSearch();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
