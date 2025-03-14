@@ -201,12 +201,12 @@ function setupFormHandlers(recipe) {
             const quantity = ingredientQuantityInput.value.trim();
             const name = ingredientNameInput.value.trim();
             
-            if (!quantity) {
+            if (quantity === 0) {
                 alert('Please enter ingredient quantity');
                 return;
             }
             
-            if (!name) {
+            if (name === 0) {
                 alert('Please enter ingredient name');
                 return;
             }
