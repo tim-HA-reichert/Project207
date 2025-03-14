@@ -1,0 +1,259 @@
+#recipe-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+  
+  .recipe-header {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+  }
+  
+  .recipe-title {
+    color: #333;
+    font-size: 28px;
+    margin: 0 0 15px 0;
+  }
+  
+  .recipe-meta, .recipe-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .recipe-meta span, .recipe-categories span {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    color: #555;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  
+  .recipe-difficulty {
+    text-transform: capitalize;
+  }
+  
+  .recipe-type, .recipe-nationality {
+    background-color: #4a89dc;
+    color: white;
+  }
+  
+  
+  .recipe-ingredients {
+    margin-bottom: 30px;
+  }
+  
+  .recipe-ingredients h2, .recipe-instructions h2 {
+    border-bottom: 2px solid #eee;
+    color: #444;
+    font-size: 22px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+  }
+  
+  #ingredients-list {
+    list-style-type: none;
+    padding-left: 5px;
+  }
+  
+  #ingredients-list li {
+    border-bottom: 1px solid #f5f5f5;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  #ingredients-list li::before {
+    content: "•";
+    color: #4a89dc;
+    font-size: 20px;
+    left: 0;
+    position: absolute;
+    top: -2px;
+  }
+  
+  .recipe-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 25px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .recipe-title {
+      font-size: 24px;
+    }
+    
+    .recipe-meta, .recipe-categories {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    #instructions-list li {
+      padding-left: 35px;
+    }
+    
+    .recipe-actions {
+      flex-direction: column;
+    }
+  }
+
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    border-bottom: 1px solid #444;
+  }
+  
+  .search-container form {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    background-color: #f5f5f5;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 0 2px rgba(74, 137, 220, 0.3);
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    background-color: #4a89dc;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #3a79cc;
+  }
+  
+  #navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-items {
+    flex: 1;
+  }
+  
+  @media screen and (min-width: 769px) {
+    .search-container {
+      background-color: transparent;
+      border-bottom: none;
+      padding: 0 20px;
+      max-width: 300px;
+    }
+    
+    .search-input {
+      width: 100%;
+    }
+  }
+  
+  
+  @media screen and (max-width: 768px) {
+    .search-container {
+      width: 100%;
+      order: -1; 
+      border-bottom: 1px solid #444;
+    }
+  }
+
+
+  #navbar {
+    background-color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  .navbar-items {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-item {
+    position: relative;
+  }
+  
+  .navbar-item-inner {
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .navbar-item-inner:hover {
+    background-color: #555;
+  }
+  
+  .navbar-item-inner.active {
+    background-color: #4a89dc;
+    color: white;
+  }
+  
+  .link-text {
+    position: relative;
+  }
+  
+  .link-text::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.3s ease;
+  }
+  
+  .navbar-item-inner:hover .link-text::after {
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .navbar-items {
+      flex-direction: column;
+    }
+    
+    .navbar-item {
+      width: 100%;
+    }
+    
+    .navbar-item-inner {
+      text-align: center;
+      padding: 12px;
+    }
+  }
