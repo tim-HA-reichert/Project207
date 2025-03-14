@@ -10,7 +10,6 @@ export default async function renderAllRecipes() {
     
     try {
         const recipes = await getAllRecipes();
-        console.log("Recipes loaded:", recipes.length);
         
         const template = await TemplateManager.fetchTemplate(templateFile);
         
@@ -20,7 +19,6 @@ export default async function renderAllRecipes() {
         }
         
         if (recipes && recipes.length > 0) {
-            console.log(`Rendering ${recipes.length} recipes`);
             
             recipes.forEach((recipe, index) => {
                 try {
