@@ -35,9 +35,13 @@ export default async function renderAllRecipes() {
                             ? recipe.instructions 
                             : []
                     };
-                    TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
                     if (template) {
+
+                        const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
+                        
+                        const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
+                        
                         const editButton = document.createElement('button');
                         editButton.className = 'edit-button';
                         editButton.textContent = 'Edit Recipe';
@@ -49,17 +53,13 @@ export default async function renderAllRecipes() {
                             await renderEditRecipeView(recipe.recipe_id);
                         });
                         
-                        // Find a suitable container in the cloned element
-                        const buttonContainer = recipeElement.querySelector('.button-container') || 
-                                               recipeElement.querySelector('.recipe-header') || 
-                                               recipeElement;
-                        
+                        // Add the button to the container
                         buttonContainer.appendChild(editButton);
+
                     }
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }
-
             });
         } else {
             appContainer.innerHTML = '<div class="no-recipes">No recipes found</div>';
@@ -75,7 +75,7 @@ export default async function renderAllRecipes() {
 
 function createFunctionButton(recipe, buttonText, functionForPurpose) {
     const button = document.createElement('button');
-    button.className = buttonText;
+    button.className = buttonText.toLowerCase().replace(/\s+/g, '-') + '-button';
     button.textContent = buttonText;
 
     button.addEventListener('click', async (e) => {

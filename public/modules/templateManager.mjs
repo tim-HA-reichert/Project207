@@ -109,7 +109,6 @@ TemplateManager.createListElements = (items, listType = 'ul') => {
 TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) => {
     const recipeElement = template.cloneNode(true);
     
-    // Fill in basic recipe information
     if (recipeElement.querySelector('.recipe-title')) {
         recipeElement.querySelector('.recipe-title').textContent = recipeData.title;
     }
@@ -151,15 +150,36 @@ TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) =
         instructionsContainer.appendChild(instructionsList);
     }
     
-    // Store the recipe ID as a data attribute for event handling
+
     recipeElement.dataset.recipeId = recipeData.recipe_id;
     
-    // Append to the container if provided
+
     if (containerElement) {
         containerElement.appendChild(recipeElement);
     }
     
     return recipeElement;
+};
+
+TemplateManager.createButtonContainer = (recipeElement) => {
+    const existingContainer = recipeElement.querySelector('.button-container') || 
+                             recipeElement.querySelector('.recipe-actions');
+    
+    if (existingContainer) {
+        return existingContainer;
+    }
+    
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+    
+    const headerElement = recipeElement.querySelector('.recipe-header');
+    if (headerElement) {
+        headerElement.appendChild(buttonContainer);
+    } else {
+        recipeElement.appendChild(buttonContainer);
+    }
+    
+    return buttonContainer;
 };
 
 
