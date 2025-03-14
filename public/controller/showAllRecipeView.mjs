@@ -44,8 +44,14 @@ export default async function renderAllRecipes() {
                         await renderEditRecipeView(recipe.recipe_id);
                     });
                     deleteButton.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        await deleteRecipe(recipe.recipe_id);
+                        try {
+                            await deleteRecipe(recipe.recipe_id);
+                            alert(`Recipe "${recipe.title}" has been successfully deleted!`); 
+                            recipeElement.remove(); 
+                        } catch (error) {
+                            console.error(`Failed to delete recipe "${recipe.title}":`, error);
+                            alert(`Failed to delete recipe "${recipe.title}". Please try again.`);
+                        }
                     });
                     
                 } catch (err) {
