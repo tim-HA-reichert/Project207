@@ -4,68 +4,96 @@ import * as auth from '../utils/authenticator.mjs';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { tokenAuthentication, adminAccess } from '../modules/usertoken.mjs';
+import StoreUserRecord from '../data/userRecordStore.mjs';
+import UserService from '../services/userService.mjs';
 
 dotenv.config();
 
 const loginRouter = express.Router();
-
 loginRouter.use(cookieParser());
 loginRouter.use(express.json());
+
+const userRecord = new StoreUserRecord();
+const userService = new UserService(userRecord);
 
 const users = [];
 
 const createDemoUsers = async () => {
-    const demoUser = await auth.becomeUser("User", "123", "user");
+    try {
+        const demoUser = await auth.becomeUser("User", "123", "user");
+        const demoAdminUser = await auth.becomeUser("Admin", "123", "admin");
 
-    const demoAdminUser = await auth.becomeUser("Admin", "123", "admin");
-    users.push(demoUser, demoAdminUser);
+        await userService.createUser(demoUser);
+        await userService.createUser(demoAdminUser);
 
-    //console.log("Demo user created:", demoUser);
-    //console.log("Demo admin created:", demoAdminUser);
+        console.log("Demo users created successfully");
+    } catch (error) {
+        console.error("Error creating demo users:", error);
+    }
 };
 createDemoUsers();
 
 
-loginRouter.get("/user", (req, res) => {
-    console.log(users);
-    res.status(HTTP_CODES.SUCCESS.OK).send(users).end();
+loginRouter.get("/user", async (req, res) => {
+    try {
+        const users = await userRecord.readAll();
+        res.status(HTTP_CODES.SUCCESS.OK).send(users).end();
+    } catch (error) {
+        res.status(HTTP_CODES.SERVER_ERROR.INTERNAL).send(error.message).end();
+    }
 });
 
-
 loginRouter.post("/user", async (req, res) => {
-    const newUser = await auth.becomeUser(req.body.username, req.body.password, "user");
-    users.push(newUser);
+    try {
+        const newUser = await auth.becomeUser(
+            req.body.username, 
+            req.body.password, 
+            "user"
+        );
 
-    res.status(HTTP_CODES.SUCCESS.ACCEPTED).send().end();
+        await userService.createUser(newUser);
+
+        res.status(HTTP_CODES.SUCCESS.ACCEPTED).send().end();
+    } catch (error) {
+        res.status(HTTP_CODES.CLIENT_ERROR.BAD_INPUT).send(error.message).end();
+    }
 });
 
 
 loginRouter.post("/user/login", async (req, res) => {
-    const user = users.find(user => user.username === req.body.username);
+    try {
+        const users = await userRecord.findByUsername(req.body.username);
 
-    if (!user) {
-        return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("User not found");
+        if (users.length === 0) {
+            return res.status(HTTP_CODES.CLIENT_ERROR.NOT_FOUND).send("User not found");
+        }
+
+        const user = users[0];
+
+        const validPassword = await auth.loginUser(req.body.password, user.password);
+
+        if (validPassword) {
+            console.log("Login successful");
+            const userToken = auth.generateToken({
+                username: user.username,
+                role: user.role
+            });
+
+            res.cookie("accessToken", userToken, {
+                httpOnly: true,
+                sameSite: "Strict",
+                maxAge: 5 * 60 * 1000 // 5 mins
+            });
+
+            res.status(HTTP_CODES.SUCCESS.OK).send({ message: "Login successful" });
+        } else {
+            console.log("Wrong password.");
+            res.status(HTTP_CODES.CLIENT_ERROR.UNAUTHORIZED).send("Invalid credentials");
+        }
+    } catch (error) {
+        res.status(HTTP_CODES.SERVER_ERROR.INTERNAL).send(error.message);
     }
-
-    const validPassword = await auth.loginUser(req.body.password, user.password);
-
-    if (validPassword) {
-        console.log("Login successful");
-        const userToken = auth.generateToken(user);
-
-        res.cookie("accessToken", userToken, {
-            httpOnly: true,
-            sameSite: "Strict",
-            maxAge: 5 * 60 * 1000 //5 mins
-        });
-
-        res.status(HTTP_CODES.SUCCESS.OK).send({ message: "Login successful" });
-       
-    } else {
-        console.log("Wrong password.");
-        res.status(HTTP_CODES.CLIENT_ERROR.UNAUTHORIZED).send("Invalid credentials");
-    }
-})
+});
 
 loginRouter.post("/logout", (req, res) => {
     res.cookie("accessToken", "", {
