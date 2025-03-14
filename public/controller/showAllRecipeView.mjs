@@ -44,11 +44,11 @@ export default async function renderAllRecipes() {
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
                     let editButton = recipeElement.querySelector('.edit-button');
-                    
+                    console.log(editButton)
                     if (!editButton) {
                         // Create button container if needed
                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
-                        
+                        console.log(buttonContainer)
                         editButton = document.createElement('button');
                         editButton.className = 'edit-button';
                         editButton.textContent = 'Edit Recipe';
