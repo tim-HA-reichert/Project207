@@ -46,7 +46,7 @@ export default async function renderEditRecipeView(recipeId) {
 
         const originalRecipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
         const templateData = {
-            recipe_id: recipe.recipe_id || index,
+            recipe_id: recipe.recipe_id || "undefined id",
             title: recipe.title || "Untitled Recipe",
             servings: recipe.servings || 1,
             cookingtime: recipe.cookingtime || 0,
