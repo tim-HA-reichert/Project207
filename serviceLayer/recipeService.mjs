@@ -79,10 +79,7 @@ export default class RecipeService {
     
     const updatedRecipe = applyRecipeChanges(originalRecipe, changes);
 
-    const validatedRecipeChanges = validateRecipeData(updatedRecipe, this.difficulties, this.mealTypes);
-
-
-    return await this.recipeRecord.update(recipeId, validatedRecipeChanges);
+    return await this.recipeRecord.update(recipeId, updatedRecipe);
   }
   
 }
