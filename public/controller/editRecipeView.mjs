@@ -38,15 +38,25 @@ export default async function renderEditRecipeView(recipeId) {
         editFormContainer.style.minWidth = '500px';
         flexContainer.appendChild(editFormContainer);
         
-        // Get recipe data first (we'll need it for both views)
         const recipe = await getRecipeById(recipeId);
         if (!recipe) {
             throw new Error(`Recipe with ID ${recipeId} not found`);
         }
         
-        // 1. Load and render the original recipe in the left container
-        const recipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
-            TemplateManager.cloneRecipeTemplate(recipeTemplate, originalRecipeContainer, recipe);
+
+        const originalRecipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
+        const templateData = {
+            recipe_id: recipe.recipe_id || index,
+            title: recipe.title || "Untitled Recipe",
+            servings: recipe.servings || 1,
+            cookingtime: recipe.cookingtime || 0,
+            difficulty: recipe.difficulty || "not specified",
+            mealtype: recipe.mealtype || "not specified",
+            nationality: recipe.nationality || "not specified",
+            ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : [],
+            instructions: Array.isArray(recipe.instructions) ? recipe.instructions : []
+        };
+        TemplateManager.cloneRecipeTemplate(originalRecipeTemplate, originalRecipeContainer, templateData);
             
             const editButtons = originalRecipeContainer.querySelectorAll('.edit-button, .button-container');
             editButtons.forEach(button => button.remove());
