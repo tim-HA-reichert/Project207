@@ -31,7 +31,188 @@
 <button id="delete-recipe-button" class="delete-button">Delete Recipe</button>
     </article>
 
+<style>
 
+#recipe-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.recipe-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 25px;
+}
+
+
+.recipe-header {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+}
+
+.recipe-title {
+  color: #333;
+  font-size: 28px;
+  margin: 0 0 15px 0;
+}
+
+.recipe-meta, .recipe-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.recipe-meta span, .recipe-categories span {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  color: #555;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+
+.recipe-difficulty {
+  text-transform: capitalize;
+}
+
+.recipe-type, .recipe-nationality {
+  background-color: #4a89dc;
+  color: white;
+}
+
+
+.recipe-ingredients {
+  margin-bottom: 30px;
+}
+
+.recipe-ingredients h2, .recipe-instructions h2 {
+  border-bottom: 2px solid #eee;
+  color: #444;
+  font-size: 22px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+}
+
+#ingredients-list {
+  list-style-type: none;
+  padding-left: 5px;
+}
+
+#ingredients-list li {
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+#ingredients-list li::before {
+  content: "•";
+  color: #4a89dc;
+  font-size: 20px;
+  left: 0;
+  position: absolute;
+  top: -2px;
+}
+
+
+#instructions-list {
+  counter-reset: step-counter;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#instructions-list li {
+  counter-increment: step-counter;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  padding-left: 40px;
+  position: relative;
+}
+
+#instructions-list li:not(:last-child) {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+#instructions-list li::before {
+  background-color: #4a89dc;
+  border-radius: 50%;
+  color: white;
+  content: counter(step-counter);
+  font-size: 14px;
+  font-weight: bold;
+  height: 28px;
+  left: 0;
+  line-height: 28px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 28px;
+}
+
+
+.recipe-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
+.edit-button, .delete-button {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.edit-button {
+  background-color: #4a89dc;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #3a79cc;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #d62c1a;
+}
+
+@media screen and (max-width: 600px) {
+  .recipe-title {
+    font-size: 24px;
+  }
+  
+  .recipe-meta, .recipe-categories {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  #instructions-list li {
+    padding-left: 35px;
+  }
+  
+  .recipe-actions {
+    flex-direction: column;
+  }
+  
+  .edit-button, .delete-button {
+    width: 100%;
+  }
+}
+</style>
     
 
 </template>
