@@ -51,7 +51,7 @@ export default async function renderAllRecipes() {
                         console.log(buttonContainer)
                         editButton = document.createElement('button');
                         editButton.className = 'edit-button';
-                        editButton.textContent = 'Edit Recipe';
+                        editButton.textContent = 'Edit This Recipe';
                         editButton.dataset.recipeId = recipe.recipe_id;
 
                         deleteButton = document.createElement('button');
