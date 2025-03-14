@@ -34,7 +34,7 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
         }
     };
 
-    if ([HTTP_METHODS.POST, HTTP_METHODS.PUT, HTTP_METHODS.PATCH, HTTP_METHODS.DELETE].includes(method)) {
+    if ([HTTP_METHODS.POST, HTTP_METHODS.PUT, HTTP_METHODS.PATCH].includes(method)) {
         request.body = JSON.stringify(data);
     }
     console.log(`Sending request to: ${path}`);
