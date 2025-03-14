@@ -35,11 +35,27 @@ export default async function renderAllRecipes() {
                             ? recipe.instructions 
                             : []
                     };
-                    const editRecipeButton = createFunctionButton(recipe.recipe_id, `edit-button`, renderEditRecipeView);
-                    template.appendChild(editRecipeButton);
-                    
                     TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-
+                    
+                    if (recipeElement) {
+                        const editButton = document.createElement('button');
+                        editButton.className = 'edit-button';
+                        editButton.textContent = 'Edit Recipe';
+                        editButton.dataset.recipeId = recipe.recipe_id;
+                        
+                        editButton.addEventListener('click', async (e) => {
+                            e.preventDefault();
+                            console.log(`Editing recipe:`, recipe.recipe_id);
+                            await renderEditRecipeView(recipe.recipe_id);
+                        });
+                        
+                        // Find a suitable container in the cloned element
+                        const buttonContainer = recipeElement.querySelector('.button-container') || 
+                                               recipeElement.querySelector('.recipe-header') || 
+                                               recipeElement;
+                        
+                        buttonContainer.appendChild(editButton);
+                    }
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
                 }
