@@ -50,7 +50,8 @@ export default async function renderAllRecipes() {
                         // Create button container if needed
                         editButton.dataset.recipeId = recipe.recipe_id;
                         deleteButton.dataset.recipeId = recipe.recipe_id;
-/*                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
+/*                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement); */
+                        /*                       
                         
                         editButton = document.createElement('button');
                         editButton.className = 'edit-button';
