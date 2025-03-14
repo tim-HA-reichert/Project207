@@ -43,39 +43,25 @@ export default async function renderAllRecipes() {
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
-                    const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
+                    let editButton = recipeElement.querySelector('.edit-button');
                     
-                    // Create edit button
-                    const editButton = document.createElement('button');
-                    editButton.className = 'edit-button';
-                    editButton.textContent = 'Edit Recipe';
-                    editButton.dataset.recipeId = recipe.recipe_id;
-                    
-                    // Create delete button
-                    const deleteButton = document.createElement('button');
-                    deleteButton.className = 'delete-button';
-                    deleteButton.textContent = 'Delete Recipe';
-                    deleteButton.dataset.recipeId = recipe.recipe_id;
-                    
-                    // Add buttons to container
-                    buttonContainer.appendChild(editButton);
-                    buttonContainer.appendChild(deleteButton);
-                    
-                    // Add click handler to delete button
-                    deleteButton.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        if (confirm(`Are you sure you want to delete "${recipe.title}"?`)) {
-                            console.log(`Deleting recipe:`, recipe.recipe_id);
-                            try {
-                                await deleteRecipe(recipe.recipe_id);
-                                // Refresh the recipe list after deletion
-                                await renderAllRecipes();
-                            } catch (error) {
-                                console.error("Error deleting recipe:", error);
-                                alert("Failed to delete recipe. Please try again.");
-                            }
-                        }
-                    });
+                    if (!editButton) {
+                        // Create button container if needed
+                        const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
+                        
+                        editButton = document.createElement('button');
+                        editButton.className = 'edit-button';
+                        editButton.textContent = 'Edit Recipe';
+                        editButton.dataset.recipeId = recipe.recipe_id;
+
+                        deleteButton = document.createElement('button');
+                        deleteButton.className = 'delete-button';
+                        deleteButton.textContent = 'Delete Recipe';
+                        deleteButton.dataset.recipeId = recipe.recipe_id;
+
+                        buttonContainer.appendChild(deleteButton);
+                        buttonContainer.appendChild(editButton);
+                    }
                     
                     // Add click handler to edit button
                     editButton.addEventListener('click', async (e) => {
@@ -83,6 +69,11 @@ export default async function renderAllRecipes() {
                         console.log(`Editing recipe:`, recipe.recipe_id);
                         await renderEditRecipeView(recipe.recipe_id);
                     });
+/*                     deleteButton.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        console.log(`Deleting recipe:`, recipe.recipe_id);
+                        await deleteRecipe(recipe);
+                    }); */
                     
                 } catch (err) {
                     console.error(`Error processing recipe ${index}:`, err);
