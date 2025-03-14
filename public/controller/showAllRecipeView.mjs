@@ -41,11 +41,8 @@ export default async function renderAllRecipes() {
                         instructions: Array.isArray(recipe.instructions) ? recipe.instructions : []
                     };
                     
-                    // Clone and populate the template
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-                    console.log(`Recipe ${index+1} cloned:`, recipeElement);
                     
-                    // Find edit button or create one
                     let editButton = recipeElement.querySelector('.edit-button');
                     
                     if (!editButton) {
