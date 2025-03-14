@@ -140,7 +140,8 @@ TemplateManager.processPlaceholders = (element, data) => {
 };
 
 TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) => {
-    const recipeElement = template.cloneNode(true);
+    if (template && template.tagName === 'TEMPLATE') {
+    const recipeElement = template.content.cloneNode(true);
     
     TemplateManager.processPlaceholders(recipeElement, recipeData);
     
@@ -180,6 +181,7 @@ TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) =
     }
     
     return recipeElement;
+    }
 };
 
 TemplateManager.createButtonContainer = (recipeElement) => {
