@@ -44,36 +44,21 @@ export default async function renderAllRecipes() {
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
                     let editButton = recipeElement.querySelector('.edit-button');
-                    console.log(editButton)
-/*                     if (!editButton) {
-                        // Create button container if needed
-                        const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
-                        console.log(buttonContainer)
-                        editButton = document.createElement('button');
-                        editButton.className = 'edit-button';
-                        editButton.textContent = 'Edit This Recipe';
-                        editButton.dataset.recipeId = recipe.recipe_id;
-
-                        deleteButton = document.createElement('button');
-                        deleteButton.className = 'delete-button';
-                        deleteButton.textContent = 'Delete Recipe';
-                        deleteButton.dataset.recipeId = recipe.recipe_id;
-
-                        buttonContainer.appendChild(deleteButton);
-                        buttonContainer.appendChild(editButton);
-                    } */
+                    let deleteButton = recipeElement.querySelector('.delete-button');
                     
                     // Add click handler to edit button
                     editButton.addEventListener('click', async (e) => {
+                        console.log("edit button pressed")
                         e.preventDefault();
                         console.log(`Editing recipe:`, recipe.recipe_id);
                         await renderEditRecipeView(recipe.recipe_id);
                     });
-/*                     deleteButton.addEventListener('click', async (e) => {
+                    deleteButton.addEventListener('click', async (e) => {
                         e.preventDefault();
+                        console.log("delete button pressed")
                         console.log(`Deleting recipe:`, recipe.recipe_id);
                         await deleteRecipe(recipe);
-                    }); */
+                    });
                     
                 } catch (err) {
                     console.error(`Error processing recipe ${index}:`, err);
