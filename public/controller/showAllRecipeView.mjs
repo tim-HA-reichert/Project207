@@ -80,17 +80,6 @@ export default async function renderAllRecipes() {
             appContainer.innerHTML = '<div class="no-recipes">No recipes found</div>';
         }
         
-        // Add a test element to make sure DOM manipulation works
-        if (appContainer.children.length === 0) {
-            console.log("No recipes were added, testing direct DOM manipulation");
-            const testDiv = document.createElement('div');
-            testDiv.textContent = "Test content - if you see this, DOM manipulation works but recipe rendering failed";
-            testDiv.style.padding = "20px";
-            testDiv.style.border = "2px solid red";
-            testDiv.style.margin = "10px";
-            appContainer.appendChild(testDiv);
-        }
-        
         return appContainer;
     } catch (error) {
         console.error("Error rendering recipes:", error);
