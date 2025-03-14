@@ -166,16 +166,6 @@ TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) =
         });
     }
     
-    recipeElement.dataset.recipeId = recipeData.recipe_id;
-    
-
-    const editButton = recipeElement.querySelector('#edit-recipe-button') || 
-                       recipeElement.querySelector('.edit-button');
-    if (editButton) {
-        editButton.textContent = 'Edit Recipe';
-        editButton.dataset.recipeId = recipeData.recipe_id;
-    }
-    
     if (containerElement) {
         containerElement.appendChild(recipeElement);
     }

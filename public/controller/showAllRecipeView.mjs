@@ -66,7 +66,7 @@ export default async function renderAllRecipes() {
         } else {
             appContainer.innerHTML = '<div class="no-recipes">No recipes found</div>';
         }
-        console.log("Container after appending:", containerElement?.children?.length || "No container");
+        console.log("Container after appending:", appContainer?.children?.length || "No container");
         return appContainer;
     } catch (error) {
         console.error("Error rendering recipes:", error);
