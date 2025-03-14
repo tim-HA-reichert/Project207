@@ -49,21 +49,14 @@ export default async function renderSearchedRecipes(searchQuery) {
                     let editButton = recipeElement.querySelector('.edit-button');
                     let deleteButton = recipeElement.querySelector('.delete-button');
                     
-                    // Add click handler to edit button
                     editButton.addEventListener('click', async (e) => {
                         console.log("edit button pressed")
-                        e.preventDefault();
-                        console.log(`Editing recipe:`, recipe.recipe_id);
                         await renderEditRecipeView(recipe.recipe_id);
                     });
                     deleteButton.addEventListener('click', async (e) => {
                         e.preventDefault();
-                        console.log("delete button pressed")
-                        console.log(`Deleting recipe:`, recipe.recipe_id);
                         await deleteRecipe(recipe.recipe_id);
                     });
-                    
-                    handleEditRecipe(editButton, recipe.recipe_id)
 
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
@@ -82,25 +75,3 @@ export default async function renderSearchedRecipes(searchQuery) {
         return appContainer;
     }
 }
-
-function handleEditRecipe(aButton, recipeId) {
-    if (aButton) {
-        aButton.addEventListener('click', () => {
-            console.log(`Editing recipe with ID: ${recipeId}`);
-            console.log(recipe.recipe_id);
-            loadEditForm(recipeId);
-           });
-    }
-}
-
-async function loadEditForm(recipeId) {
-    try {
-        const recipe = await getRecipeById(recipeId);
-        if (recipe) {
-            console.log("Retrieved recipe for editing:", recipe);
-        }
-    } catch (error) {
-        console.error("Error loading recipe for editing:", error);
-    }
-}
-

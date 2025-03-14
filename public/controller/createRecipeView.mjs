@@ -19,7 +19,7 @@ export default async function renderCreateRecipeView() {
             return null;
         }
         
-        TemplateManager.staticCloneTemplateTemplate(template, appContainer);
+        TemplateManager.staticCloneTemplate(template, appContainer);
         
         setupFormHandlers();
         
@@ -182,8 +182,7 @@ function setupFormHandlers() {
             ingredients: ingredients,
             instructions: instructions
         };
-        console.log("Submitting recipe data:", recipeData); // Debug log to see the data being sent
-        // Submit the recipe
+
         try {
             const submitButton = form.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.textContent;

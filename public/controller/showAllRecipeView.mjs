@@ -9,26 +9,21 @@ export default async function renderAllRecipes() {
     appContainer.innerHTML = '';
     
     try {
-        // Get all recipes from API
         const recipes = await getAllRecipes();
         console.log("Recipes loaded:", recipes.length);
         
-        // Fetch the template
         const template = await TemplateManager.fetchTemplate(templateFile);
-        console.log("Template fetched:", template);
         
         if (!template) {
             console.error("Failed to load template.");
             return;
         }
         
-        // Process recipes if available
         if (recipes && recipes.length > 0) {
             console.log(`Rendering ${recipes.length} recipes`);
             
             recipes.forEach((recipe, index) => {
                 try {
-                    // Prepare recipe data with default values for safety
                     const templateData = {
                         recipe_id: recipe.recipe_id || index,
                         title: recipe.title || "Untitled Recipe",
@@ -46,17 +41,12 @@ export default async function renderAllRecipes() {
                     let editButton = recipeElement.querySelector('.edit-button');
                     let deleteButton = recipeElement.querySelector('.delete-button');
                     
-                    // Add click handler to edit button
                     editButton.addEventListener('click', async (e) => {
-                        console.log("edit button pressed")
                         e.preventDefault();
-                        console.log(`Editing recipe:`, recipe.recipe_id);
                         await renderEditRecipeView(recipe.recipe_id);
                     });
                     deleteButton.addEventListener('click', async (e) => {
                         e.preventDefault();
-                        console.log("delete button pressed")
-                        console.log(`Deleting recipe:`, recipe.recipe_id);
                         await deleteRecipe(recipe.recipe_id);
                     });
                     
@@ -64,9 +54,6 @@ export default async function renderAllRecipes() {
                     console.error(`Error processing recipe ${index}:`, err);
                 }
             });
-            
-            // Check if recipes were added
-            console.log("App container now has", appContainer.children.length, "children");
         } else {
             appContainer.innerHTML = '<div class="no-recipes">No recipes found</div>';
         }
@@ -77,21 +64,4 @@ export default async function renderAllRecipes() {
         appContainer.innerHTML = '<div class="error">Error loading recipes. Please try again later.</div>';
         return appContainer;
     }
-}
-
-function createFunctionButton(recipe, buttonText, functionForPurpose) {
-    const button = document.createElement('button');
-    button.className = buttonText.toLowerCase().replace(/\s+/g, '-') + '-button';
-    button.textContent = buttonText;
-
-    button.addEventListener('click', async (e) => {
-        e.preventDefault();
-        try {
-            console.log(`Performing ${buttonText} on `, recipe);
-            await functionForPurpose(recipe);
-        } catch (error) {
-            console.error("Error on button action:", error);
-        }
-    });   
-    return button;
 }

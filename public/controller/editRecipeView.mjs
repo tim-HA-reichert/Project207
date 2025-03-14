@@ -187,7 +187,6 @@ function updateHiddenFields(ingredients, instructions) {
 
 
 function setupFormHandlers(recipe) {
-    // Store initial ingredients and instructions
     let ingredients = [...(recipe.ingredients || [])];
     let instructions = [...(recipe.instructions || [])];
     
@@ -216,7 +215,6 @@ function setupFormHandlers(recipe) {
             
             addIngredientToList(ingredientText, ingredientsList);
             
-            // Clear inputs
             ingredientQuantityInput.value = '';
             ingredientNameInput.value = '';
             
@@ -224,7 +222,6 @@ function setupFormHandlers(recipe) {
         });
     }
     
-    // Add instruction button
     const addInstructionBtn = document.getElementById('add-instruction-btn');
     const instructionInput = document.getElementById('new-instruction');
     const instructionsList = document.getElementById('instructions-list');
@@ -242,20 +239,17 @@ function setupFormHandlers(recipe) {
             
             addInstructionToList(instructionText, instructions.length - 1, instructionsList);
             
-            // Clear input
             instructionInput.value = '';
             
             updateHiddenFields(ingredients, instructions);
         });
     }
     
-    // Form submission
     const form = document.getElementById('edit-recipe-form');
     if (form) {
         form.addEventListener('submit', async function(event) {
             event.preventDefault();
             
-            // Ensure we have at least one ingredient and instruction
             if (ingredients.length === 0) {
                 alert('Please add at least one ingredient');
                 return;

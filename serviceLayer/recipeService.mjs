@@ -1,14 +1,10 @@
 import Recipe from '../models/recipeModel.mjs';
-import StoreRecipeRecord from '../data/recipeRecordStore.mjs';
-
 import { 
-    findRecipeById, 
-    searchRecipes, 
     validateRecipeData, 
     applyRecipeChanges, 
-    deleteRecipe 
   } from '../utils/recipe/index.mjs';
 
+  
 export default class RecipeService {
   constructor(recipeRecord) {
     this.recipeRecord = recipeRecord;

@@ -34,14 +34,9 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
             "Content-Type": "application/json"
         }
     };
-    
-    console.log(`Sending request to: ${path}`);
-    console.log(`Method: ${method}`);
-    console.log(`Request Body:`, request.body);
 
     if ([HTTP_METHODS.POST, HTTP_METHODS.PUT, HTTP_METHODS.PATCH].includes(method) && data) {
         request.body = JSON.stringify(data);
-        console.log(`Request Body:`, request.body);
     }
 
     try {
@@ -72,7 +67,6 @@ export async function getAllRecipes() {
 
 export async function getRecipeById(id) {
     const response = await runRequest(API_ENDPOINTS.RECIPES.GetById(id), HTTP_METHODS.GET);
-    console.log("API Response:", response); 
     
     if (Array.isArray(response) && response.length > 0) {
         return response[0];
@@ -83,15 +77,12 @@ export async function getRecipeById(id) {
 }
 
 export async function updateRecipe(id, recipeChanges) {
-    console.log("Sending update with ID:", id);
-    console.log("Recipe changes:", recipeChanges);
     return runRequest(API_ENDPOINTS.RECIPES.Update(id), HTTP_METHODS.PATCH, recipeChanges);
 }
 
 export async function deleteRecipe(id) {
     try {
         const response = await runRequest(API_ENDPOINTS.RECIPES.Delete(id), HTTP_METHODS.DELETE, id);
-        console.log("Delete API Response:", response);
         return response;
     } catch (error) {
         console.error("Delete recipe error:", error);
