@@ -16,7 +16,6 @@ loginRouter.use(express.json());
 const userRecord = new StoreUserRecord();
 const userService = new UserService(userRecord);
 
-const users = [];
 
 const createDemoUsers = async () => {
     try {

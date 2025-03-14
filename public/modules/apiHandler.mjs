@@ -79,14 +79,13 @@ export async function updateRecipe(id, recipeChanges) {
 }
 
 export async function deleteRecipe(id) {
-    const response = await runRequest(API_ENDPOINTS.RECIPES.Delete(id), HTTP_METHODS.DELETE);
-    console.log("API Response:", response); 
-
-    if(Array.isArray(response) && response.length > 0){
-        return response[0];
-    } else {
-        console.log(response)
+    try {
+        const response = await runRequest(API_ENDPOINTS.RECIPES.Delete(id), HTTP_METHODS.DELETE);
+        console.log("Delete API Response:", response);
         return response;
+    } catch (error) {
+        console.error("Delete recipe error:", error);
+        throw error;
     }
 }
 
