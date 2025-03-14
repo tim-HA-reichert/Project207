@@ -95,16 +95,19 @@ self.addEventListener("install", (event) => {
         addResourceToCache([
             "/",
             "/index.html",
-            "/scripts/loginScript.mjs",
-            "/css/loginStyle.css",
             "/css/styles.css",
-            "/login.html",
             "/modules/apiHandler.mjs",
             "/modules/templateManager.mjs",
             "/controller/navbarView.mjs",
-            "/controller/recipeView.mjs",
+            "/controller/createRecipeView.mjs",
+            "/controller/editRecipeView.mjs",
+            "/controller/searchBarVew.mjs",
+            "/controller/showAllRecipeView.mjs",
+            "/views/createRecipeView.html",
+            "/views/editRecipeView.html",
             "/views/navbarView.html",
             "/views/recipeView.html",
+            "/views/searchbarView.html",
             "/icons/192x192.png",
             "/icons/512x512.png"
         ])
