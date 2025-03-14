@@ -79,6 +79,187 @@
         </form>
       </div>
   </article>
+  <style>
+    /* Create Recipe Form Styling */
+#create-recipe-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.create-recipe-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 25px;
+}
+
+.create-recipe-header {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+}
+
+.create-recipe-title {
+  color: #333;
+  font-size: 28px;
+  margin: 0;
+}
+
+/* Form Styling */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: #555;
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select,
+.form-group textarea {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px 12px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #4a89dc;
+  box-shadow: 0 0 0 3px rgba(74, 137, 220, 0.2);
+  outline: none;
+}
+
+/* Ingredients and Instructions List Styling */
+.editable-list-container {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.list-items {
+  margin-bottom: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.list-item {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 10px 15px;
+}
+
+.step-number {
+  color: #4a89dc;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.remove-item-btn {
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px 8px;
+  transition: background-color 0.2s;
+}
+
+.remove-item-btn:hover {
+  background-color: #d62c1a;
+}
+
+.list-input-group {
+  display: flex;
+  gap: 8px;
+}
+
+#new-ingredient-quantity {
+  flex: 1;
+  min-width: 80px;
+}
+
+#new-ingredient-name {
+  flex: 2;
+}
+
+#new-instruction {
+  flex: 1;
+}
+
+#add-ingredient-btn,
+#add-instruction-btn {
+  background-color: #4a89dc;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 15px;
+  white-space: nowrap;
+}
+
+#add-ingredient-btn:hover,
+#add-instruction-btn:hover {
+  background-color: #3a79cc;
+}
+
+/* Submit Button */
+.create-recipe-button {
+  background-color: #4a89dc;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+  padding: 12px 20px;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.create-recipe-button:hover {
+  background-color: #3a79cc;
+}
+
+
+@media screen and (max-width: 600px) {
+  .list-input-group {
+    flex-direction: column;
+  }
+  
+  #new-ingredient-quantity,
+  #new-ingredient-name,
+  #new-instruction,
+  #add-ingredient-btn,
+  #add-instruction-btn {
+    width: 100%;
+  }
+  
+  .create-recipe-title {
+    font-size: 24px;
+  }
+}
+  </style>
 </template>
 
 
