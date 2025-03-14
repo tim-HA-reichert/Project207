@@ -2,6 +2,9 @@ import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
 import StoreRecipeRecord from '../data/recipeRecordStore.mjs';
 import RecipeService from '../serviceLayer/recipeService.mjs';
+import { validateRecipeRequest } from '../modules/validateRecipeRequest.mjs';
+import standardizePropertyNames from '../modules/standardizedPropertyName.mjs';
+
 
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
@@ -50,7 +53,7 @@ recipeRouter.get("/:id", async (req, res) => {
 });
 
 
-recipeRouter.post("/", async (req, res) => {
+recipeRouter.post("/", validateRecipeRequest, async (req, res) => {
   try{
     const recipeData = req.body;
     recipeData.author_id = req.user.user_id;
@@ -66,7 +69,7 @@ recipeRouter.post("/", async (req, res) => {
   }
 });
 
-recipeRouter.patch("/:id", async (req, res) => {
+recipeRouter.patch("/:id", standardizePropertyNames, async (req, res) => {
   const id = req.params.id;
   const recipeChanges = req.body;
   console.log("Updating recipe:", id, recipeChanges);

@@ -8,22 +8,22 @@
         <form id="create-recipe-form">
           <div class="form-group">
             <label for="create-title">Title</label>
-            <input type="text" id="create-title" name="title" placeholder="Recipe title" required>
+            <input type="text" id="create-title" name="title" placeholder="Recipe title">
           </div>
 
           <div class="form-group">
             <label for="create-servings">Servings</label>
-            <input type="number" id="create-servings" name="servings" placeholder="Number of servings" required>
+            <input type="number" id="create-servings" name="servings" placeholder="Number of servings">
           </div>
 
           <div class="form-group">
             <label for="create-cookingtime">Cooking Time (minutes)</label>
-            <input type="number" id="create-cookingtime" name="cookingtime" placeholder="Total cooking time" required>
+            <input type="number" id="create-cookingtime" name="cookingtime" placeholder="Total cooking time">
           </div>
 
           <div class="form-group">
             <label for="create-difficulty">Difficulty</label>
-            <select id="create-difficulty" name="difficulty" required>
+            <select id="create-difficulty" name="difficulty">
               <option value="" disabled selected>Select difficulty</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
@@ -33,7 +33,7 @@
 
           <div class="form-group">
             <label for="create-mealtype">Meal Type</label>
-            <select id="create-mealtype" name="mealtype" required>
+            <select id="create-mealtype" name="mealtype">
               <option value="" disabled selected>Select meal type</option>
               <option value="breakfast">Breakfast</option>
               <option value="lunch">Lunch</option>
@@ -43,7 +43,7 @@
 
           <div class="form-group">
             <label for="create-nationality">Nationality</label>
-            <input type="text" id="create-nationality" name="nationality" placeholder="e.g., Italian, Mexican, Thai" required>
+            <input type="text" id="create-nationality" name="nationality" placeholder="e.g., Italian, Mexican, Thai">
           </div>
 
           <div class="form-group">
@@ -58,7 +58,7 @@
                 <button type="button" id="add-ingredient-btn">Add</button>
               </div>
             </div>
-            <input type="hidden" id="ingredients-data" name="ingredients" required>
+            <input type="hidden" id="ingredients-data" name="ingredients">
           </div>
           
           <div class="form-group">
@@ -72,7 +72,7 @@
                 <button type="button" id="add-instruction-btn">Add</button>
               </div>
             </div>
-            <input type="hidden" id="instructions-data" name="instructions" required>
+            <input type="hidden" id="instructions-data" name="instructions">
           </div>
 
           <button type="submit" class="create-recipe-button">Create Recipe</button>
