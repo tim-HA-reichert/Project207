@@ -95,11 +95,7 @@ TemplateManager.staticCloneTemplate = (template, target) => {
     }
 };
 TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) => {
-    // Check if this is a template element
     if (template.tagName === 'TEMPLATE') {
-        console.log("Processing as template element");
-        
-        // Clone the template content (this gives us a document fragment)
         const fragment = template.content.cloneNode(true);
         
         // Fill in the data in the fragment
@@ -119,12 +115,8 @@ TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) =
             return fragment.firstElementChild;
         }
     } else {
-        console.log("Processing as regular element");
-        
-        // For regular elements, clone the element
         const clone = template.cloneNode(true);
         
-        // Fill in the data in the cloned element
         TemplateManager.populateRecipeData(clone, recipeData);
         
         // Append the clone to the container
@@ -136,11 +128,8 @@ TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) =
     }
 };
 
-// Helper function to populate recipe data in an element
 TemplateManager.populateRecipeData = (element, recipeData) => {
-    console.log("Populating recipe data in element", element);
-    
-    // Set recipe data in elements with matching classes
+
     const setTextContent = (selector, value) => {
         const el = element.querySelector(selector);
         if (el) {
@@ -194,8 +183,6 @@ TemplateManager.createButtonContainer = (recipeElement) => {
         return null;
     }
     
-    console.log("Creating button container in", recipeElement);
-    
     const existingContainer = recipeElement.querySelector('.button-container') || 
                              recipeElement.querySelector('.recipe-actions');
     
@@ -206,7 +193,6 @@ TemplateManager.createButtonContainer = (recipeElement) => {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'button-container';
     
-    // Find a suitable place to insert the container
     const headerElement = recipeElement.querySelector('.recipe-header');
     if (headerElement) {
         headerElement.appendChild(buttonContainer);
@@ -217,7 +203,6 @@ TemplateManager.createButtonContainer = (recipeElement) => {
     return buttonContainer;
 };
 
-// Static clone method for templates (like navbar)
 TemplateManager.staticCloneTemplate = (template, target) => {
     if (template && template.tagName === 'TEMPLATE') {
         const clone = template.content.cloneNode(true);

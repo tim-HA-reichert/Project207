@@ -39,12 +39,14 @@ export default async function renderEditRecipeView(recipeId) {
         flexContainer.appendChild(editFormContainer);
         
         const recipe = await getRecipeById(recipeId);
+        console.log("Fetched recipe:", recipe);
         if (!recipe) {
             throw new Error(`Recipe with ID ${recipeId} not found`);
         }
         
 
         const originalRecipeTemplate = await TemplateManager.fetchTemplate(recipeTemplateFile);
+        console.log("Loaded template:", originalRecipeTemplate);
         const templateData = {
             recipe_id: recipe.recipe_id || "undefined id",
             title: recipe.title || "Untitled Recipe",
@@ -131,7 +133,6 @@ function addInstructionToList(instruction, index, listElement) {
     removeBtn.addEventListener('click', function() {
         listElement.removeChild(item);
         
-        // Renumber the steps
         const stepItems = listElement.querySelectorAll('.list-item');
         stepItems.forEach((step, idx) => {
             step.querySelector('.step-number').textContent = `Step ${idx + 1}: `;
@@ -144,7 +145,6 @@ function addInstructionToList(instruction, index, listElement) {
     listElement.appendChild(item);
 }
 
-// Update hidden fields with current list contents
 function updateIngredientsAndInstructions() {
     // Get the current ingredients from the DOM
     const ingredientsList = document.getElementById('ingredients-list');
@@ -279,7 +279,8 @@ function setupFormHandlers(recipe) {
                 ingredients: ingredients,
                 instructions: instructions
             };
-            
+            console.log("Recipe before update:", recipe);
+            console.log("Recipe ID:", recipe.recipe_id);
             try {
                 const updatedRecipe = await updateRecipe(recipeData.recipe_id, recipeData);
                 
