@@ -35,6 +35,7 @@ export default async function renderAllRecipes() {
                     };
                     
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
+                    console.log("Cloned Recipe Element:", recipeElement);
                     
                     let editButton = recipeElement.querySelector('.edit-button');
                     let deleteButton = recipeElement.querySelector('.delete-button');
