@@ -14,7 +14,7 @@ TemplateManager.fetchTemplate = async (path) => {
     return template;
 };
 
-TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
+/* TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
 
     for (const key in data) {
@@ -66,8 +66,8 @@ TemplateManager.cloneRecipeTemplate = (template, target, data = {}) => {
     
     return appendedElement;
 };
-
-TemplateManager.cloneTemplate = (template, target, data = {}) => {
+ */
+/* TemplateManager.cloneTemplate = (template, target, data = {}) => {
     const clone = template.content.cloneNode(true);
     let html = clone.innerHTML;
 
@@ -79,7 +79,7 @@ TemplateManager.cloneTemplate = (template, target, data = {}) => {
     target.appendChild(clone);
     return clone;
 }
-
+ */
 
 TemplateManager.staticCloneTemplate = (template, target) => {
 
@@ -94,5 +94,87 @@ TemplateManager.staticCloneTemplate = (template, target) => {
         return null;
     }
 };
+TemplateManager.createListElements = (items, listType = 'ul') => {
+    const list = document.createElement(listType);
+    
+    items.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+    });
+    
+    return list;
+};
+
+TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) => {
+    const recipeElement = template.cloneNode(true);
+    
+    // Fill in basic recipe information
+    if (recipeElement.querySelector('.recipe-title')) {
+        recipeElement.querySelector('.recipe-title').textContent = recipeData.title;
+    }
+    
+    if (recipeElement.querySelector('.recipe-difficulty')) {
+        recipeElement.querySelector('.recipe-difficulty').textContent = recipeData.difficulty;
+    }
+    
+    if (recipeElement.querySelector('.recipe-meal-type')) {
+        recipeElement.querySelector('.recipe-meal-type').textContent = recipeData.mealtype;
+    }
+    
+    if (recipeElement.querySelector('.recipe-nationality')) {
+        recipeElement.querySelector('.recipe-nationality').textContent = recipeData.nationality;
+    }
+    
+    if (recipeElement.querySelector('.recipe-servings')) {
+        recipeElement.querySelector('.recipe-servings').textContent = `${recipeData.servings} servings`;
+    }
+    
+    if (recipeElement.querySelector('.recipe-cooking-time')) {
+        recipeElement.querySelector('.recipe-cooking-time').textContent = `${recipeData.cookingtime} minutes`;
+    }
+    
+    // Add creation date if available
+    if (recipeData.created_at && recipeElement.querySelector('.recipe-date')) {
+        recipeElement.querySelector('.recipe-date').textContent = recipeData.created_at;
+    }
+    
+    const ingredientsContainer = recipeElement.querySelector('.recipe-ingredients');
+    if (ingredientsContainer && Array.isArray(recipeData.ingredients)) {
+        const ingredientsList = TemplateManager.createListElements(recipeData.ingredients);
+        ingredientsContainer.appendChild(ingredientsList);
+    }
+
+    const instructionsContainer = recipeElement.querySelector('.recipe-instructions');
+    if (instructionsContainer && Array.isArray(recipeData.instructions)) {
+        const instructionsList = TemplateManager.createListElements(recipeData.instructions, 'ol');
+        instructionsContainer.appendChild(instructionsList);
+    }
+    
+    // Store the recipe ID as a data attribute for event handling
+    recipeElement.dataset.recipeId = recipeData.recipe_id;
+    
+    // Append to the container if provided
+    if (containerElement) {
+        containerElement.appendChild(recipeElement);
+    }
+    
+    return recipeElement;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default TemplateManager;
