@@ -185,7 +185,7 @@ TemplateManager.createButtonContainer = (recipeElement) => {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'button-container';
     
-    const headerElement = recipeElement.querySelector('.recipe-header');
+    const headerElement = recipeElement.querySelector('.recipe-container');
     if (headerElement) {
         headerElement.appendChild(buttonContainer);
     } else {
