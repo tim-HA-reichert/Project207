@@ -281,7 +281,7 @@ function setupFormHandlers(recipe) {
             };
             
             try {
-                const updatedRecipe = await updateRecipe(recipeData);
+                const updatedRecipe = await updateRecipe(recipeData.recipe_id, recipeData);
                 
                 // Get the flex container and remove everything
                 const flexContainer = document.querySelector('.edit-flex-container');
