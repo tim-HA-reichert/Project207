@@ -14,7 +14,7 @@ const HTTP_CODES = {
     }
 }
 
-const CACHE_VERSION = "v4";
+const CACHE_VERSION = "v5";
 
 const addResourceToCache = async (resources) => {
     const cache = await caches.open(CACHE_VERSION);
