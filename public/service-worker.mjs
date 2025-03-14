@@ -14,7 +14,7 @@ const HTTP_CODES = {
     }
 }
 
-const CACHE_VERSION = "v3";
+const CACHE_VERSION = "v4";
 
 const addResourceToCache = async (resources) => {
     const cache = await caches.open(CACHE_VERSION);
@@ -98,7 +98,7 @@ self.addEventListener("install", (event) => {
             "/css/styles.css",
             "/modules/apiHandler.mjs",
             "/modules/templateManager.mjs",
-            "/script/app.mjs",
+            "/scripts/app.mjs",
             "/controller/searchRecipeView.mjs",
             "/controller/navbarView.mjs",
             "/controller/createRecipeView.mjs",
