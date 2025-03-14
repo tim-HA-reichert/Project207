@@ -27,17 +27,17 @@ export const API_ENDPOINTS = {
 };
 
 export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
-    console.log(`Sending request to: ${path}`);
-    console.log(`Method: ${method}`);
-    console.log(`Request Body:`, request.body);
-
+    
     const request = {
         method,
         headers: {
             "Content-Type": "application/json"
         }
     };
-
+    
+    console.log(`Sending request to: ${path}`);
+    console.log(`Method: ${method}`);
+    console.log(`Request Body:`, request.body);
 
     if ([HTTP_METHODS.POST, HTTP_METHODS.PUT, HTTP_METHODS.PATCH].includes(method) && data) {
         request.body = JSON.stringify(data);
