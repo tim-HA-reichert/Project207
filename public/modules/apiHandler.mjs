@@ -27,6 +27,10 @@ export const API_ENDPOINTS = {
 };
 
 export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
+    console.log(`Sending request to: ${path}`);
+    console.log(`Method: ${method}`);
+    console.log(`Request Body:`, request.body);
+
     const request = {
         method,
         headers: {
@@ -34,12 +38,11 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
         }
     };
 
-    if ([HTTP_METHODS.POST, HTTP_METHODS.PUT, HTTP_METHODS.PATCH, HTTP_METHODS.DELETE].includes(method)) {
+
+    if ([HTTP_METHODS.POST, HTTP_METHODS.PUT, HTTP_METHODS.PATCH].includes(method) && data) {
         request.body = JSON.stringify(data);
+        console.log(`Request Body:`, request.body);
     }
-    console.log(`Sending request to: ${path}`);
-    console.log(`Method: ${method}`);
-    console.log(`Request Body:`, request.body);
 
     try {
         const response = await fetch(path, request);
@@ -48,6 +51,10 @@ export async function runRequest(path, method = HTTP_METHODS.GET, data = null) {
             throw new Error(`API request failed with status: ${response.status}`);
         }
         
+        if (response.status === 204) {
+            return { success: true, message: "Operation completed successfully" };
+        }
+
         return await response.json();
     } catch (error) {
         console.error("API request error:", error);
