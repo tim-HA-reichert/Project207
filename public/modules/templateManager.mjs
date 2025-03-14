@@ -94,61 +94,72 @@ TemplateManager.staticCloneTemplate = (template, target) => {
         return null;
     }
 };
-TemplateManager.createListElements = (items, listType = 'ul') => {
-    const list = document.createElement(listType);
-    
-    items.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        list.appendChild(li);
-    });
-    
-    return list;
-};
-
-TemplateManager.processPlaceholders = (element, data) => {
-
-    const walker = document.createTreeWalker(
-        element,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-    );
-    
-    const textNodes = [];
-    let node;
-    while (node = walker.nextNode()) {
-        textNodes.push(node);
-    }
-    
-    textNodes.forEach(textNode => {
-        let content = textNode.nodeValue;
-        const placeholderPattern = /\{\{([^}]+)\}\}/g;
-        let match;
+TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) => {
+    // Check if this is a template element
+    if (template.tagName === 'TEMPLATE') {
+        console.log("Processing as template element");
         
-        while (match = placeholderPattern.exec(content)) {
-            const placeholder = match[0];
-            const key = match[1].trim();
-            
-            if (data[key] !== undefined) {
-                content = content.replace(placeholder, data[key]);
-            }
+        // Clone the template content (this gives us a document fragment)
+        const fragment = template.content.cloneNode(true);
+        
+        // Fill in the data in the fragment
+        TemplateManager.populateRecipeData(fragment, recipeData);
+        
+        // Append the fragment to the container
+        if (containerElement) {
+            containerElement.appendChild(fragment);
         }
         
-        textNode.nodeValue = content;
-    });
+        // Return the fragment's first element (which is now in the DOM)
+        // Note: We can't return the fragment itself since it's empty after appending
+        if (containerElement && containerElement.lastElementChild) {
+            return containerElement.lastElementChild;
+        } else {
+            // If not appended, we need to find the main element in the fragment
+            return fragment.firstElementChild;
+        }
+    } else {
+        console.log("Processing as regular element");
+        
+        // For regular elements, clone the element
+        const clone = template.cloneNode(true);
+        
+        // Fill in the data in the cloned element
+        TemplateManager.populateRecipeData(clone, recipeData);
+        
+        // Append the clone to the container
+        if (containerElement) {
+            containerElement.appendChild(clone);
+        }
+        
+        return clone;
+    }
 };
 
-TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) => {
-    if (template && template.tagName === 'TEMPLATE') {
-    const recipeElement = template.content.cloneNode(true);
+// Helper function to populate recipe data in an element
+TemplateManager.populateRecipeData = (element, recipeData) => {
+    console.log("Populating recipe data in element", element);
     
-    TemplateManager.processPlaceholders(recipeElement, recipeData);
+    // Set recipe data in elements with matching classes
+    const setTextContent = (selector, value) => {
+        const el = element.querySelector(selector);
+        if (el) {
+            el.textContent = value;
+        }
+    };
     
-
-    const ingredientsList = recipeElement.querySelector('#ingredients-list') || 
-                            recipeElement.querySelector('.ingredients-list');
+    // Set basic recipe information
+    setTextContent('.recipe-title', recipeData.title);
+    setTextContent('.recipe-servings', `${recipeData.servings} servings`);
+    setTextContent('.recipe-cooking-time', `${recipeData.cookingtime} minutes`);
+    setTextContent('.recipe-difficulty', recipeData.difficulty);
+    setTextContent('.recipe-type', recipeData.mealtype);
+    setTextContent('.recipe-nationality', recipeData.nationality);
+    
+    // Handle ingredients list
+    const ingredientsList = element.querySelector('#ingredients-list');
     if (ingredientsList && Array.isArray(recipeData.ingredients)) {
+        ingredientsList.innerHTML = ''; // Clear any default items
         recipeData.ingredients.forEach(ingredient => {
             const li = document.createElement('li');
             li.textContent = ingredient;
@@ -156,25 +167,35 @@ TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) =
         });
     }
     
-    const instructionsList = recipeElement.querySelector('#instructions-list') || 
-                             recipeElement.querySelector('.instructions-list');
+    // Handle instructions list
+    const instructionsList = element.querySelector('#instructions-list');
     if (instructionsList && Array.isArray(recipeData.instructions)) {
-        recipeData.instructions.forEach((instruction, index) => {
+        instructionsList.innerHTML = ''; // Clear any default items
+        recipeData.instructions.forEach(instruction => {
             const li = document.createElement('li');
             li.textContent = instruction;
             instructionsList.appendChild(li);
         });
     }
     
-    if (containerElement) {
-        containerElement.appendChild(recipeElement);
-    }
-    
-    return recipeElement;
+    // Set recipe ID as a data attribute on the main container
+    const mainContainer = element.querySelector('.recipe-card') || 
+                         element.querySelector('#recipe-container') || 
+                         element;
+    if (mainContainer) {
+        mainContainer.dataset.recipeId = recipeData.recipe_id;
     }
 };
 
+// Create a button container for multiple actions
 TemplateManager.createButtonContainer = (recipeElement) => {
+    if (!recipeElement) {
+        console.error("Cannot create button container: No recipe element provided");
+        return null;
+    }
+    
+    console.log("Creating button container in", recipeElement);
+    
     const existingContainer = recipeElement.querySelector('.button-container') || 
                              recipeElement.querySelector('.recipe-actions');
     
@@ -185,7 +206,8 @@ TemplateManager.createButtonContainer = (recipeElement) => {
     const buttonContainer = document.createElement('div');
     buttonContainer.className = 'button-container';
     
-    const headerElement = recipeElement.querySelector('.recipe-container');
+    // Find a suitable place to insert the container
+    const headerElement = recipeElement.querySelector('.recipe-header');
     if (headerElement) {
         headerElement.appendChild(buttonContainer);
     } else {
@@ -195,19 +217,15 @@ TemplateManager.createButtonContainer = (recipeElement) => {
     return buttonContainer;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Static clone method for templates (like navbar)
+TemplateManager.staticCloneTemplate = (template, target) => {
+    if (template && template.tagName === 'TEMPLATE') {
+        const clone = template.content.cloneNode(true);
+        target.appendChild(clone);
+        return target;
+    } else {
+        console.error("Not a valid template element");
+        return null;
+    }
+};
 export default TemplateManager;

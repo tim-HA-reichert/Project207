@@ -7,66 +7,90 @@ const templateFile = "./views/recipeView.html";
 export default async function renderAllRecipes() {
     const appContainer = document.getElementById("app");
     appContainer.innerHTML = '';
+    
     try {
+        // Get all recipes from API
         const recipes = await getAllRecipes();
-        console.log("Recipes loaded:", recipes); // Log to verify structure
+        console.log("Recipes loaded:", recipes.length);
         
+        // Fetch the template
         const template = await TemplateManager.fetchTemplate(templateFile);
-        console.log("Template content:", template.outerHTML); 
+        console.log("Template fetched:", template);
+        
         if (!template) {
             console.error("Failed to load template.");
             return;
         }
         
+        // Process recipes if available
         if (recipes && recipes.length > 0) {
-            recipes.forEach(recipe => {
+            console.log(`Rendering ${recipes.length} recipes`);
+            
+            recipes.forEach((recipe, index) => {
                 try {
+                    // Prepare recipe data with default values for safety
                     const templateData = {
-                        recipe_id: recipe.recipe_id,
-                        title: recipe.title,
-                        servings: recipe.servings,
-                        cookingtime: recipe.cookingtime, 
-                        difficulty: recipe.difficulty,
-                        mealtype: recipe.mealtype, 
-                        nationality: recipe.nationality,
-                        ingredients: Array.isArray(recipe.ingredients) 
-                            ? recipe.ingredients 
-                            : [],
-                        instructions: Array.isArray(recipe.instructions) 
-                            ? recipe.instructions 
-                            : []
+                        recipe_id: recipe.recipe_id || index,
+                        title: recipe.title || "Untitled Recipe",
+                        servings: recipe.servings || 1,
+                        cookingtime: recipe.cookingtime || 0,
+                        difficulty: recipe.difficulty || "not specified",
+                        mealtype: recipe.mealtype || "not specified",
+                        nationality: recipe.nationality || "not specified",
+                        ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : [],
+                        instructions: Array.isArray(recipe.instructions) ? recipe.instructions : []
                     };
                     
-                    if (template) {
-
-                        const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
-                        console.log("Cloned recipe element:", recipeElement);
-   
+                    // Clone and populate the template
+                    const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
+                    console.log(`Recipe ${index+1} cloned:`, recipeElement);
+                    
+                    // Find edit button or create one
+                    let editButton = recipeElement.querySelector('.edit-button');
+                    
+                    if (!editButton) {
+                        // Create button container if needed
                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
                         
-                        const editButton = document.createElement('button');
+                        // Create edit button
+                        editButton = document.createElement('button');
                         editButton.className = 'edit-button';
                         editButton.textContent = 'Edit Recipe';
                         editButton.dataset.recipeId = recipe.recipe_id;
                         
-                        editButton.addEventListener('click', async (e) => {
-                            e.preventDefault();
-                            console.log(`Editing recipe:`, recipe.recipe_id);
-                            await renderEditRecipeView(recipe.recipe_id);
-                        });
-                        
-                        // Add the button to the container
+                        // Add button to container
                         buttonContainer.appendChild(editButton);
-
                     }
+                    
+                    // Add click handler to edit button
+                    editButton.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        console.log(`Editing recipe:`, recipe.recipe_id);
+                        await renderEditRecipeView(recipe.recipe_id);
+                    });
+                    
                 } catch (err) {
-                    console.error("Error processing recipe:", recipe.title, err);
+                    console.error(`Error processing recipe ${index}:`, err);
                 }
             });
+            
+            // Check if recipes were added
+            console.log("App container now has", appContainer.children.length, "children");
         } else {
             appContainer.innerHTML = '<div class="no-recipes">No recipes found</div>';
         }
-        console.log("Container after appending:", appContainer?.children?.length || "No container");
+        
+        // Add a test element to make sure DOM manipulation works
+        if (appContainer.children.length === 0) {
+            console.log("No recipes were added, testing direct DOM manipulation");
+            const testDiv = document.createElement('div');
+            testDiv.textContent = "Test content - if you see this, DOM manipulation works but recipe rendering failed";
+            testDiv.style.padding = "20px";
+            testDiv.style.border = "2px solid red";
+            testDiv.style.margin = "10px";
+            appContainer.appendChild(testDiv);
+        }
+        
         return appContainer;
     } catch (error) {
         console.error("Error rendering recipes:", error);
@@ -86,17 +110,8 @@ function createFunctionButton(recipe, buttonText, functionForPurpose) {
             console.log(`Performing ${buttonText} on `, recipe);
             await functionForPurpose(recipe);
         } catch (error) {
-            console.error("Error loading recipe for editing:", error);
+            console.error("Error on button action:", error);
         }
     });   
     return button;
-}
-
-async function loadEditForm(recipeId) {
-    try {
-        const recipe = await getRecipeById(recipeId);
-        await renderEditRecipeView(recipe);
-    } catch (error) {
-        console.error("Error loading recipe for editing:", error);
-    }
 }

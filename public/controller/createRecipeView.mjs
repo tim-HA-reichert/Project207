@@ -19,7 +19,7 @@ export default async function renderCreateRecipeView() {
             return null;
         }
         
-        TemplateManager.cloneRecipeTemplate(template, appContainer);
+        TemplateManager.staticCloneTemplateTemplate(template, appContainer);
         
         setupFormHandlers();
         
