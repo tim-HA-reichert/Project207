@@ -46,7 +46,7 @@ export default async function renderAllRecipes() {
                     let editButton = recipeElement.querySelector('.edit-button');
                     let deleteButton = recipeElement.querySelector('.delete-button');
                     
-                    if (!editButton || !deleteButton) {
+                    if (!editButton && !deleteButton) {
                         // Create button container if needed
                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
                         
