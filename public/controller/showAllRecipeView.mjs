@@ -46,35 +46,35 @@ export default async function renderAllRecipes() {
                     let editButton = recipeElement.querySelector('.edit-button');
                     let deleteButton = recipeElement.querySelector('.delete-button');
                     
-                    if (!editButton && !deleteButton) {
+                    if (editButton && deleteButton) {
                         // Create button container if needed
-                        const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
+                        editButton.dataset.recipeId = recipe.recipe_id;
+                        deleteButton.dataset.recipeId = recipe.recipe_id;
+/*                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
                         
                         editButton = document.createElement('button');
                         editButton.className = 'edit-button';
                         editButton.textContent = 'Edit Recipe';
-                        editButton.dataset.recipeId = recipe.recipe_id;
 
                         deleteButton = document.createElement('button');
                         deleteButton.className = 'delete-button';
                         deleteButton.textContent = 'Delete Recipe';
-                        deleteButton.dataset.recipeId = recipe.recipe_id;
 
                         buttonContainer.appendChild(deleteButton);
-                        buttonContainer.appendChild(editButton);
+                        buttonContainer.appendChild(editButton); */
+                        
+                        // Add click handler to edit button
+                        deleteButton.addEventListener('click', async (e) => {
+                            e.preventDefault();
+                            console.log(`Deleting recipe:`, recipe.recipe_id);
+                            await deleteRecipe(recipe.recipe_id);
+                        });
+                        editButton.addEventListener('click', async (e) => {
+                            e.preventDefault();
+                            console.log(`Editing recipe:`, recipe.recipe_id);
+                            await renderEditRecipeView(recipe.recipe_id);
+                        });
                     }
-                    
-                    // Add click handler to edit button
-                    deleteButton.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        console.log(`Deleting recipe:`, recipe.recipe_id);
-                        await deleteRecipe(recipe.recipe_id);
-                    });
-                    editButton.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        console.log(`Editing recipe:`, recipe.recipe_id);
-                        await renderEditRecipeView(recipe.recipe_id);
-                    });
                     
                 } catch (err) {
                     console.error(`Error processing recipe ${index}:`, err);
