@@ -11,7 +11,6 @@ export default async function renderSearchedRecipes(searchQuery) {
     try {
         const criteria = { search: searchQuery }
         const recipes = await searchRecipes(criteria);
-        console.log("Recipe fetched:", recipes);
 
         const template = await TemplateManager.fetchTemplate(recipeTemplateFile);
             console.log(template);
@@ -50,7 +49,7 @@ export default async function renderSearchedRecipes(searchQuery) {
                     let deleteButton = recipeElement.querySelector('.delete-button');
                     
                     editButton.addEventListener('click', async (e) => {
-                        console.log("edit button pressed")
+
                         await renderEditRecipeView(recipe.recipe_id);
                     });
                     deleteButton.addEventListener('click', async (e) => {
