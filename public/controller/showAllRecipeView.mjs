@@ -44,8 +44,9 @@ export default async function renderAllRecipes() {
                     const recipeElement = TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     
                     let editButton = recipeElement.querySelector('.edit-button');
+                    let deleteButton = recipeElement.querySelector('.delete-button');
                     
-                    if (!editButton) {
+                    if (!editButton || !deleteButton) {
                         // Create button container if needed
                         const buttonContainer = TemplateManager.createButtonContainer(recipeElement);
                         
@@ -64,15 +65,15 @@ export default async function renderAllRecipes() {
                     }
                     
                     // Add click handler to edit button
-                    editButton.addEventListener('click', async (e) => {
-                        e.preventDefault();
-                        console.log(`Editing recipe:`, recipe.recipe_id);
-                        await renderEditRecipeView(recipe.recipe_id);
-                    });
                     deleteButton.addEventListener('click', async (e) => {
                         e.preventDefault();
                         console.log(`Deleting recipe:`, recipe.recipe_id);
                         await deleteRecipe(recipe.recipe_id);
+                    });
+                    editButton.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        console.log(`Editing recipe:`, recipe.recipe_id);
+                        await renderEditRecipeView(recipe.recipe_id);
                     });
                     
                 } catch (err) {
