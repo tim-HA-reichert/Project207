@@ -35,10 +35,10 @@ export default async function renderAllRecipes() {
                             ? recipe.instructions 
                             : []
                     };
-                    
-                    TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
                     const editRecipeButton = createFunctionButton(recipe.recipe_id, `edit-button`, renderEditRecipeView);
                     template.appendChild(editRecipeButton);
+                    
+                    TemplateManager.cloneRecipeTemplate(template, appContainer, templateData);
 
                 } catch (err) {
                     console.error("Error processing recipe:", recipe.title, err);
