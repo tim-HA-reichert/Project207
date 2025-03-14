@@ -1,6 +1,8 @@
 import RecordStoreInterface from "./abstractRecordStoreInterface.mjs";
 import * as db from './db.mjs';
 
+//IKKE BRUKT
+
 export default class StoreUserRecord extends RecordStoreInterface {
     async create(user) {
         const query = `

@@ -2,6 +2,9 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'; 
 import HTTP_CODES from '../utils/httpCodes.mjs';
 
+//IKKE BRUKT
+
+
 dotenv.config();
 
 export const tokenAuthentication = (req, res, next) => {

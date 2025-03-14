@@ -1,24 +1,11 @@
 import express from 'express';
 import HTTP_CODES from '../utils/httpCodes.mjs';
-import Recipe from '../models/recipeModel.mjs';
 import StoreRecipeRecord from '../data/recipeRecordStore.mjs';
 import RecipeService from '../serviceLayer/recipeService.mjs';
-import { tokenAuthentication } from '../modules/usertoken.mjs';
-
-import { 
-  findRecipeById, 
-  searchRecipes, 
-  validateRecipeData, 
-  changeExistingRecipe, 
-  deleteRecipe 
-} from '../utils/recipe/index.mjs';
-
 
 const recipeRouter = express.Router();
 recipeRouter.use(express.json());
 
-const recipes = [
-];
 
 const recipeRecord = new StoreRecipeRecord();
 const recipeService = new RecipeService(recipeRecord);
@@ -63,7 +50,7 @@ recipeRouter.get("/:id", async (req, res) => {
 });
 
 
-recipeRouter.post("/", /* tokenAuthentication,  */async (req, res) => {
+recipeRouter.post("/", async (req, res) => {
   try{
     const recipeData = req.body;
     recipeData.author_id = req.user.user_id;

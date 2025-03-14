@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import User from '../models/userModel.mjs';
 
+//IKKE BRUKT
+
 export default class UserService {
     constructor(userRecord) {
         this.userRecord = userRecord;

@@ -1,5 +1,8 @@
-import bcrypt, { compare } from 'bcrypt';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
+//IKKE BRUKT
+
 
 export const becomeUser = async (aName, aPassword, aRole) => {
         const salt = await bcrypt.genSalt();

@@ -14,7 +14,13 @@ server.set('port', port);
 server.use(express.static('public'));
 
 server.use('/recipes', recipeRouter);
+
+
+
+//IKKE BRUKT
 server.use('/authentication', loginRouter);
+//IKKE BRUKT
+
 
 
 server.get("/", (req, res) => {

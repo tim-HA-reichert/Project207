@@ -7,6 +7,9 @@ import { tokenAuthentication, adminAccess } from '../modules/usertoken.mjs';
 import StoreUserRecord from '../data/userRecordStore.mjs';
 import UserService from '../serviceLayer/userService.mjs';
 
+//IKKE BRUKT
+
+
 dotenv.config();
 
 const loginRouter = express.Router();

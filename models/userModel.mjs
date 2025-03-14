@@ -1,3 +1,6 @@
+//IKKE BRUKT
+
+
 export default class User {
     constructor(userData) {
         this.user_id = userData.user_id || null;
