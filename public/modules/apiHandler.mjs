@@ -61,7 +61,7 @@ export async function getAllRecipes() {
 }
 
 export async function getRecipeById(id) {
-    runRequest(API_ENDPOINTS.RECIPES.GetById(id), HTTP_METHODS.GET);
+    const response = runRequest(API_ENDPOINTS.RECIPES.GetById(id), HTTP_METHODS.GET);
     return Array.isArray(response) && response.length > 0 ? response[0] : response;
 }
 

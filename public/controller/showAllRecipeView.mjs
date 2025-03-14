@@ -1,5 +1,5 @@
 import TemplateManager from "../modules/templateManager.mjs";
-import { getAllRecipes, getRecipeById } from "../modules/apiHandler.mjs";
+import { getAllRecipes, getRecipeById, deleteRecipe } from "../modules/apiHandler.mjs";
 import renderEditRecipeView from "./editRecipeView.mjs";
 
 const templateFile = "./views/recipeView.html";
@@ -54,7 +54,7 @@ export default async function renderAllRecipes() {
                         editButton.className = 'edit-button';
                         editButton.textContent = 'Edit Recipe';
                         editButton.dataset.recipeId = recipe.recipe_id;
-                        
+                        createFunctionButton(recipe.recipe_id, `delete`, deleteRecipe)
                         // Add button to container
                         buttonContainer.appendChild(editButton);
                     }
