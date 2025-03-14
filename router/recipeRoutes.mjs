@@ -56,7 +56,6 @@ recipeRouter.get("/:id", async (req, res) => {
 recipeRouter.post("/", validateRecipeRequest, async (req, res) => {
   try{
     const recipeData = req.body;
-    recipeData.author_id = req.user.user_id;
 
     const saveRecipe = await recipeService.createRecipe(recipeData);
 
