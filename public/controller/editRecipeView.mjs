@@ -279,8 +279,8 @@ function setupFormHandlers(recipe) {
                 ingredients: ingredients,
                 instructions: instructions
             };
-            console.log("Recipe before update:", recipe);
             console.log("Recipe ID:", recipe.recipe_id);
+            console.log("Recipe before update:", recipe);
             try {
                 const updatedRecipe = await updateRecipe(recipeData.recipe_id, recipeData);
                 

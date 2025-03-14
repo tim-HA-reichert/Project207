@@ -62,10 +62,19 @@ export async function getAllRecipes() {
 
 export async function getRecipeById(id) {
     const response = await runRequest(API_ENDPOINTS.RECIPES.GetById(id), HTTP_METHODS.GET);
-    return Array.isArray(response) ? response[0] : console.log("response is longer than 1.");
+    console.log("API Response:", response); 
+    
+    if (Array.isArray(response) && response.length > 0) {
+        return response[0];
+    } else {
+        console.log("Response is not an array or is empty:", response);
+        return response; 
+    }
 }
 
 export async function updateRecipe(id, recipeChanges) {
+    console.log("Sending update with ID:", id);
+    console.log("Recipe changes:", recipeChanges);
     return runRequest(API_ENDPOINTS.RECIPES.Update(id), HTTP_METHODS.PATCH, recipeChanges);
 }
 
