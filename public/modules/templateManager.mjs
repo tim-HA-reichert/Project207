@@ -106,54 +106,75 @@ TemplateManager.createListElements = (items, listType = 'ul') => {
     return list;
 };
 
+TemplateManager.processPlaceholders = (element, data) => {
+
+    const walker = document.createTreeWalker(
+        element,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+    );
+    
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+        textNodes.push(node);
+    }
+    
+    textNodes.forEach(textNode => {
+        let content = textNode.nodeValue;
+        const placeholderPattern = /\{\{([^}]+)\}\}/g;
+        let match;
+        
+        while (match = placeholderPattern.exec(content)) {
+            const placeholder = match[0];
+            const key = match[1].trim();
+            
+            if (data[key] !== undefined) {
+                content = content.replace(placeholder, data[key]);
+            }
+        }
+        
+        textNode.nodeValue = content;
+    });
+};
+
 TemplateManager.cloneRecipeTemplate = (template, containerElement, recipeData) => {
     const recipeElement = template.cloneNode(true);
     
-    if (recipeElement.querySelector('.recipe-title')) {
-        recipeElement.querySelector('.recipe-title').textContent = recipeData.title;
-    }
-    
-    if (recipeElement.querySelector('.recipe-difficulty')) {
-        recipeElement.querySelector('.recipe-difficulty').textContent = recipeData.difficulty;
-    }
-    
-    if (recipeElement.querySelector('.recipe-meal-type')) {
-        recipeElement.querySelector('.recipe-meal-type').textContent = recipeData.mealtype;
-    }
-    
-    if (recipeElement.querySelector('.recipe-nationality')) {
-        recipeElement.querySelector('.recipe-nationality').textContent = recipeData.nationality;
-    }
-    
-    if (recipeElement.querySelector('.recipe-servings')) {
-        recipeElement.querySelector('.recipe-servings').textContent = `${recipeData.servings} servings`;
-    }
-    
-    if (recipeElement.querySelector('.recipe-cooking-time')) {
-        recipeElement.querySelector('.recipe-cooking-time').textContent = `${recipeData.cookingtime} minutes`;
-    }
-    
-    // Add creation date if available
-    if (recipeData.created_at && recipeElement.querySelector('.recipe-date')) {
-        recipeElement.querySelector('.recipe-date').textContent = recipeData.created_at;
-    }
-    
-    const ingredientsContainer = recipeElement.querySelector('.recipe-ingredients');
-    if (ingredientsContainer && Array.isArray(recipeData.ingredients)) {
-        const ingredientsList = TemplateManager.createListElements(recipeData.ingredients);
-        ingredientsContainer.appendChild(ingredientsList);
-    }
-
-    const instructionsContainer = recipeElement.querySelector('.recipe-instructions');
-    if (instructionsContainer && Array.isArray(recipeData.instructions)) {
-        const instructionsList = TemplateManager.createListElements(recipeData.instructions, 'ol');
-        instructionsContainer.appendChild(instructionsList);
-    }
+    TemplateManager.processPlaceholders(recipeElement, recipeData);
     
 
+    const ingredientsList = recipeElement.querySelector('#ingredients-list') || 
+                            recipeElement.querySelector('.ingredients-list');
+    if (ingredientsList && Array.isArray(recipeData.ingredients)) {
+        recipeData.ingredients.forEach(ingredient => {
+            const li = document.createElement('li');
+            li.textContent = ingredient;
+            ingredientsList.appendChild(li);
+        });
+    }
+    
+    const instructionsList = recipeElement.querySelector('#instructions-list') || 
+                             recipeElement.querySelector('.instructions-list');
+    if (instructionsList && Array.isArray(recipeData.instructions)) {
+        recipeData.instructions.forEach((instruction, index) => {
+            const li = document.createElement('li');
+            li.textContent = instruction;
+            instructionsList.appendChild(li);
+        });
+    }
+    
     recipeElement.dataset.recipeId = recipeData.recipe_id;
     
 
+    const editButton = recipeElement.querySelector('#edit-recipe-button') || 
+                       recipeElement.querySelector('.edit-button');
+    if (editButton) {
+        editButton.textContent = 'Edit Recipe';
+        editButton.dataset.recipeId = recipeData.recipe_id;
+    }
+    
     if (containerElement) {
         containerElement.appendChild(recipeElement);
     }
